@@ -1,0 +1,14 @@
+.login-form {
+    margin: 150px auto 0 auto;
+    width: 150px;
+}
+
+.login-form fieldset {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.login-form fieldset #login-form__submit-input {
+    align-self: center;
+}
