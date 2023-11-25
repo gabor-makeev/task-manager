@@ -9,10 +9,7 @@ loginForm.addEventListener('submit', (e) => {
   const password = document.getElementById("login-form__password-input").value
 
   signInWithEmailAndPassword(auth, email, password)
-    .then((userCredential) => {
-      const user = userCredential.user;
-      window.location.href = '../auth/dashboard/dashboard.html';
-    })
+    .then()
     .catch((error) => {
       console.log(error)
     });

@@ -9,9 +9,7 @@ registrationForm.addEventListener('submit', (e) => {
   const password = document.getElementById("registration-form__password-input").value
 
   createUserWithEmailAndPassword(auth, email, password)
-    .then((data) => {
-      console.log(data)
-    })
+    .then()
     .catch((error) => {
       console.log(error)
     })
