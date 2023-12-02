@@ -1,14 +1,9 @@
+@import "styles/header.css";
 @import "styles/login.css";
 @import "styles/registration.css";
 
 body {
     font-family: Arial, sans-serif;
-}
-
-.header {
-    display: flex;
-    justify-content: end;
-    margin: 25px 25px 0 0;
 }
 
 .main__heading {
