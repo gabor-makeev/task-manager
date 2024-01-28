@@ -1,6 +1,7 @@
 @import "styles/header.css";
 @import "styles/login.css";
 @import "styles/registration.css";
+@import "styles/dashboard.css";
 
 body {
     font-family: Arial, sans-serif;
