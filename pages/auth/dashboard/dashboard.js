@@ -1,5 +1,5 @@
 import { signOut, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.6.0/firebase-auth.js"
-import { addDoc, collection, onSnapshot, query, orderBy, where } from "https://www.gstatic.com/firebasejs/10.6.0/firebase-firestore.js"
+import { addDoc, collection, onSnapshot, query, orderBy, where, deleteDoc, doc } from "https://www.gstatic.com/firebasejs/10.6.0/firebase-firestore.js"
 import { auth } from "../../../firebase/auth.js"
 import { db } from "../../../firebase/db.js"
 
@@ -105,6 +105,10 @@ const getFormattedDate = (unixTimestamp) => {
   return `${dayString} / ${monthString} / ${yearString}`
 }
 
+const deleteTask = (taskId) => {
+  deleteDoc(doc(db, "tasks", taskId))
+}
+
 const showTasks = () => {
   const contentContainer = document.getElementById("dashboard-view__content")
   const tasksTable = document.createElement("table")
@@ -145,8 +149,15 @@ const showTasks = () => {
           taskElementStartDate.textContent = task.startDate ? task.startDate : "Not set"
           const taskElementDueDate = document.createElement("td")
           taskElementDueDate.textContent = task.dueDate ? task.dueDate : "Not set"
+          const taskElementDeleteButton = document.createElement("button")
+          taskElementDeleteButton.textContent = "🗑"
+          taskElementDeleteButton.title = "Delete the task"
 
-          taskElement.append(taskElementName, taskElementStartDate, taskElementDueDate)
+          taskElementDeleteButton.addEventListener("click", () => {
+            deleteTask(doc.id)
+          })
+
+          taskElement.append(taskElementName, taskElementStartDate, taskElementDueDate, taskElementDeleteButton)
 
           tasksTableBody.appendChild(taskElement)
         })
