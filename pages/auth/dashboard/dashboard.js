@@ -1,5 +1,5 @@
 import { signOut, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.6.0/firebase-auth.js"
-import { addDoc, collection, onSnapshot, query, orderBy } from "https://www.gstatic.com/firebasejs/10.6.0/firebase-firestore.js"
+import { addDoc, collection, onSnapshot, query, orderBy, where } from "https://www.gstatic.com/firebasejs/10.6.0/firebase-firestore.js"
 import { auth } from "../../../firebase/auth.js"
 import { db } from "../../../firebase/db.js"
 
@@ -72,7 +72,8 @@ const showAddTaskForm = () => {
       description: formInputs['dashboard-main__add-task-overlay__form__description-input'].value,
       startDate: Math.floor(new Date(formInputs['dashboard-main__add-task-overlay__form__start-date-input'].value).getTime() / 1000),
       dueDate: Math.floor(new Date(formInputs['dashboard-main__add-task-overlay__form__due-date-input'].value).getTime() / 1000),
-      createdAt: Math.floor(new Date().getTime() / 1000)
+      createdAt: Math.floor(new Date().getTime() / 1000),
+      userId: auth.currentUser.uid
     }
 
     addDoc(collection(db, 'tasks'), task).then(() => {
@@ -126,27 +127,31 @@ const showTasks = () => {
 
   contentContainer.appendChild(tasksTable)
 
-  const q = query(collection(db, "tasks"), orderBy("createdAt", "desc"))
+  onAuthStateChanged(auth, (user) => {
+    if (user) {
+      const q = query(collection(db, "tasks"), orderBy("createdAt", "desc"), where("userId", "==", user.uid))
 
-  onSnapshot(q, (querySnapshot) => {
-    tasksTableBody.innerHTML = ""
-    querySnapshot.forEach((doc) => {
-      const task = doc.data()
-      task.startDate = task.startDate ? getFormattedDate(task.startDate) : null
-      task.dueDate = task.dueDate ? getFormattedDate(task.dueDate) : null
+      onSnapshot(q, (querySnapshot) => {
+        tasksTableBody.innerHTML = ""
+        querySnapshot.forEach((doc) => {
+          const task = doc.data()
+          task.startDate = task.startDate ? getFormattedDate(task.startDate) : null
+          task.dueDate = task.dueDate ? getFormattedDate(task.dueDate) : null
 
-      const taskElement = document.createElement("tr")
-      const taskElementName = document.createElement("td")
-      taskElementName.textContent = task.name
-      const taskElementStartDate = document.createElement("td")
-      taskElementStartDate.textContent = task.startDate ? task.startDate : "Not set"
-      const taskElementDueDate = document.createElement("td")
-      taskElementDueDate.textContent = task.dueDate ? task.dueDate : "Not set"
+          const taskElement = document.createElement("tr")
+          const taskElementName = document.createElement("td")
+          taskElementName.textContent = task.name
+          const taskElementStartDate = document.createElement("td")
+          taskElementStartDate.textContent = task.startDate ? task.startDate : "Not set"
+          const taskElementDueDate = document.createElement("td")
+          taskElementDueDate.textContent = task.dueDate ? task.dueDate : "Not set"
 
-      taskElement.append(taskElementName, taskElementStartDate, taskElementDueDate)
+          taskElement.append(taskElementName, taskElementStartDate, taskElementDueDate)
 
-      tasksTableBody.appendChild(taskElement)
-    })
+          tasksTableBody.appendChild(taskElement)
+        })
+      })
+    }
   })
 }
 
