@@ -19,7 +19,8 @@
     gap: 10px;
 }
 
-#dashboard-main__add-task-overlay {
+#dashboard-main__add-task-overlay,
+#dashboard-main__show-task-overlay {
     position: absolute;
     top: 0;
     right: 0;
@@ -29,20 +30,36 @@
     display: flex;
     align-items: center;
     justify-content: center;
+    padding: 25px;
 }
 
-#dashboard-main__add-task-overlay__close-button {
+#dashboard-main__add-task-overlay__close-button,
+#dashboard-main__show-task-overlay__close-button {
     position: absolute;
     top: 15px;
     right: 15px;
 }
 
-#dashboard-main__add-task-overlay__form {
+#dashboard-main__add-task-overlay__form,
+#dashboard-main__show-task-overlay__content-box {
     background-color: #fff;
     display: flex;
     flex-direction: column;
     padding: 20px;
     gap: 10px;
+    border: 1px solid black;
+}
+
+#dashboard-main__add-task-overlay__form {
+    width: 200px;
+}
+
+#dashboard-main__add-task-overlay__form__description-input {
+    resize: vertical;
+}
+
+#dashboard-main__show-task-overlay__content-box {
+    width: 500px;
 }
 
 #dashboard-main__add-task-overlay__form__submit-input {

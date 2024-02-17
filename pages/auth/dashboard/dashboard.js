@@ -81,6 +81,10 @@ const showAddTaskForm = () => {
     })
   })
 
+  const addTaskFormTaskNameInput = document.getElementById("dashboard-main__add-task-overlay__form__name-input")
+
+  addTaskFormTaskNameInput.focus()
+
   addTaskOverlay.addEventListener('click', (e) => {
     if (e.target.id === "dashboard-main__add-task-overlay") {
       removeAddTaskForm()
@@ -103,6 +107,42 @@ const getFormattedDate = (unixTimestamp) => {
   const yearString = date.getFullYear()
 
   return `${dayString} / ${monthString} / ${yearString}`
+}
+
+const removeTaskModalWindow = () => {
+  const taskModalWindow = document.getElementById("dashboard-main__show-task-overlay")
+
+  if (taskModalWindow) {
+    taskModalWindow.remove()
+  }
+}
+
+const showTaskModalWindow = (task) => {
+  const dashboardMain = document.getElementById("dashboard-main")
+  const showTaskOverlay = document.createElement("div")
+
+  showTaskOverlay.id = "dashboard-main__show-task-overlay"
+  showTaskOverlay.innerHTML = "<button id='dashboard-main__show-task-overlay__close-button'>X</button>" +
+      "<div id='dashboard-main__show-task-overlay__content-box'>" +
+      `<p><b>Task name:</b> ${task.name}</p>` +
+      `<p><b>Task description:</b> ${task.description}</p>` +
+      `<p><b>Start date:</b> ${task.startDate ? getFormattedDate(task.startDate) : "Not set"}</p>` +
+      `<p><b>Due date:</b> ${task.dueDate ? getFormattedDate(task.dueDate) : "Not set"}</p>` +
+      "</div>"
+
+  dashboardMain.appendChild(showTaskOverlay)
+
+  const showTaskOverlayCloseButton = document.getElementById("dashboard-main__show-task-overlay__close-button")
+
+  showTaskOverlayCloseButton.addEventListener("click", (e) => {
+    removeTaskModalWindow()
+  })
+
+  showTaskOverlay.addEventListener("click", (e) => {
+    if (e.target.id === "dashboard-main__show-task-overlay") {
+      removeTaskModalWindow()
+    }
+  })
 }
 
 const deleteTask = (taskId) => {
@@ -139,25 +179,32 @@ const showTasks = () => {
         tasksTableBody.innerHTML = ""
         querySnapshot.forEach((doc) => {
           const task = doc.data()
-          task.startDate = task.startDate ? getFormattedDate(task.startDate) : null
-          task.dueDate = task.dueDate ? getFormattedDate(task.dueDate) : null
+          const formattedStartDate = task.startDate ? getFormattedDate(task.startDate) : null
+          const formattedDueDate = task.dueDate ? getFormattedDate(task.dueDate) : null
 
           const taskElement = document.createElement("tr")
           const taskElementName = document.createElement("td")
           taskElementName.textContent = task.name
           const taskElementStartDate = document.createElement("td")
-          taskElementStartDate.textContent = task.startDate ? task.startDate : "Not set"
+          taskElementStartDate.textContent = formattedStartDate ? formattedStartDate : "Not set"
           const taskElementDueDate = document.createElement("td")
-          taskElementDueDate.textContent = task.dueDate ? task.dueDate : "Not set"
+          taskElementDueDate.textContent = formattedDueDate ? formattedDueDate : "Not set"
+          const taskElementOpenButton = document.createElement("button")
+          taskElementOpenButton.textContent = "🔎"
+          taskElementOpenButton.title = "Open the task"
           const taskElementDeleteButton = document.createElement("button")
           taskElementDeleteButton.textContent = "🗑"
           taskElementDeleteButton.title = "Delete the task"
+
+          taskElementOpenButton.addEventListener("click", () => {
+            showTaskModalWindow(task)
+          })
 
           taskElementDeleteButton.addEventListener("click", () => {
             deleteTask(doc.id)
           })
 
-          taskElement.append(taskElementName, taskElementStartDate, taskElementDueDate, taskElementDeleteButton)
+          taskElement.append(taskElementName, taskElementStartDate, taskElementDueDate, taskElementOpenButton, taskElementDeleteButton)
 
           tasksTableBody.appendChild(taskElement)
         })
