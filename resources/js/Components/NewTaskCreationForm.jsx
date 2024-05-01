@@ -1,6 +1,7 @@
-import {useEffect, useRef, useState} from "react";
+import {useRef, useState} from "react";
+import {router} from "@inertiajs/react";
 
-export default function NewTaskCreationForm({ setShowingNewTaskCreationForm, tasks, setTasks }) {
+export default function NewTaskCreationForm({ setShowingNewTaskCreationForm, user }) {
     const [showingDescriptionInput, setShowingDescriptionInput] = useState(false)
     const [taskNameInput, setTaskNameInput] = useState("")
     const [taskDescriptionInput, setTaskDescriptionInput] = useState("")
@@ -9,26 +10,24 @@ export default function NewTaskCreationForm({ setShowingNewTaskCreationForm, tas
 
     const handleOverlayClick = (e) => {
         if (e.target.id === "new-task-creation-form__overlay") {
-            setShowingNewTaskCreationForm(false)
+            router.get('/')
         }
     }
 
     const handleCloseButtonClick = (e) => {
         e.preventDefault()
 
-        setShowingNewTaskCreationForm(false)
+        router.get('/')
     }
 
     const handleSubmit = (e) => {
         e.preventDefault()
 
-        setTasks([{
-            id: tasks.length,
+        router.post('/tasks', {
             name: taskNameInput,
-            description: taskDescriptionInput
-        }, ...tasks])
-
-        setShowingNewTaskCreationForm(false)
+            description: taskDescriptionInput,
+            'user_id': user.id
+        })
     }
 
     const handleAddDescriptionButtonClick = () => {

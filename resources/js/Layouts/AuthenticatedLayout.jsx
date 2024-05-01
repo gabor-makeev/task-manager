@@ -4,9 +4,8 @@ import Dropdown from '@/Components/Dropdown';
 import NavLink from '@/Components/NavLink';
 import ResponsiveNavLink from '@/Components/ResponsiveNavLink';
 import { Link } from '@inertiajs/react';
-import PrimaryButton from "@/Components/PrimaryButton.jsx";
 
-export default function Authenticated({ user, header, setShowingNewTaskCreationForm, children }) {
+export default function Authenticated({ user, header, children }) {
     const [showingNavigationDropdown, setShowingNavigationDropdown] = useState(false);
 
     return (
@@ -118,7 +117,7 @@ export default function Authenticated({ user, header, setShowingNewTaskCreationF
                 <header className="bg-white shadow">
                     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex justify-between">
                         <div className="py-6 px-4 sm:px-6 lg:px-8">{header}</div>
-                        <PrimaryButton onClick={() => setShowingNewTaskCreationForm(true)} className="sm:px-6 lg:px-8 py-2.5 px-5 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700 self-center focus:ring-0">Add task</PrimaryButton>
+                        <Link href={route('task.create')} className="sm:px-6 lg:px-8 py-2.5 px-5 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700 self-center focus:ring-0">Add task</Link>
                     </div>
                 </header>
             )}

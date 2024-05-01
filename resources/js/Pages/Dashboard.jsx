@@ -1,12 +1,10 @@
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
-import { Head } from '@inertiajs/react';
+import {Head, router} from '@inertiajs/react';
 import {useRef, useState} from "react";
 import NewTaskCreationForm from "@/Components/NewTaskCreationForm.jsx";
 
-export default function Dashboard({ auth }) {
-    const [tasks, setTasks] = useState([]);
+export default function Dashboard({ auth, tasks, withNewTaskCreationForm }) {
     const [taskNameInput, setTaskNameInput] = useState("")
-    const [showingNewTaskCreationForm, setShowingNewTaskCreationForm] = useState(false)
     const [showingQuickTaskCreationForm, setShowingQuickTaskCreationForm] = useState(false)
     const [showingQuickTaskCreationFormControls, setShowingQuickTaskCreationFormControls] = useState(false)
 
@@ -25,10 +23,10 @@ export default function Dashboard({ auth }) {
     const handleQuickTaskCreationFormSubmit = (e) => {
         e.preventDefault()
 
-        setTasks([{
-            id: tasks.length,
+        router.post('/tasks', {
             name: taskNameInput,
-        }, ...tasks])
+            'user_id': auth.user.id
+        })
 
         setTaskNameInput("")
         setShowingQuickTaskCreationForm(false)
@@ -38,10 +36,9 @@ export default function Dashboard({ auth }) {
         <AuthenticatedLayout
             user={auth.user}
             header={<h2 className="font-semibold text-xl text-gray-800 leading-tight">Dashboard</h2>}
-            setShowingNewTaskCreationForm={setShowingNewTaskCreationForm}
         >
             <Head title="Dashboard" />
-            {showingNewTaskCreationForm && <NewTaskCreationForm setShowingNewTaskCreationForm={setShowingNewTaskCreationForm} tasks={tasks} setTasks={setTasks} />}
+            {withNewTaskCreationForm && <NewTaskCreationForm user={auth.user} />}
 
             <div className="py-12">
                 <div className="max-w-7xl mx-auto sm:px-6 lg:px-8">
@@ -60,7 +57,7 @@ export default function Dashboard({ auth }) {
                                     <input type="text" placeholder={"Task Name"} onFocus={() => setShowingQuickTaskCreationFormControls(true)} onBlur={(e) => handleQuickTaskCreationFormTaskNameInputBlur(e)} autoFocus required onChange={(e) => setTaskNameInput(e.target.value)} value={taskNameInput} id={"quickTaskCreationFormTaskNameInput"} className={"grow max-w-xl border-0 focus:ring-0 focus:outline-0 text-sm font-medium"} />
                                     {showingQuickTaskCreationFormControls &&
                                         <div className={"flex items-center"}>
-                                            <button ref={quickTaskCreationFormSaveButton} className={"flex items-center gap-1 px-2 bg-indigo-500 hover:bg-indigo-600 text-white rounded-md text-xs h-6"}>Save<svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" className="feather feather-corner-down-left"><polyline points="9 10 4 15 9 20"></polyline><path d="M20 4v7a4 4 0 0 1-4 4H4"></path></svg></button>
+                                            <button ref={quickTaskCreationFormSaveButton} className={"flex items-center gap-1 px-2 bg-indigo-500 hover:bg-indigo-600 text-white rounded-md text-xs h-6"}>Save<svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="feather feather-corner-down-left"><polyline points="9 10 4 15 9 20"></polyline><path d="M20 4v7a4 4 0 0 1-4 4H4"></path></svg></button>
                                         </div>
                                     }
                                 </form>
