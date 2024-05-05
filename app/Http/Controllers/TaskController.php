@@ -21,6 +21,20 @@ class TaskController extends Controller
         ]);
     }
 
+    public function show(Task $task): RedirectResponse | InertiaResponse
+    {
+        $tasks = Task::where('user_id', Auth::id())->orderByDesc('created_at')->get();
+
+        if ($task->user_id !== Auth::id()) {
+            return Redirect::route('dashboard');
+        }
+
+        return Inertia::render('Dashboard', [
+            'tasks' => $tasks,
+            'task' => $task
+        ]);
+    }
+
     public function create(): InertiaResponse
     {
         $tasks = Task::where('user_id', Auth::id())->orderByDesc('created_at')->get();
@@ -40,5 +54,16 @@ class TaskController extends Controller
         ]);
 
         return Redirect::route('dashboard')->with('task successfully created', 201);
+    }
+
+    public function destroy(Task $task): InertiaResponse
+    {
+        $task->delete();
+
+        $tasks = Task::where('user_id', Auth::id())->orderByDesc('created_at')->get();
+
+        return Inertia::render('Dashboard', [
+            'tasks' => $tasks
+        ]);
     }
 }

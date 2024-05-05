@@ -1,9 +1,10 @@
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
-import {Head, router} from '@inertiajs/react';
+import {Head, Link, router} from '@inertiajs/react';
 import {useRef, useState} from "react";
 import NewTaskCreationForm from "@/Components/NewTaskCreationForm.jsx";
+import TaskWindow from "@/Components/TaskWindow.jsx";
 
-export default function Dashboard({ auth, tasks, withNewTaskCreationForm }) {
+export default function Dashboard({ auth, tasks, withNewTaskCreationForm, task }) {
     const [taskNameInput, setTaskNameInput] = useState("")
     const [showingQuickTaskCreationForm, setShowingQuickTaskCreationForm] = useState(false)
     const [showingQuickTaskCreationFormControls, setShowingQuickTaskCreationFormControls] = useState(false)
@@ -39,6 +40,7 @@ export default function Dashboard({ auth, tasks, withNewTaskCreationForm }) {
         >
             <Head title="Dashboard" />
             {withNewTaskCreationForm && <NewTaskCreationForm user={auth.user} />}
+            {task && <TaskWindow task={task} />}
 
             <div className="py-12">
                 <div className="max-w-7xl mx-auto sm:px-6 lg:px-8">
@@ -63,7 +65,17 @@ export default function Dashboard({ auth, tasks, withNewTaskCreationForm }) {
                                 </form>
                             </li>
                         }
-                        {tasks.map(task => <li key={task.id}>{task.name}</li>)}
+                        {tasks.map(task => (
+                            <li key={task.id} className={"flex min-h-9 border-b border-b-slate-200 hover:bg-gray-100 pl-7"}>
+                                <Link as={"button"} className="mr-3 self-center">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" strokeWidth="1" strokeLinecap="round" strokeLinejoin="round" className="feather feather-circle stroke-slate-500 hover:fill-gray-200"><circle cx="12" cy="12" r="10"></circle></svg>
+                                </Link>
+                                <Link href={`/tasks/${task.id}`} className={"grow text-stone-800 hover:text-indigo-400 text-sm grid items-center"}>{task.name}</Link>
+                                <Link as={"button"} href={`/tasks/${task.id}`} method={"delete"} className={"mx-5 p-1 hover:bg-gray-300 rounded self-center"}>
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" strokeWidth="1" strokeLinecap="round" strokeLinejoin="round" className="feather feather-trash-2 stroke-red-700"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path><line x1="10" y1="11" x2="10" y2="17"></line><line x1="14" y1="11" x2="14" y2="17"></line></svg>
+                                </Link>
+                            </li>
+                        ))}
                     </ul>
                 </div>
             </div>

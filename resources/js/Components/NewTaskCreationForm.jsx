@@ -1,7 +1,7 @@
 import {useRef, useState} from "react";
 import {router} from "@inertiajs/react";
 
-export default function NewTaskCreationForm({ setShowingNewTaskCreationForm, user }) {
+export default function NewTaskCreationForm({ user }) {
     const [showingDescriptionInput, setShowingDescriptionInput] = useState(false)
     const [taskNameInput, setTaskNameInput] = useState("")
     const [taskDescriptionInput, setTaskDescriptionInput] = useState("")

@@ -4,13 +4,13 @@
 - [ ] Task creation
   - [x] Task addition form
   - [x] Quick task addition form
-  - [ ] Tasks table with links to tasks (with delete button)
+  - [x] Tasks table with links to tasks (with delete button)
   - [ ] DB connection 
     - [x] Models, migrations and seeders for tasks and statuses
     - [x] Relations between tasks, statuses and users
     - [x] Task storing and task reading (index all tasks of the user)
     - [ ] Task editing
-    - [ ] Task deletion
+    - [x] Task deletion
   - [ ] Task view (for reading, editing, deleting)
 - [ ] Subtasks creation 
 - [ ] Tags and searching by tags
