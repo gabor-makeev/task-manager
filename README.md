@@ -4,7 +4,7 @@
 - [ ] Task creation
   - [x] Task addition form
   - [x] Quick task addition form
-  - [x] Tasks table with links to tasks (with delete button)
+  - [x] Tasks list with links to tasks (with delete button)
   - [ ] DB connection 
     - [x] Models, migrations and seeders for tasks and statuses
     - [x] Relations between tasks, statuses and users
