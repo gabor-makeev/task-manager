@@ -43,9 +43,11 @@ class TaskController extends Controller
     public function create(): InertiaResponse
     {
         $tasks = Task::where('user_id', Auth::id())->orderByDesc('created_at')->get();
+        $statuses = Status::where('user_id', Auth::id())->get();
 
         return Inertia::render('Dashboard', [
             'tasks' => $tasks,
+            'statuses' => $statuses,
             'withNewTaskCreationForm' => true
         ]);
     }
