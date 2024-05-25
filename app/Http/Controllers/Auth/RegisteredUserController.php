@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
+use App\Models\Status;
 use App\Models\User;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Http\RedirectResponse;
@@ -41,6 +42,28 @@ class RegisteredUserController extends Controller
             'email' => $request->email,
             'password' => Hash::make($request->password),
         ]);
+
+        $defaultStatuses = [
+            [
+                'name' => 'Open',
+                'type' => 'not started',
+                'color' => 'gray'
+            ],
+            [
+                'name' => 'Closed',
+                'type' => 'closed',
+                'color' => 'green'
+            ]
+        ];
+
+        foreach ($defaultStatuses as $defaultStatus) {
+            Status::create([
+                'name' => $defaultStatus['name'],
+                'type' => $defaultStatus['type'],
+                'user_id' => $user->id,
+                'color' => $defaultStatus['color']
+            ]);
+        }
 
         event(new Registered($user));
 

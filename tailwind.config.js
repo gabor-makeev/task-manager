@@ -19,4 +19,19 @@ export default {
     },
 
     plugins: [forms],
+
+    safelist: [
+        {
+            pattern: /bg-.+/
+        },
+        {
+            pattern: /border-.+/
+        },
+        {
+            pattern: /stroke-.+/
+        },
+        {
+            pattern: /fill-.+/
+        }
+    ]
 };

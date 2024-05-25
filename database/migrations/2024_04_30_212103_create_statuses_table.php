@@ -15,6 +15,8 @@ return new class extends Migration
         Schema::create('statuses', function (Blueprint $table) {
             $table->id();
             $table->string('name');
+            $table->enum('type', ['not started', 'active', 'closed'])->default('active');
+            $table->enum('color', ['purple', 'blue', 'yellow', 'orange', 'red', 'gray', 'green'])->default('blue');
             $table->foreignIdFor(User::class);
             $table->timestamps();
         });

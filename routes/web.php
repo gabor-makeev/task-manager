@@ -16,6 +16,10 @@ Route::get('/tasks/{task}', [TaskController::class, 'show'])
     ->middleware(['auth', 'verified'])
     ->name('task.show');
 
+Route::put('/tasks/{task}', [TaskController::class, 'update'])
+    ->middleware(['auth', 'verified'])
+    ->name('task.update');
+
 Route::delete('/tasks/{task}', [TaskController::class, 'destroy'])
     ->middleware(['auth', 'verified'])
     ->name('task.destroy');

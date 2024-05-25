@@ -14,11 +14,6 @@ class TaskSeeder extends Seeder
     public function run(): void
     {
         DB::table('tasks')->insert([
-            'name' => 'Some task with no specific status predetermined',
-            'description' => 'test',
-            'user_id' => '1'
-        ]);
-        DB::table('tasks')->insert([
             'name' => 'Some task with open status',
             'description' => 'test',
             'status_id' => '1',
