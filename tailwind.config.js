@@ -15,6 +15,9 @@ export default {
             fontFamily: {
                 sans: ['Figtree', ...defaultTheme.fontFamily.sans],
             },
+            margin: {
+                '80px': '80px'
+            }
         },
     },
 
@@ -32,6 +35,9 @@ export default {
         },
         {
             pattern: /fill-.+/
+        },
+        {
+            pattern: /ring-.+/
         }
     ]
 };

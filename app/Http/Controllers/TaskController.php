@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Priority;
 use App\Models\Status;
 use App\Models\Task;
 use Illuminate\Http\RedirectResponse;
@@ -10,17 +11,31 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Redirect;
 use Inertia\Inertia;
 use Inertia\Response as InertiaResponse;
+use function PHPUnit\Framework\isNull;
 
 class TaskController extends Controller
 {
     public function index(): InertiaResponse
     {
-        $tasks = Task::where('user_id', Auth::id())->orderByDesc('created_at')->get();
+        $prioritySorting = \request()->get('priority-sorting');
+
+        $query = Task::where('user_id', Auth::id());
+
+        if (!in_array($prioritySorting, ['desc', 'asc'])) {
+            $query->orderByDesc('created_at');
+        } else {
+            $query->leftJoin('priorities', 'priorities.id', '=', 'tasks.priority_id')
+                ->orderBy('priorities.value', $prioritySorting);
+        }
+
+        $tasks = $query->get(['tasks.*']);
         $statuses = Status::where('user_id', Auth::id())->get();
+        $priorities = Priority::orderByDesc('value')->get();
 
         return Inertia::render('Dashboard', [
             'tasks' => $tasks,
-            'statuses' => $statuses
+            'statuses' => $statuses,
+            'priorities' => $priorities
         ]);
     }
 
@@ -28,6 +43,7 @@ class TaskController extends Controller
     {
         $tasks = Task::where('user_id', Auth::id())->orderByDesc('created_at')->get();
         $statuses = Status::where('user_id', Auth::id())->get();
+        $priorities = Priority::orderByDesc('value')->get();
 
         if ($task->user_id !== Auth::id()) {
             return Redirect::route('dashboard');
@@ -36,7 +52,8 @@ class TaskController extends Controller
         return Inertia::render('Dashboard', [
             'tasks' => $tasks,
             'statuses' => $statuses,
-            'task' => $task
+            'task' => $task,
+            'priorities' => $priorities
         ]);
     }
 
@@ -44,11 +61,13 @@ class TaskController extends Controller
     {
         $tasks = Task::where('user_id', Auth::id())->orderByDesc('created_at')->get();
         $statuses = Status::where('user_id', Auth::id())->get();
+        $priorities = Priority::orderByDesc('value')->get();
 
         return Inertia::render('Dashboard', [
             'tasks' => $tasks,
             'statuses' => $statuses,
-            'withNewTaskCreationForm' => true
+            'withNewTaskCreationForm' => true,
+            'priorities' => $priorities
         ]);
     }
 
@@ -69,7 +88,7 @@ class TaskController extends Controller
 
     public function update(Task $task): RedirectResponse
     {
-        $task->update(\request()->only(['name', 'description', 'status_id']));
+        $task->update(\request()->only(['name', 'description', 'status_id', 'priority_id']));
 
         return Redirect::back()->with('success', 'Task updated');
     }

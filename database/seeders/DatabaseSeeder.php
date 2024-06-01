@@ -17,7 +17,8 @@ class DatabaseSeeder extends Seeder
         // User::factory(10)->create();
 
         $this->call([
-            TaskSeeder::class
+            TaskSeeder::class,
+            PrioritySeeder::class
         ]);
 
         $user = User::factory()->create([

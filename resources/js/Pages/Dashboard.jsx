@@ -5,7 +5,7 @@ import NewTaskCreationForm from "@/Components/NewTaskCreationForm.jsx";
 import TaskWindow from "@/Components/TaskWindow.jsx";
 import TaskListItem from "@/Components/TaskListItem.jsx";
 
-export default function Dashboard({ auth, tasks, statuses, withNewTaskCreationForm, task }) {
+export default function Dashboard({ auth, tasks, statuses, priorities, withNewTaskCreationForm, task }) {
     const colors = {
         'purple': {
             'main': 'purple-900',
@@ -43,6 +43,10 @@ export default function Dashboard({ auth, tasks, statuses, withNewTaskCreationFo
             'content': 'gray-600'
         }
     }
+
+    const queryString = window.location.search
+    const urlParams = new URLSearchParams(queryString)
+    const prioritySorting = urlParams.get('priority-sorting')
 
     const formattedStatuses = statuses
         .sort((a, b) => {
@@ -98,6 +102,16 @@ export default function Dashboard({ auth, tasks, statuses, withNewTaskCreationFo
         setShowingQuickTaskCreationForm(false)
     }
 
+    const getNextSortingOption = () => {
+        if (prioritySorting === null) {
+            return '/?priority-sorting=desc'
+        } else if (prioritySorting === 'desc') {
+            return '/?priority-sorting=asc'
+        }
+
+        return '/'
+    }
+
     return (
         <AuthenticatedLayout
             user={auth.user}
@@ -115,7 +129,16 @@ export default function Dashboard({ auth, tasks, statuses, withNewTaskCreationFo
                         {!showingQuickTaskCreationForm && <button onClick={() => setShowingQuickTaskCreationForm(true)} className={"flex items-center text-xs text-slate-500 hover:bg-gray-100 hover:rounded-md h-6 p-2"}>
                             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="feather feather-plus mr-1"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>Add Task</button>}
                     </div>
-                    <div className={"text-xs text-slate-500 h-8 border-b border-b-slate-200 flex items-center"}>Name</div>
+                    <div className={"text-xs text-slate-500 h-8 border-b border-b-slate-200 flex items-center justify-between"}>
+                        Name
+                        <Link href={getNextSortingOption()} className={"max-w-40 grow mr-[80px] hover:bg-gray-100 h-full pl-2.5 pr-3 flex items-center gap-1"}>Priority
+                            { prioritySorting === 'desc' &&
+                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" strokeWidth="0.5" strokeLinecap="round" strokeLinejoin="round" className={"feather feather-arrow-down-circle duration-150 stroke-indigo-500 fill-indigo-100 hover:fill-indigo-200"}><circle cx="12" cy="12" r="10"></circle><polyline strokeWidth={"1.5"} points="8 12 12 16 16 12"></polyline><line strokeWidth={"1.5"} x1="12" y1="8" x2="12" y2="16"></line></svg>
+                            }
+                            { prioritySorting === 'asc' &&
+                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" strokeWidth="0.5" strokeLinecap="round" strokeLinejoin="round" className="feather feather-arrow-up-circle duration-150 stroke-indigo-500 fill-indigo-100 hover:fill-indigo-200"><circle cx="12" cy="12" r="10"></circle><polyline strokeWidth={"1.5"} points="16 12 12 8 8 12"></polyline><line strokeWidth={"1.5"} x1="12" y1="16" x2="12" y2="8"></line></svg> }
+                        </Link>
+                    </div>
                     <ul>
                         {(!tasks.length || showingQuickTaskCreationForm) &&
                             <li key={"quickTaskCreationForm"} className={"border-b border-b-slate-200"}>
@@ -131,7 +154,7 @@ export default function Dashboard({ auth, tasks, statuses, withNewTaskCreationFo
                             </li>
                         }
                         {tasks.map(task => (
-                            <TaskListItem key={task.id} task={task} colors={colors} formattedStatuses={formattedStatuses} formattedStatusesByType={formattedStatusesByType} />
+                            <TaskListItem key={task.id} task={task} colors={colors} priorities={priorities} formattedStatuses={formattedStatuses} formattedStatusesByType={formattedStatusesByType} />
                         ))}
                     </ul>
                 </div>

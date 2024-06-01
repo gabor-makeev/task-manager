@@ -14,7 +14,8 @@ class Task extends Model
         'name',
         'description',
         'user_id',
-        'status_id'
+        'status_id',
+        'priority_id'
     ];
 
     public function status(): BelongsTo
@@ -25,5 +26,10 @@ class Task extends Model
     public function user(): BelongsTo
     {
         return $this->belongsTo(User::class);
+    }
+
+    public function priority(): BelongsTo
+    {
+        return $this->belongsTo(Priority::class);
     }
 }
