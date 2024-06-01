@@ -25,8 +25,6 @@ export default function TaskListItem({ task, colors, priorities, formattedStatus
         })
     }
 
-    console.log(formattedStatuses[task.status_id])
-
     return (
         <li key={task.id} className={"flex min-h-9 border-b border-b-slate-200 hover:bg-gray-100 pl-7"}>
             <div className="mr-3 self-center flex">
