@@ -17,9 +17,16 @@ class TaskController extends Controller
 {
     public function index(): InertiaResponse
     {
+        $showClosedFiltering = \request()->exists('show-closed-filtering');
         $prioritySorting = \request()->get('priority-sorting');
 
+        $closedStatusId = Auth::user()->statuses()->where('type', 'closed')->first()->id;
+
         $query = Task::where('user_id', Auth::id());
+
+        if (!$showClosedFiltering) {
+            $query->where('status_id', '!=', $closedStatusId);
+        }
 
         if (!in_array($prioritySorting, ['desc', 'asc'])) {
             $query->orderByDesc('created_at');
@@ -41,7 +48,25 @@ class TaskController extends Controller
 
     public function show(Task $task): RedirectResponse | InertiaResponse
     {
-        $tasks = Task::where('user_id', Auth::id())->orderByDesc('created_at')->get();
+        $showClosedFiltering = \request()->exists('show-closed-filtering');
+        $prioritySorting = \request()->get('priority-sorting');
+
+        $closedStatusId = Auth::user()->statuses()->where('type', 'closed')->first()->id;
+
+        $query = Task::where('user_id', Auth::id());
+
+        if (!$showClosedFiltering) {
+            $query->where('status_id', '!=', $closedStatusId);
+        }
+
+        if (!in_array($prioritySorting, ['desc', 'asc'])) {
+            $query->orderByDesc('created_at');
+        } else {
+            $query->leftJoin('priorities', 'priorities.id', '=', 'tasks.priority_id')
+                ->orderBy('priorities.value', $prioritySorting);
+        }
+
+        $tasks = $query->get(['tasks.*']);
         $statuses = Status::where('user_id', Auth::id())->get();
         $priorities = Priority::orderByDesc('value')->get();
 
@@ -59,9 +84,29 @@ class TaskController extends Controller
 
     public function create(): InertiaResponse
     {
-        $tasks = Task::where('user_id', Auth::id())->orderByDesc('created_at')->get();
+        $showClosedFiltering = \request()->exists('show-closed-filtering');
+        $prioritySorting = \request()->get('priority-sorting');
+
+        $closedStatusId = Auth::user()->statuses()->where('type', 'closed')->first()->id;
+
+        $query = Task::where('user_id', Auth::id());
+
+        if (!$showClosedFiltering) {
+            $query->where('status_id', '!=', $closedStatusId);
+        }
+
+        if (!in_array($prioritySorting, ['desc', 'asc'])) {
+            $query->orderByDesc('created_at');
+        } else {
+            $query->leftJoin('priorities', 'priorities.id', '=', 'tasks.priority_id')
+                ->orderBy('priorities.value', $prioritySorting);
+        }
+
+        $tasks = $query->get(['tasks.*']);
         $statuses = Status::where('user_id', Auth::id())->get();
         $priorities = Priority::orderByDesc('value')->get();
+
+
 
         return Inertia::render('Dashboard', [
             'tasks' => $tasks,
@@ -83,7 +128,7 @@ class TaskController extends Controller
             ])->first()->id
         ]);
 
-        return Redirect::route('dashboard')->with('task successfully created', 201);
+        return Redirect::route('dashboard', \request()->getQueryString())->with('task successfully created', 201);
     }
 
     public function update(Task $task): RedirectResponse
@@ -97,6 +142,6 @@ class TaskController extends Controller
     {
         $task->delete();
 
-        return Redirect::route('dashboard')->with('success', 'Task deleted');
+        return Redirect::route('dashboard', \request()->getQueryString())->with('success', 'Task deleted');
     }
 }

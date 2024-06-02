@@ -19,7 +19,8 @@
 - [x] Priorities
   - [x] Set priority for task
   - [x] Sort tasks by priority
-- [ ] Show / don't show "Closed" tasks (don't show by default)
+- [x] Show / don't show "Closed" tasks (don't show by default)
+- [ ] Refactor the project into something readable
 
 ### v2
 - [ ] Subtasks creation 

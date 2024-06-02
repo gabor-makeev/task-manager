@@ -10,20 +10,20 @@ export default function NewTaskCreationForm({ user }) {
 
     const handleOverlayClick = (e) => {
         if (e.target.id === "new-task-creation-form__overlay") {
-            router.get('/')
+            router.get(`/?${new URLSearchParams(window.location.search).toString()}`)
         }
     }
 
     const handleCloseButtonClick = (e) => {
         e.preventDefault()
 
-        router.get('/')
+        router.get(`/?${new URLSearchParams(window.location.search).toString()}`)
     }
 
     const handleSubmit = (e) => {
         e.preventDefault()
 
-        router.post('/tasks', {
+        router.post(`/tasks?${new URLSearchParams(window.location.search).toString()}`, {
             name: taskNameInput,
             description: taskDescriptionInput,
             'user_id': user.id

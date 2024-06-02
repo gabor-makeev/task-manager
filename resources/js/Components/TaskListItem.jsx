@@ -5,6 +5,8 @@ export default function TaskListItem({ task, colors, priorities, formattedStatus
     const [isStatusDropdownActive, setIsStatusDropdownActive] = useState(false)
     const [isPriorityDropdownActive, setIsPriorityDropdownActive] = useState(false)
 
+    const urlParams = window.location.href.split('?')[1]
+
     const handleStatusChangeButtonClick = (statusId) => {
         router.put(`/tasks/${task.id}`, {
             status_id: statusId
@@ -68,7 +70,7 @@ export default function TaskListItem({ task, colors, priorities, formattedStatus
                     </>
                 }
             </div>
-            <Link href={`/tasks/${task.id}`} className={"grow text-stone-800 hover:text-indigo-400 text-sm grid items-center"}>{task.name}</Link>
+            <Link href={route('task.show', task.id + (urlParams ? `?${urlParams}` : ''))} className={"grow text-stone-800 hover:text-indigo-400 text-sm grid items-center"}>{task.name}</Link>
             <div className="mr-3 flex max-w-40 grow">
                 <button onClick={() => setIsPriorityDropdownActive(true)} className={`flex gap-2 w-full items-center rounded-sm hover:ring-slate-300 hover:ring-1 pl-2.5 pr-3 ${isPriorityDropdownActive ? "bg-white ring-1 ring-indigo-500" : ""}`}>
                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={`feather feather-flag stroke-${task.priority_id ? colors[priorities[task.priority_id - 1].color].main : "gray-300"} fill-${task.priority_id ? colors[priorities[task.priority_id - 1].color].main : "none"}`}><path d="M4 15s1-1 4-1 5 2 8 2 4-1 4-1V3s-1 1-4 1-5-2-8-2-4 1-4 1z"></path><line x1="4" y1="22" x2="4" y2="15"></line></svg>
@@ -101,7 +103,7 @@ export default function TaskListItem({ task, colors, priorities, formattedStatus
                     </>
                 }
             </div>
-            <Link href={`/tasks/${task.id}`} method={"delete"} as={"button"}  className={"mx-5 p-1 hover:bg-gray-300 rounded self-center"}>
+            <Link href={route('task.destroy', task.id + (urlParams ? `?${urlParams}` : ''))} method={"delete"} as={"button"}  className={"mx-5 p-1 hover:bg-gray-300 rounded self-center"}>
                 <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" strokeWidth="1" strokeLinecap="round" strokeLinejoin="round" className="feather feather-trash-2 stroke-red-700"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path><line x1="10" y1="11" x2="10" y2="17"></line><line x1="14" y1="11" x2="14" y2="17"></line></svg>
             </Link>
         </li>

@@ -52,14 +52,14 @@ export default function TaskWindow({ task, statuses, formattedStatuses, formatte
 
     const handleOverlayClick = (e) => {
         if (e.target.id === "task-window__overlay") {
-            router.get('/')
+            router.get(`/?${new URLSearchParams(window.location.search).toString()}`)
         }
     }
 
     const handleCloseButtonClick = (e) => {
         e.preventDefault()
 
-        router.get('/')
+        router.get(`/?${new URLSearchParams(window.location.search).toString()}`)
     }
 
     const handleCopyIdButtonClick = async (e) => {
