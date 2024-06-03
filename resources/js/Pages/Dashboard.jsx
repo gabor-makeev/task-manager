@@ -145,7 +145,7 @@ export default function Dashboard({ auth, tasks, statuses, priorities, withNewTa
                 </Link>
             </div>
             <div className="py-12">
-                <div className="max-w-7xl mx-auto sm:px-6 lg:px-8">
+                <div className="sm:px-6 lg:px-8">
                     <div className={"flex font-semibold items-center h-8"}>
                         <h2 className={"mr-4 text-sm text-stone-800"}>Tasks</h2>
                         <span className={"mr-2 text-xs text-slate-500"}>{ tasks.length }</span>
