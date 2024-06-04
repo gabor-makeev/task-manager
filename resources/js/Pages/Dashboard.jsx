@@ -6,44 +6,6 @@ import TaskWindow from "@/Components/TaskWindow.jsx";
 import TaskListItem from "@/Components/TaskListItem.jsx";
 
 export default function Dashboard({ auth, tasks, statuses, priorities, withNewTaskCreationForm, task }) {
-    const colors = {
-        'purple': {
-            'main': 'purple-900',
-            'contrast': 'stone-800',
-            'content': 'white'
-        },
-        'blue': {
-            'main': 'blue-500',
-            'contrast': 'stone-800',
-            'content': 'white'
-        },
-        'yellow': {
-            'main': 'yellow-400',
-            'contrast': 'gray-300',
-            'content': 'gray-600'
-        },
-        'green': {
-            'main': 'green-700',
-            'contrast': 'stone-800',
-            'content': 'white'
-        },
-        'orange': {
-            'main': 'orange-500',
-            'contrast': 'stone-800',
-            'content': 'white'
-        },
-        'red': {
-            'main': 'red-500',
-            'contrast': 'stone-800',
-            'content': 'white'
-        },
-        'gray': {
-            'main': 'gray-300',
-            'contrast': 'gray-400',
-            'content': 'gray-600'
-        }
-    }
-
     const queryString = window.location.search
     const urlParams = new URLSearchParams(queryString)
     const prioritySorting = urlParams.get('priority-sorting')
@@ -138,7 +100,7 @@ export default function Dashboard({ auth, tasks, statuses, priorities, withNewTa
         >
             <Head title="Dashboard" />
             {withNewTaskCreationForm && <NewTaskCreationForm user={auth.user} />}
-            {task && <TaskWindow task={task} statuses={statuses} formattedStatuses={formattedStatuses} formattedStatusesByType={formattedStatusesByType} colors={colors} />}
+            {task && <TaskWindow task={task} statuses={statuses} formattedStatuses={formattedStatuses} formattedStatusesByType={formattedStatusesByType} />}
             <div className={"px-2 py-3 flex justify-items-start"}>
                 <Link href={`/?${getNextShowClosedOption()}`} className={`flex items-center gap-0.5 py-1 px-2 rounded-xl text-xs font-medium border duration-200 ${showClosedFiltering === '' ? "border-indigo-500 hover:bg-indigo-100 bg-indigo-50 text-indigo-500" : "border-slate-200 hover:bg-slate-100 text-slate-600"}`}>
                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="feather feather-check-circle"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg>Show closed
@@ -177,7 +139,7 @@ export default function Dashboard({ auth, tasks, statuses, priorities, withNewTa
                             </li>
                         }
                         {tasks.map(task => (
-                            <TaskListItem key={task.id} task={task} colors={colors} priorities={priorities} formattedStatuses={formattedStatuses} formattedStatusesByType={formattedStatusesByType} />
+                            <TaskListItem key={task.id} task={task} priorities={priorities} formattedStatuses={formattedStatuses} formattedStatusesByType={formattedStatusesByType} />
                         ))}
                     </ul>
                 </div>

@@ -1,7 +1,8 @@
 import {Link, router} from "@inertiajs/react";
 import {useEffect, useRef, useState} from "react";
+import { colors } from "../../constants/colors.js";
 
-export default function TaskWindow({ task, statuses, formattedStatuses, formattedStatusesByType, colors }) {
+export default function TaskWindow({ task, statuses, formattedStatuses, formattedStatusesByType }) {
     const [taskNameInput, setTaskNameInput] = useState(task.name)
     const [isTaskUpdating, setIsTaskUpdating] = useState(false)
     const [isStatusDropdownActive, setIsStatusDropdownActive] = useState(false)

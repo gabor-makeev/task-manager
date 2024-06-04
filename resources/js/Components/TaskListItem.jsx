@@ -1,7 +1,8 @@
 import {Link, router} from "@inertiajs/react";
 import {useState} from "react";
+import { colors } from "../../constants/colors.js"
 
-export default function TaskListItem({ task, colors, priorities, formattedStatuses, formattedStatusesByType }) {
+export default function TaskListItem({ task, priorities, formattedStatuses, formattedStatusesByType }) {
     const [isStatusDropdownActive, setIsStatusDropdownActive] = useState(false)
     const [isPriorityDropdownActive, setIsPriorityDropdownActive] = useState(false)
 
