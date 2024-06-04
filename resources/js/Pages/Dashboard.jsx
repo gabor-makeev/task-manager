@@ -4,42 +4,19 @@ import {useRef, useState} from "react";
 import NewTaskCreationForm from "../Components/NewTaskCreationForm";
 import TaskWindow from "@/Components/TaskWindow.jsx";
 import TaskListItem from "@/Components/TaskListItem.jsx";
+import {getStatusesByPriority, getStatusesByType} from "../../helpers/statusFormatters.js";
 
 export default function Dashboard({ auth, tasks, statuses, priorities, withNewTaskCreationForm, task }) {
+    const [taskNameInput, setTaskNameInput] = useState("")
+    const [showingQuickTaskCreationForm, setShowingQuickTaskCreationForm] = useState(false)
+    const [showingQuickTaskCreationFormControls, setShowingQuickTaskCreationFormControls] = useState(false)
+
     const queryString = window.location.search
     const urlParams = new URLSearchParams(queryString)
     const prioritySorting = urlParams.get('priority-sorting')
     const showClosedFiltering = urlParams.get('show-closed-filtering')
-
-    const formattedStatuses = statuses
-        .sort((a, b) => {
-            const statusTypePriority = {
-                'not started': 0,
-                'active': 1,
-                'closed': 2
-            }
-
-            if (statusTypePriority[a.type] > statusTypePriority[b.type]) {
-                return 1
-            } else if (statusTypePriority[a.type] < statusTypePriority[b.type]) {
-                return -1
-            }
-
-            return 0
-        })
-        .reduce((a, v) => ({...a, [v.id]: v}), {})
-
-    const formattedStatusesByType = statuses.reduce((a, v) => {
-        if (v.type in a) {
-            return {...a, [v.type]: [...a[v.type], v]}
-        }
-
-        return {...a, [v.type]: [v] }
-    }, {})
-
-    const [taskNameInput, setTaskNameInput] = useState("")
-    const [showingQuickTaskCreationForm, setShowingQuickTaskCreationForm] = useState(false)
-    const [showingQuickTaskCreationFormControls, setShowingQuickTaskCreationFormControls] = useState(false)
+    const formattedStatuses = getStatusesByPriority(statuses)
+    const formattedStatusesByType = getStatusesByType(statuses)
 
     const quickTaskCreationFormSaveButton = useRef(null)
 
