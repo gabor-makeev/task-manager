@@ -1,6 +1,6 @@
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout'
 import { Head } from '@inertiajs/react'
-import NewTaskCreationForm from "../Components/NewTaskCreationForm"
+import NewTaskCreationForm from "../Components/Dashboard/NewTaskCreationForm"
 import TaskWindow from "@/Components/TaskWindow.jsx"
 import ShowClosedLink from "@/Components/Dashboard/ShowClosedLink"
 import TasksList from "@/Components/Dashboard/TasksList"
@@ -19,8 +19,6 @@ export default function Dashboard({ auth, tasks, statuses, priorities, withNewTa
                 <TaskWindow
                     task={task}
                     statuses={statuses}
-                    formattedStatuses={formattedStatuses}
-                    formattedStatusesByType={formattedStatusesByType}
                 />
             }
             <div className={"px-2 py-3 flex justify-items-start"}>

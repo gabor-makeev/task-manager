@@ -1,9 +1,9 @@
 import {useRef, useState} from "react"
 import {router} from "@inertiajs/react"
-import FormSubmit from "./Components/FormSubmit"
-import FormDescriptionInput from "./Components/FormTaskDescriptionInput"
-import FormTaskNameInput from "./Components/FormTaskNameInput"
-import FormCloseButton from "@/Components/NewTaskCreationForm/Components/FormCloseButton/index.js";
+import FormSubmit from "./Components/FormSubmit/index.js"
+import FormDescriptionInput from "./Components/FormTaskDescriptionInput/index.js"
+import FormTaskNameInput from "./Components/FormTaskNameInput/index.js"
+import FormCloseButton from "@/Components/Dashboard/NewTaskCreationForm/Components/FormCloseButton/index.js";
 
 export default function NewTaskCreationForm({ user }) {
     const [taskNameInput, setTaskNameInput] = useState("")
