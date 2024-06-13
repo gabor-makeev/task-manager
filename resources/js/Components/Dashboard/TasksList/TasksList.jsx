@@ -3,6 +3,7 @@ import { Link, router } from "@inertiajs/react"
 import TaskListItem from "@/Components/TaskListItem.jsx"
 import { getNextSortingOption } from "../../../../helpers/nextSortingAndFilteringOptionGetters.js"
 import { getStatusesByPriority, getStatusesByType } from "../../../../helpers/statusFormatters.js"
+import TasksListControls from "./Components/TasksListControls";
 
 export const TasksList = ({ auth, tasks, priorities, statuses }) => {
     const [taskNameInput, setTaskNameInput] = useState("")
@@ -44,12 +45,11 @@ export const TasksList = ({ auth, tasks, priorities, statuses }) => {
     return (
         <div className="py-12">
             <div className="sm:px-6 lg:px-8">
-                <div className={"flex font-semibold items-center h-8"}>
-                    <h2 className={"mr-4 text-sm text-stone-800"}>Tasks</h2>
-                    <span className={"mr-2 text-xs text-slate-500"}>{ tasks.length }</span>
-                    {!showingQuickTaskCreationForm && <button onClick={() => setShowingQuickTaskCreationForm(true)} className={"flex items-center text-xs text-slate-500 hover:bg-gray-100 hover:rounded-md h-6 p-2"}>
-                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="feather feather-plus mr-1"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>Add Task</button>}
-                </div>
+                <TasksListControls
+                    tasks={tasks}
+                    showAddTaskButton={!showingQuickTaskCreationForm}
+                    addTaskButtonClickHandler={() => setShowingQuickTaskCreationForm(true)}
+                />
                 <div className={"text-xs text-slate-500 h-8 border-b border-b-slate-200 flex items-center justify-between"}>
                     Name
                     <Link
