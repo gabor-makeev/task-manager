@@ -1,9 +1,9 @@
 import { useRef, useState } from "react"
 import { Link, router } from "@inertiajs/react"
-import TaskListItem from "@/Components/TaskListItem.jsx"
+import TaskListItem from "./Components/TaskListItem"
 import { getNextSortingOption } from "../../../../helpers/nextSortingAndFilteringOptionGetters.js"
 import { getStatusesByPriority, getStatusesByType } from "../../../../helpers/statusFormatters.js"
-import TasksListControls from "./Components/TasksListControls";
+import TasksListControls from "./Components/TasksListControls"
 
 export const TasksList = ({ auth, tasks, priorities, statuses }) => {
     const [taskNameInput, setTaskNameInput] = useState("")
@@ -17,8 +17,8 @@ export const TasksList = ({ auth, tasks, priorities, statuses }) => {
     const prioritySorting = urlParams.get('priority-sorting')
     const nextSortingOption = getNextSortingOption(prioritySorting)
 
-    const formattedStatuses = getStatusesByPriority(statuses)
-    const formattedStatusesByType = getStatusesByType(statuses)
+    const statusesByPriority = getStatusesByPriority(statuses)
+    const statusesByType = getStatusesByType(statuses)
 
     const handleQuickTaskCreationFormTaskNameInputBlur = (e) => {
         if (e.relatedTarget === quickTaskCreationFormSaveButton.current) {
@@ -82,8 +82,8 @@ export const TasksList = ({ auth, tasks, priorities, statuses }) => {
                             key={task.id}
                             task={task}
                             priorities={priorities}
-                            formattedStatuses={formattedStatuses}
-                            formattedStatusesByType={formattedStatusesByType}
+                            statusesByPriority={statusesByPriority}
+                            statusesByType={statusesByType}
                         />
                     ))}
                 </ul>
