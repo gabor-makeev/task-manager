@@ -1,8 +1,8 @@
 import FilledStatusCircle from "./Components/FilledStatusCircle"
 import SemifilledStatusCircle from "./Components/SemifilledStatusCircle"
 import StatusCircle from "./Components/StatusCircle"
-import SelectedStatusCheckmark from "./Components/SelectedStatusCheckmark"
 import StatusTitle from "./Components/StatusTitle"
+import SelectedOptionCheckmark from "../../../../../../../../../../../../GlobalComponents/SelectedOptionCheckmark"
 
 export const Item = ({ task, status, itemClickHandler }) => {
     return (
@@ -18,7 +18,7 @@ export const Item = ({ task, status, itemClickHandler }) => {
                 {status.type === "active" && <SemifilledStatusCircle statusColor={status.color} />}
                 {status.type === "closed" && <FilledStatusCircle statusColor={status.color} />}
                 <StatusTitle>{status.name}</StatusTitle>
-                {status.id === task.status_id && <SelectedStatusCheckmark />}
+                {status.id === task.status_id && <SelectedOptionCheckmark />}
             </button>
         </li>
     )
