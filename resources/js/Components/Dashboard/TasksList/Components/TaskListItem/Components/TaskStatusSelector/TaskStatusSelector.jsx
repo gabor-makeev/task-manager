@@ -1,7 +1,7 @@
 import { useState } from "react"
 import { router } from "@inertiajs/react"
 import SelectButton from "./Components/SelectButton"
-import ClickableOverlay from "./Components/ClickableOverlay"
+import ClickableOverlay from "../../../../../../GlobalComponents/ClickableOverlay"
 import SelectOptions from "./Components/SelectOptions"
 
 export const TaskStatusSelector = ({ task, statusesByPriority, statusesByType }) => {

@@ -2,6 +2,7 @@ import { colors } from "../../../../../../../../constants/colors.js"
 import { useState } from "react"
 import { router } from "@inertiajs/react"
 import PriorityButton from "./Components/PriorityButton"
+import ClickableOverlay from "../../../../../../GlobalComponents/ClickableOverlay"
 
 export const TaskPrioritySelector = ({ task, priorities }) => {
     const [isPriorityDropdownActive, setIsPriorityDropdownActive] = useState(false)
@@ -26,7 +27,7 @@ export const TaskPrioritySelector = ({ task, priorities }) => {
             />
             {isPriorityDropdownActive &&
                 <>
-                    <div className={"absolute inset-0"} onClick={() => setIsPriorityDropdownActive(false)}></div>
+                    <ClickableOverlay onClick={() => setIsPriorityDropdownActive(false)} />
                     <div className="min-w-44 absolute -ml-1.5 mt-11 bg-white rounded-md shadow-2xl text-xs">
                         <ul className={"mt-1.5 py-2 text-sm"}>
                             {priorities.map(priority => (
