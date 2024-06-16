@@ -1,8 +1,9 @@
-import { Link, router } from "@inertiajs/react"
+import { router } from "@inertiajs/react"
 import { useState } from "react"
 import { colors } from "../../../../../../constants/colors.js"
 import TaskStatusSelector from "./Components/TaskStatusSelector"
 import TaskDeleteButton from "./Components/TaskDeleteButton"
+import TaskLink from "./Components/TaskLink"
 
 export const TaskListItem = ({ task, priorities, statusesByPriority, statusesByType }) => {
     const [isPriorityDropdownActive, setIsPriorityDropdownActive] = useState(false)
@@ -26,7 +27,7 @@ export const TaskListItem = ({ task, priorities, statusesByPriority, statusesByT
                 statusesByPriority={statusesByPriority}
                 statusesByType={statusesByType}
             />
-            <Link href={route('task.show', task.id + (urlParams ? `?${urlParams}` : ''))} className={"grow text-stone-800 hover:text-indigo-400 text-sm grid items-center"}>{task.name}</Link>
+            <TaskLink task={task} />
             <div className="mr-3 flex max-w-40 grow">
                 <button onClick={() => setIsPriorityDropdownActive(true)} className={`flex gap-2 w-full items-center rounded-sm hover:ring-slate-300 hover:ring-1 pl-2.5 pr-3 ${isPriorityDropdownActive ? "bg-white ring-1 ring-indigo-500" : ""}`}>
                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={`feather feather-flag stroke-${task.priority_id ? colors[priorities[task.priority_id - 1].color].main : "gray-300"} fill-${task.priority_id ? colors[priorities[task.priority_id - 1].color].main : "none"}`}><path d="M4 15s1-1 4-1 5 2 8 2 4-1 4-1V3s-1 1-4 1-5-2-8-2-4 1-4 1z"></path><line x1="4" y1="22" x2="4" y2="15"></line></svg>
