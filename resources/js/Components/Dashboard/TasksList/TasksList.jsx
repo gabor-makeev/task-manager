@@ -6,6 +6,7 @@ import { getStatusesByPriority, getStatusesByType } from "../../../../helpers/st
 import TasksListControls from "./Components/TasksListControls"
 
 export const TasksList = ({ auth, tasks, priorities, statuses }) => {
+    // TODO: refactor this component
     const [taskNameInput, setTaskNameInput] = useState("")
     const [showingQuickTaskCreationForm, setShowingQuickTaskCreationForm] = useState(false)
     const [showingQuickTaskCreationFormControls, setShowingQuickTaskCreationFormControls] = useState(false)

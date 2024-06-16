@@ -4,6 +4,7 @@ import { colors } from "../../constants/colors.js";
 import {getStatusesByPriority, getStatusesByType} from "../../helpers/statusFormatters.js";
 
 export default function TaskWindow({ task, statuses }) {
+    // TODO: refactor this component
     const [taskNameInput, setTaskNameInput] = useState(task.name)
     const [isTaskUpdating, setIsTaskUpdating] = useState(false)
     const [isStatusDropdownActive, setIsStatusDropdownActive] = useState(false)

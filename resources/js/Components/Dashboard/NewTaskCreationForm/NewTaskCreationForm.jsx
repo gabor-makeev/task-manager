@@ -6,6 +6,7 @@ import FormTaskNameInput from "./Components/FormTaskNameInput/index.js"
 import FormCloseButton from "@/Components/Dashboard/NewTaskCreationForm/Components/FormCloseButton/index.js";
 
 export default function NewTaskCreationForm({ user }) {
+    // TODO: refactor this component
     const [taskNameInput, setTaskNameInput] = useState("")
     const [taskDescriptionInput, setTaskDescriptionInput] = useState("")
 
