@@ -2,6 +2,7 @@ import { Link, router } from "@inertiajs/react"
 import { useState } from "react"
 import { colors } from "../../../../../../constants/colors.js"
 import TaskStatusSelector from "./Components/TaskStatusSelector"
+import TaskDeleteButton from "./Components/TaskDeleteButton"
 
 export const TaskListItem = ({ task, priorities, statusesByPriority, statusesByType }) => {
     const [isPriorityDropdownActive, setIsPriorityDropdownActive] = useState(false)
@@ -58,9 +59,7 @@ export const TaskListItem = ({ task, priorities, statusesByPriority, statusesByT
                     </>
                 }
             </div>
-            <Link href={route('task.destroy', task.id + (urlParams ? `?${urlParams}` : ''))} method={"delete"} as={"button"}  className={"mx-5 p-1 hover:bg-gray-300 rounded self-center"}>
-                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" strokeWidth="1" strokeLinecap="round" strokeLinejoin="round" className="feather feather-trash-2 stroke-red-700"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path><line x1="10" y1="11" x2="10" y2="17"></line><line x1="14" y1="11" x2="14" y2="17"></line></svg>
-            </Link>
+            <TaskDeleteButton task={task} />
         </li>
     )
 }
