@@ -1,9 +1,9 @@
-import {useRef, useState} from "react"
-import {router} from "@inertiajs/react"
+import { useRef, useState } from "react"
+import { router } from "@inertiajs/react"
 import FormSubmit from "./Components/FormSubmit/index.js"
-import FormDescriptionInput from "./Components/FormTaskDescriptionInput/index.js"
 import FormTaskNameInput from "./Components/FormTaskNameInput/index.js"
-import FormCloseButton from "@/Components/Dashboard/NewTaskCreationForm/Components/FormCloseButton/index.js";
+import FormCloseButton from "./Components/FormCloseButton"
+import TaskDescriptionTextarea from "../../GlobalComponents/TaskDescriptionTextarea"
 
 export default function NewTaskCreationForm({ user }) {
     // TODO: refactor this component
@@ -46,13 +46,11 @@ export default function NewTaskCreationForm({ user }) {
                         value={taskNameInput}
                         setValue={setTaskNameInput}
                     />
-                    <div className={"flex"}>
-                        <FormDescriptionInput
-                            emptyTextareaText={"Add description"}
-                            value={taskDescriptionInput}
-                            setValue={setTaskDescriptionInput}
-                        />
-                    </div>
+                    <TaskDescriptionTextarea
+                        value={taskDescriptionInput}
+                        setValue={setTaskDescriptionInput}
+                        isNewTask
+                    />
                 </div>
                 <div className="py-4 pr-4 pl-6 flex justify-end">
                     <FormSubmit value={"Create Task"} />
