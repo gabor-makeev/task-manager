@@ -1,4 +1,4 @@
-import { Link, router } from "@inertiajs/react"
+import { router } from "@inertiajs/react"
 import { useEffect, useRef, useState } from "react"
 import { colors } from "../../../../constants/colors.js"
 import { getStatusesByPriority, getStatusesByType } from "../../../../helpers/statusFormatters.js"
@@ -21,12 +21,6 @@ export const TaskWindow = ({ task, statuses }) => {
     const taskStatusColor = colors[statusesByPriority[task.status_id].color]
 
     const firstRenderRef = useRef(true)
-    const copyIdButton = useRef(null)
-
-    const taskCreatedAtDate = new Date(task.created_at)
-    const formattedTaskCreatedAtMonth = taskCreatedAtDate.toLocaleString('default', { month: 'short' })
-    const formattedTaskCreatedAtDay = taskCreatedAtDate.getDate()
-    const formattedTaskCreatedAtDate = `${formattedTaskCreatedAtMonth} ${formattedTaskCreatedAtDay}`
 
     useEffect(() => {
         if (firstRenderRef.current) {
@@ -63,12 +57,6 @@ export const TaskWindow = ({ task, statuses }) => {
         if (e.target.id === "task-window__overlay") {
             router.get(`/?${new URLSearchParams(window.location.search).toString()}`)
         }
-    }
-
-    const handleCloseButtonClick = (e) => {
-        e.preventDefault()
-
-        router.get(`/?${new URLSearchParams(window.location.search).toString()}`)
     }
 
     const handleCopyIdButtonClick = async (e) => {
