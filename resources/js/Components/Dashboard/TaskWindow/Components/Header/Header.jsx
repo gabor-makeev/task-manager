@@ -1,6 +1,7 @@
 import { Link, router } from "@inertiajs/react"
 import { useRef } from "react"
 import SavingTaskDataIndicator from "./Components/SavingTaskDataIndicator"
+import TaskCreatedAtDate from "./Components/TaskCreatedAtDate"
 
 export const Header = ({ task, isTaskUpdating }) => {
     const taskCreatedAtDate = new Date(task.created_at)
@@ -31,7 +32,7 @@ export const Header = ({ task, isTaskUpdating }) => {
     return <>
         { isTaskUpdating && <SavingTaskDataIndicator />}
         <div className="border-b w-full h-12 flex justify-end items-center px-2">
-            <span className={"text-xs text-slate-600 mr-2"}>Created on { formattedTaskCreatedAtDate }</span>
+            <TaskCreatedAtDate task={task} />
             <button onClick={(e) => handleCopyIdButtonClick(e)} ref={copyIdButton} className={"bg-indigo-500 active:bg-indigo-700 text-white text-sm font-medium px-3 rounded-md h-8 cursor-pointer hover:bg-indigo-600 mr-3 w-20"}>Copy ID</button>
             <div className="bg-gray-200 w-px h-6 mr-3"></div>
             <div className={"flex"}>
