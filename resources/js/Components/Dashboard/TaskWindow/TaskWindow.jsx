@@ -1,10 +1,11 @@
 import { Link, router } from "@inertiajs/react"
 import { useEffect, useRef, useState } from "react"
-import { colors } from "../../constants/colors.js"
-import { getStatusesByPriority, getStatusesByType } from "../../helpers/statusFormatters.js"
-import TaskDescriptionTextarea from "./GlobalComponents/TaskDescriptionTextarea"
+import { colors } from "../../../../constants/colors.js"
+import { getStatusesByPriority, getStatusesByType } from "../../../../helpers/statusFormatters.js"
+import TaskDescriptionTextarea from "../../GlobalComponents/TaskDescriptionTextarea"
+import TaskNameField from "./Components/TaskNameField"
 
-export default function TaskWindow({ task, statuses }) {
+export const TaskWindow = ({ task, statuses }) => {
     // TODO: refactor this component
     const [taskNameInput, setTaskNameInput] = useState(task.name)
     const [isTaskUpdating, setIsTaskUpdating] = useState(false)
@@ -19,7 +20,6 @@ export default function TaskWindow({ task, statuses }) {
     const taskStatusColor = colors[statusesByPriority[task.status_id].color]
 
     const firstRenderRef = useRef(true)
-    const taskNameInputRef = useRef(null)
     const copyIdButton = useRef(null)
 
     const taskCreatedAtDate = new Date(task.created_at)
@@ -118,10 +118,6 @@ export default function TaskWindow({ task, statuses }) {
         }
     }
 
-    const handleAddDescriptionButtonClick = () => {
-        setShowingDescriptionInput(true)
-    }
-
     return (
         <div id={"task-window__overlay"} onClick={(e) => handleOverlayClick(e)} className={"absolute inset-0 bg-black/75 flex justify-center items-start px-5 pt-5 pb-14"}>
             <div className={"flex flex-col grow bg-white h-full max-w-screen-2xl rounded-xl"}>
@@ -146,7 +142,7 @@ export default function TaskWindow({ task, statuses }) {
                                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="feather feather-disc stroke-white fill-gray-600"><circle cx="12" cy="12" r="10"></circle><circle cx="12" cy="12" r="6"></circle></svg>Task</button>
                             <button onClick={(e) => handleCopyIdButtonClick(e)} className={"border-y border-r border-gray-300 rounded-r-md px-2 py-1 hover:bg-gray-100"}>{ task.id }</button>
                         </div>
-                        <input type="text" ref={taskNameInputRef} className={"mt-6 text-3xl font-bold text-gray-900 border-0 focus:ring-0"} value={taskNameInput} onChange={(e) => setTaskNameInput(e.target.value)} />
+                        <TaskNameField value={taskNameInput} setValue={setTaskNameInput} />
                         <div className={"mt-7 flex items-center gap-1 pl-1.5 pb-8 min-h-9"}>
                             <label htmlFor="status" className={"flex items-center w-32 gap-2 cursor-pointer text-sm text-slate-500"}><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" className="feather feather-disc stroke-gray-600 fill-white"><circle cx="12" cy="12" r="9"></circle><circle cx="12" cy="12" r="4"></circle></svg>Status</label>
                             <div className={`flex max-w-72 py-1.5 pl-1.5 grow rounded-md ${isStatusDropdownActive ? "bg-gray-100" : ""}`}>

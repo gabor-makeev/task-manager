@@ -1,7 +1,7 @@
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout'
 import { Head } from '@inertiajs/react'
 import NewTaskCreationForm from "../Components/Dashboard/NewTaskCreationForm"
-import TaskWindow from "@/Components/TaskWindow.jsx"
+import TaskWindow from "../Components/Dashboard/TaskWindow"
 import ShowClosedLink from "@/Components/Dashboard/ShowClosedLink"
 import TasksList from "@/Components/Dashboard/TasksList"
 
