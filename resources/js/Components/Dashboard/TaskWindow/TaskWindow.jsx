@@ -4,6 +4,7 @@ import { colors } from "../../../../constants/colors.js"
 import { getStatusesByPriority, getStatusesByType } from "../../../../helpers/statusFormatters.js"
 import TaskDescriptionTextarea from "../../GlobalComponents/TaskDescriptionTextarea"
 import TaskNameField from "./Components/TaskNameField"
+import Header from "@/Components/Dashboard/TaskWindow/Components/Header/index.js";
 
 export const TaskWindow = ({ task, statuses }) => {
     // TODO: refactor this component
@@ -121,20 +122,7 @@ export const TaskWindow = ({ task, statuses }) => {
     return (
         <div id={"task-window__overlay"} onClick={(e) => handleOverlayClick(e)} className={"absolute inset-0 bg-black/75 flex justify-center items-start px-5 pt-5 pb-14"}>
             <div className={"flex flex-col grow bg-white h-full max-w-screen-2xl rounded-xl"}>
-                { isTaskUpdating && <div className={"flex absolute mt-2 ml-2 gap-1 items-center"}><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="feather feather-save stroke-slate-500"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"></path><polyline points="17 21 17 13 7 13 7 21"></polyline><polyline points="7 3 7 8 15 8"></polyline></svg><span className={"text-slate-500 text-sm font-medium"}>Saving</span></div>}
-                <div className="border-b w-full h-12 flex justify-end items-center px-2">
-                    <span className={"text-xs text-slate-600 mr-2"}>Created on { formattedTaskCreatedAtDate }</span>
-                    <button onClick={(e) => handleCopyIdButtonClick(e)} ref={copyIdButton} className={"bg-indigo-500 active:bg-indigo-700 text-white text-sm font-medium px-3 rounded-md h-8 cursor-pointer hover:bg-indigo-600 mr-3 w-20"}>Copy ID</button>
-                    <div className="bg-gray-200 w-px h-6 mr-3"></div>
-                    <div className={"flex"}>
-                        <Link href={`/tasks/${task.id}`} method={"delete"} as={"button"}  className={"duration-150 hover:bg-gray-100 rounded-lg w-8 h-8 flex items-center justify-center"}>
-                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" strokeWidth="1" strokeLinecap="round" strokeLinejoin="round" className="feather feather-trash-2 stroke-red-700"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path><line x1="10" y1="11" x2="10" y2="17"></line><line x1="14" y1="11" x2="14" y2="17"></line></svg>
-                        </Link>
-                        <button type={"button"} onClick={(e) => handleCloseButtonClick(e)} className={"duration-150 hover:bg-gray-100 rounded-lg w-8 h-8 flex items-center justify-center"}>
-                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="feather feather-x stroke-slate-500"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
-                        </button>
-                    </div>
-                </div>
+                <Header task={task} isTaskUpdating={isTaskUpdating} />
                 <div className="grow">
                     <div className="max-w-2xl mx-auto mt-6 flex flex-col">
                         <div className={"flex text-xs"}>
