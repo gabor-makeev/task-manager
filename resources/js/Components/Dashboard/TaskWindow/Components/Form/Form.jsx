@@ -4,6 +4,7 @@ import { colors } from "../../../../../../constants/colors.js"
 import { getStatusesByPriority, getStatusesByType } from "../../../../../../helpers/statusFormatters.js"
 import TaskNameField from "./Components/TaskNameField"
 import TaskDescriptionTextarea from "../../../../GlobalComponents/TaskDescriptionTextarea"
+import TaskBadges from "@/Components/Dashboard/TaskWindow/Components/Form/Components/TaskBadges/index.js";
 
 export const Form = ({ task, statuses, taskNameInputValue, setTaskNameInputValue, taskDescriptionInputValue, setTaskDescriptionInputValue }) => {
     const [isStatusDropdownActive, setIsStatusDropdownActive] = useState(false)
@@ -11,18 +12,6 @@ export const Form = ({ task, statuses, taskNameInputValue, setTaskNameInputValue
     const statusesByPriority = getStatusesByPriority(statuses)
     const statusesByType = getStatusesByType(statuses);
     const taskStatusColor = colors[statusesByPriority[task.status_id].color]
-
-    const handleCopyIdButtonClick = async (e) => {
-        const initialButtonText = e.target.textContent
-
-        await navigator.clipboard.writeText(task.id)
-
-        e.target.textContent = "Copied"
-
-        setTimeout(() => {
-            e.target.textContent = initialButtonText
-        }, 700)
-    }
 
     const handleCompleteButtonClick = () => {
         router.put(`/tasks/${task.id}`, {
@@ -63,11 +52,7 @@ export const Form = ({ task, statuses, taskNameInputValue, setTaskNameInputValue
     return (
         <div className="grow">
             <div className="max-w-2xl mx-auto mt-6 flex flex-col">
-                <div className={"flex text-xs"}>
-                    <button disabled className={"border border-gray-300 rounded-l-md pt-1 pr-2 pb-1 pl-1 flex gap-1"}>
-                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="feather feather-disc stroke-white fill-gray-600"><circle cx="12" cy="12" r="10"></circle><circle cx="12" cy="12" r="6"></circle></svg>Task</button>
-                    <button onClick={(e) => handleCopyIdButtonClick(e)} className={"border-y border-r border-gray-300 rounded-r-md px-2 py-1 hover:bg-gray-100"}>{ task.id }</button>
-                </div>
+                <TaskBadges task={task} />
                 <TaskNameField value={taskNameInputValue} setValue={setTaskNameInputValue} />
                 <div className={"mt-7 flex items-center gap-1 pl-1.5 pb-8 min-h-9"}>
                     <label htmlFor="status" className={"flex items-center w-32 gap-2 cursor-pointer text-sm text-slate-500"}><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" className="feather feather-disc stroke-gray-600 fill-white"><circle cx="12" cy="12" r="9"></circle><circle cx="12" cy="12" r="4"></circle></svg>Status</label>
