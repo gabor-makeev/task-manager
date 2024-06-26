@@ -3,6 +3,7 @@ import { useState } from "react"
 import { getStatusesByPriority, getStatusesByType } from "../../../../../../../../helpers/statusFormatters.js"
 import { router } from "@inertiajs/react"
 import Label from "./Components/Label"
+import CompleteTaskButton from "./Components/CompleteTaskButton"
 
 export const TaskStatusSelector = ({ task, statuses }) => {
     const [isStatusDropdownActive, setIsStatusDropdownActive] = useState(false)
@@ -53,7 +54,7 @@ export const TaskStatusSelector = ({ task, statuses }) => {
             <div className={`flex max-w-72 py-1.5 pl-1.5 grow rounded-md ${isStatusDropdownActive ? "bg-gray-100" : ""}`}>
                 <button id={"status"} onClick={() => setIsStatusDropdownActive(true)} className={`flex items-center justify-center bg-${taskStatusColor.main} rounded-l h-6 border-r border-${taskStatusColor.contrast} text-xs uppercase text-${taskStatusColor.content} font-medium px-2`}>{statusesByPriority[task.status_id].name }</button>
                 <button onClick={handleNextStatusButtonClick} className={`w-6 h-6 flex items-center justify-center rounded-r bg-${taskStatusColor.main}`}><svg xmlns="http://www.w3.org/2000/svg" height="16px" viewBox="0 -960 960 960" width="16px" className={`fill-${taskStatusColor.content}`}><path d="M391.5-315.5v-329l251 164.5-251 164.5Z"/></svg></button>
-                {statusesByPriority[task.status_id].type !== "closed" && <button onClick={handleCompleteButtonClick} className={"ml-2 w-6 h-6 border border-gray-300 group hover:border-green-500 rounded flex justify-center items-center duration-200"}><svg xmlns="http://www.w3.org/2000/svg" height="18px" viewBox="0 -960 960 960" width="18px" className={"fill-gray-300 group-hover:fill-green-500 duration-200"}><path d="M389-259.35 187.35-460l58.89-59.89L389-377.13l324.76-323.76L772.65-642 389-259.35Z"/></svg></button>}
+                {statusesByPriority[task.status_id].type !== "closed" && <CompleteTaskButton task={task} statuses={statuses} />}
                 {isStatusDropdownActive &&
                     <>
                         <div className={"absolute inset-0"} onClick={() => setIsStatusDropdownActive(false)}></div>
