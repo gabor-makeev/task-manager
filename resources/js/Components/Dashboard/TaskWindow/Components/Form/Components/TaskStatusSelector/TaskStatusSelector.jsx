@@ -2,6 +2,7 @@ import { colors } from "../../../../../../../../constants/colors.js"
 import { useState } from "react"
 import { getStatusesByPriority, getStatusesByType } from "../../../../../../../../helpers/statusFormatters.js"
 import { router } from "@inertiajs/react"
+import Label from "./Components/Label"
 
 export const TaskStatusSelector = ({ task, statuses }) => {
     const [isStatusDropdownActive, setIsStatusDropdownActive] = useState(false)
@@ -48,7 +49,7 @@ export const TaskStatusSelector = ({ task, statuses }) => {
 
     return (
         <div className={"mt-7 flex items-center gap-1 pl-1.5 pb-8 min-h-9"}>
-            <label htmlFor="status" className={"flex items-center w-32 gap-2 cursor-pointer text-sm text-slate-500"}><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" className="feather feather-disc stroke-gray-600 fill-white"><circle cx="12" cy="12" r="9"></circle><circle cx="12" cy="12" r="4"></circle></svg>Status</label>
+            <Label />
             <div className={`flex max-w-72 py-1.5 pl-1.5 grow rounded-md ${isStatusDropdownActive ? "bg-gray-100" : ""}`}>
                 <button id={"status"} onClick={() => setIsStatusDropdownActive(true)} className={`flex items-center justify-center bg-${taskStatusColor.main} rounded-l h-6 border-r border-${taskStatusColor.contrast} text-xs uppercase text-${taskStatusColor.content} font-medium px-2`}>{statusesByPriority[task.status_id].name }</button>
                 <button onClick={handleNextStatusButtonClick} className={`w-6 h-6 flex items-center justify-center rounded-r bg-${taskStatusColor.main}`}><svg xmlns="http://www.w3.org/2000/svg" height="16px" viewBox="0 -960 960 960" width="16px" className={`fill-${taskStatusColor.content}`}><path d="M391.5-315.5v-329l251 164.5-251 164.5Z"/></svg></button>
