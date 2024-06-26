@@ -32,12 +32,6 @@ export const TaskStatusSelector = ({ task, statuses }) => {
         }
     }
 
-    const handleCompleteButtonClick = () => {
-        router.put(`/tasks/${task.id}`, {
-            status_id: statusesByType.closed[0].id
-        })
-    }
-
     const handleStatusChangeButtonClick = (statusId) => {
         router.put(`/tasks/${task.id}`, {
             status_id: statusId
