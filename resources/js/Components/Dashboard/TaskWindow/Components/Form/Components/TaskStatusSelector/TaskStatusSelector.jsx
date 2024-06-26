@@ -4,6 +4,7 @@ import { getStatusesByPriority, getStatusesByType } from "../../../../../../../.
 import { router } from "@inertiajs/react"
 import Label from "./Components/Label"
 import CompleteTaskButton from "./Components/CompleteTaskButton"
+import NextTaskStatusButton from "./Components/NextTaskStatusButton"
 
 export const TaskStatusSelector = ({ task, statuses }) => {
     const [isStatusDropdownActive, setIsStatusDropdownActive] = useState(false)
@@ -11,26 +12,6 @@ export const TaskStatusSelector = ({ task, statuses }) => {
     const statusesByPriority = getStatusesByPriority(statuses)
     const statusesByType = getStatusesByType(statuses)
     const taskStatusColor = colors[statusesByPriority[task.status_id].color]
-
-    const handleNextStatusButtonClick = () => {
-        let exit = false
-
-        statuses.forEach((status, index) => {
-            if (status.name === statusesByPriority[task.status_id].name && statuses[index + 1]) {
-                router.put(`/tasks/${task.id}`, {
-                    status_id: statuses[index + 1].id
-                })
-
-                exit = true
-            }
-        })
-
-        if (!exit) {
-            router.put(`/tasks/${task.id}`, {
-                status_id: statusesByType['not started'][0].id
-            })
-        }
-    }
 
     const handleStatusChangeButtonClick = (statusId) => {
         router.put(`/tasks/${task.id}`, {
@@ -47,8 +28,10 @@ export const TaskStatusSelector = ({ task, statuses }) => {
             <Label />
             <div className={`flex max-w-72 py-1.5 pl-1.5 grow rounded-md ${isStatusDropdownActive ? "bg-gray-100" : ""}`}>
                 <button id={"status"} onClick={() => setIsStatusDropdownActive(true)} className={`flex items-center justify-center bg-${taskStatusColor.main} rounded-l h-6 border-r border-${taskStatusColor.contrast} text-xs uppercase text-${taskStatusColor.content} font-medium px-2`}>{statusesByPriority[task.status_id].name }</button>
-                <button onClick={handleNextStatusButtonClick} className={`w-6 h-6 flex items-center justify-center rounded-r bg-${taskStatusColor.main}`}><svg xmlns="http://www.w3.org/2000/svg" height="16px" viewBox="0 -960 960 960" width="16px" className={`fill-${taskStatusColor.content}`}><path d="M391.5-315.5v-329l251 164.5-251 164.5Z"/></svg></button>
-                {statusesByPriority[task.status_id].type !== "closed" && <CompleteTaskButton task={task} statuses={statuses} />}
+                <NextTaskStatusButton task={task} statuses={statuses} />
+                {statusesByPriority[task.status_id].type !== "closed" &&
+                    <CompleteTaskButton task={task} statuses={statuses} />
+                }
                 {isStatusDropdownActive &&
                     <>
                         <div className={"absolute inset-0"} onClick={() => setIsStatusDropdownActive(false)}></div>
