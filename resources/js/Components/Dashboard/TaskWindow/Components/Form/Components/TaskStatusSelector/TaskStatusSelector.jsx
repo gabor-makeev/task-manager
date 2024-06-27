@@ -1,16 +1,28 @@
 import { useState } from "react"
-import { getStatusesByPriority } from "../../../../../../../../helpers/statusFormatters.js"
+import { getStatusesByPriority, getStatusesByType } from "../../../../../../../../helpers/statusFormatters.js"
 import Label from "./Components/Label"
 import CompleteTaskButton from "./Components/CompleteTaskButton"
 import NextTaskStatusButton from "./Components/NextTaskStatusButton"
 import StatusButton from "./Components/StatusButton"
 import ClickableOverlay from "../../../../../../GlobalComponents/ClickableOverlay"
-import StatusesDropdown from "./Components/StatusesDropdown"
+import StatusSelectionDropdown from "../../../../../../GlobalComponents/StatusSelectionDropdown"
+import { router } from "@inertiajs/react"
 
 export const TaskStatusSelector = ({ task, statuses }) => {
     const [isStatusDropdownActive, setIsStatusDropdownActive] = useState(false)
 
     const statusesByPriority = getStatusesByPriority(statuses)
+    const statusesByType = getStatusesByType(statuses)
+
+    const handleStatusChangeButtonClick = (statusId) => {
+        router.put(`/tasks/${task.id}`, {
+            status_id: statusId
+        }, {
+            onSuccess: () => {
+                setIsStatusDropdownActive(false)
+            }
+        })
+    }
 
     return (
         <div className={"mt-7 flex items-center gap-1 pl-1.5 pb-8 min-h-9"}>
@@ -28,10 +40,10 @@ export const TaskStatusSelector = ({ task, statuses }) => {
                 {isStatusDropdownActive &&
                     <>
                         <ClickableOverlay onClick={() => setIsStatusDropdownActive(false)} />
-                        <StatusesDropdown
+                        <StatusSelectionDropdown
                             task={task}
-                            statuses={statuses}
-                            setIsStatusDropdownActive={setIsStatusDropdownActive}
+                            statusesByType={statusesByType}
+                            statusOptionClickHandler={handleStatusChangeButtonClick}
                         />
                     </>
                 }

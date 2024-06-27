@@ -2,7 +2,7 @@ import FilledStatusCircle from "./Components/FilledStatusCircle"
 import SemifilledStatusCircle from "./Components/SemifilledStatusCircle"
 import StatusCircle from "./Components/StatusCircle"
 import StatusTitle from "./Components/StatusTitle"
-import SelectedOptionCheckmark from "../../../../../../../../../../../../GlobalComponents/SelectedOptionCheckmark"
+import SelectedOptionCheckmark from "../../../../../SelectedOptionCheckmark"
 
 export const Item = ({ task, status, itemClickHandler }) => {
     return (

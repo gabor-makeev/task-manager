@@ -1,7 +1,7 @@
 import SelectOptionsStatusTypeTitle from "./Components/SelectOptionsStatusTypeTitle"
 import SelectOptionsStatusesList from "./Components/SelectOptionsStatusesList"
 
-export const SelectOptions = ({ task, statusesByType, statusOptionClickHandler }) => {
+export const StatusSelectionDropdown = ({ task, statusesByType, statusOptionClickHandler }) => {
     const statusTypes = Object.keys(statusesByType)
 
     return (
