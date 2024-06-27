@@ -5,15 +5,14 @@ import { router } from "@inertiajs/react"
 import Label from "./Components/Label"
 import CompleteTaskButton from "./Components/CompleteTaskButton"
 import NextTaskStatusButton from "./Components/NextTaskStatusButton"
-import StatusButton
-    from "@/Components/Dashboard/TaskWindow/Components/Form/Components/TaskStatusSelector/Components/StatusButton/index.js";
+import StatusButton from "./Components/StatusButton"
+import ClickableOverlay from "../../../../../../GlobalComponents/ClickableOverlay"
 
 export const TaskStatusSelector = ({ task, statuses }) => {
     const [isStatusDropdownActive, setIsStatusDropdownActive] = useState(false)
 
     const statusesByPriority = getStatusesByPriority(statuses)
     const statusesByType = getStatusesByType(statuses)
-    const taskStatusColor = colors[statusesByPriority[task.status_id].color]
 
     const handleStatusChangeButtonClick = (statusId) => {
         router.put(`/tasks/${task.id}`, {
@@ -40,7 +39,7 @@ export const TaskStatusSelector = ({ task, statuses }) => {
                 }
                 {isStatusDropdownActive &&
                     <>
-                        <div className={"absolute inset-0"} onClick={() => setIsStatusDropdownActive(false)}></div>
+                        <ClickableOverlay onClick={() => setIsStatusDropdownActive(false)} />
                         <div className="min-w-44 absolute -ml-1.5 mt-11 bg-white rounded-md shadow-2xl text-xs">
                             {statusesByType['not started'] && statusesByType['not started'].length &&
                                 <div className={"border-b pt-4 px-2 pb-2.5"}>
