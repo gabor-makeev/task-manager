@@ -1,60 +1,45 @@
-import { useRef, useState } from "react"
+import { useState } from "react"
 import { router } from "@inertiajs/react"
-import FormSubmit from "./Components/FormSubmit/index.js"
-import FormTaskNameInput from "./Components/FormTaskNameInput/index.js"
-import FormCloseButton from "./Components/FormCloseButton"
-import TaskDescriptionTextarea from "../../GlobalComponents/TaskDescriptionTextarea"
+import ClickableOverlay from "../../GlobalComponents/ClickableOverlay"
+import Header from "./Components/Header"
+import Inputs from "./Components/Inputs"
+import Footer from "./Components/Footer"
 
 export default function NewTaskCreationForm({ user }) {
-    // TODO: refactor this component
-    const [taskNameInput, setTaskNameInput] = useState("")
-    const [taskDescriptionInput, setTaskDescriptionInput] = useState("")
+    const [formData, setFormData] = useState({
+        name: "",
+        description: ""
+    })
 
-    const overlay = useRef(null)
+    const handleChange = (e) => {
+        const {name, value} = e.target
 
-    const handleOverlayClick = (e) => {
-        if (e.target.id === "new-task-creation-form__overlay") {
-            router.get(`/?${new URLSearchParams(window.location.search).toString()}`)
-        }
-    }
-
-    const handleCloseButtonClick = (e) => {
-        e.preventDefault()
-
-        router.get(`/?${new URLSearchParams(window.location.search).toString()}`)
+        setFormData((prevState) => ({
+            ...prevState,
+            [name]: value
+        }))
     }
 
     const handleSubmit = (e) => {
         e.preventDefault()
 
         router.post(`/tasks?${new URLSearchParams(window.location.search).toString()}`, {
-            name: taskNameInput,
-            description: taskDescriptionInput,
+            ...formData,
             'user_id': user.id
         })
     }
 
+    const handleOverlayClick = () => {
+        router.get(`/?${new URLSearchParams(window.location.search).toString()}`)
+    }
+
     return (
-        <div id={"new-task-creation-form__overlay"} className={"absolute inset-0 bg-violet-950/10 flex justify-center items-start"} ref={overlay} onClick={(e) => handleOverlayClick(e)}>
-            <form className={"flex flex-col bg-white rounded-xl shadow-sm max-w-2xl flex-grow mt-36"} onSubmit={(e) => handleSubmit(e)}>
-                <div className={"flex flex-col justify-center border-b px-6 h-12"}>
-                    <FormCloseButton clickHandler={handleCloseButtonClick} />
-                </div>
-                <div className={"p-6 border-b"}>
-                    <FormTaskNameInput
-                        placeholder={"Task name"}
-                        value={taskNameInput}
-                        setValue={setTaskNameInput}
-                    />
-                    <TaskDescriptionTextarea
-                        value={taskDescriptionInput}
-                        setValue={setTaskDescriptionInput}
-                        isNewTask
-                    />
-                </div>
-                <div className="py-4 pr-4 pl-6 flex justify-end">
-                    <FormSubmit value={"Create Task"} />
-                </div>
+        <div id={"new-task-creation-form__overlay"} className={"absolute inset-0 bg-violet-950/10 flex justify-center items-start"}>
+            <ClickableOverlay onClick={() => handleOverlayClick()} />
+            <form className={"flex flex-col bg-white rounded-xl shadow-sm max-w-2xl flex-grow mt-36 z-10"} onSubmit={(e) => handleSubmit(e)}>
+                <Header />
+                <Inputs formData={formData} handleChange={handleChange} />
+                <Footer />
             </form>
         </div>
     )

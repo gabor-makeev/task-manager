@@ -2,7 +2,7 @@ import { useEffect, useState } from "react"
 import Textarea from "./Components/Textarea"
 import AddTextButton from "./Components/AddTextButton"
 
-export const TaskDescriptionTextarea = ({ taskDescription = '', isNewTask = false, value, setValue }) => {
+export const TaskDescriptionTextarea = ({ taskDescription = '', isNewTask = false, value, handleChange }) => {
     const [showingDescriptionInput, setShowingDescriptionInput] = useState(false)
 
     useEffect(() => {
@@ -22,10 +22,10 @@ export const TaskDescriptionTextarea = ({ taskDescription = '', isNewTask = fals
             }
             {showingDescriptionInput &&
                 <Textarea
-                    name="task-description"
+                    name="description"
                     placeholder={"Write something"}
                     value={value ? value : ''}
-                    setValue={setValue}
+                    handleChange={handleChange}
                     autoFocus={!value}
                     isNewTask={isNewTask}
                 />

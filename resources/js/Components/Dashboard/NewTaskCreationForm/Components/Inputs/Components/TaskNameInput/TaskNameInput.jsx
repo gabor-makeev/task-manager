@@ -1,13 +1,11 @@
-export const FormTaskNameInput = ({ placeholder, value, setValue }) => {
+export const TaskNameInput = (props) => {
     return (
         <input
+            {...props}
             type="text"
-            value={value}
             required
             autoFocus
-            name={"task-name"}
-            placeholder={placeholder}
-            onChange={(e) => setValue(e.target.value)}
+            name={"name"}
             className={"border-0 placeholder-slate-500 focus:ring-0 focus:outline-0 text-lg font-medium px-0 pt-0 pb-3 w-full"}
         />
     )

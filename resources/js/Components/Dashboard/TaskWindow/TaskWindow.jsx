@@ -4,9 +4,20 @@ import Header from "./Components/Header"
 import Form from "./Components/Form"
 
 export const TaskWindow = ({ task, statuses }) => {
-    const [taskNameInput, setTaskNameInput] = useState(task.name)
+    const [formData, setFormData] = useState({
+        name: task.name,
+        description: task.description
+    })
     const [isTaskUpdating, setIsTaskUpdating] = useState(false)
-    const [taskDescriptionInput, setTaskDescriptionInput] = useState(task.description)
+
+    const handleChange = (e) => {
+        const {name, value} = e.target
+
+        setFormData((prevState) => ({
+            ...prevState,
+            [name]: value
+        }))
+    }
 
     const firstRenderRef = useRef(true)
 
@@ -20,10 +31,7 @@ export const TaskWindow = ({ task, statuses }) => {
         setIsTaskUpdating(true)
 
         const timeout = setTimeout(() => {
-            router.put(`/tasks/${task.id}`, {
-                name: taskNameInput,
-                description: taskDescriptionInput
-            }, {
+            router.put(`/tasks/${task.id}`, formData, {
                 onSuccess: () => {
                     setIsTaskUpdating(false)
                 }
@@ -33,7 +41,7 @@ export const TaskWindow = ({ task, statuses }) => {
         return () => {
             clearTimeout(timeout)
         }
-    }, [taskNameInput, taskDescriptionInput])
+    }, [formData])
 
     const handleOverlayClick = (e) => {
         if (e.target.id === "task-window__overlay") {
@@ -48,10 +56,8 @@ export const TaskWindow = ({ task, statuses }) => {
                 <Form
                     task={task}
                     statuses={statuses}
-                    taskNameInputValue={taskNameInput}
-                    setTaskNameInputValue={setTaskNameInput}
-                    taskDescriptionInputValue={taskDescriptionInput}
-                    setTaskDescriptionInputValue={setTaskDescriptionInput}
+                    formData={formData}
+                    handleChange={handleChange}
                 />
             </div>
         </div>

@@ -1,9 +1,9 @@
-export const TaskNameField = ({ value, setValue }) => {
+export const TaskNameField = (props) => {
     return (
         <input
+            {...props}
             type="text"
-            value={value}
-            onChange={(e) => setValue(e.target.value)}
+            name={"name"}
             className={"mt-6 text-3xl font-bold text-gray-900 border-0 focus:ring-0"}
         />
     )
