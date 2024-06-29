@@ -1,6 +1,6 @@
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout'
 import { Head } from '@inertiajs/react'
-import NewTaskCreationForm from "../Components/Dashboard/NewTaskCreationForm"
+import NewTaskCreationModalWindow from "../Components/Dashboard/NewTaskCreationModalWindow"
 import TaskWindow from "../Components/Dashboard/TaskWindow"
 import ShowClosedLink from "@/Components/Dashboard/ShowClosedLink"
 import TasksList from "@/Components/Dashboard/TasksList"
@@ -13,7 +13,7 @@ export default function Dashboard({ auth, tasks, statuses, priorities, withNewTa
         >
             <Head title="Dashboard" />
             {withNewTaskCreationForm &&
-                <NewTaskCreationForm user={auth.user} />
+                <NewTaskCreationModalWindow user={auth.user} />
             }
             {task &&
                 <TaskWindow

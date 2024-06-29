@@ -1,5 +1,5 @@
 import TaskNameInput from "./Components/TaskNameInput"
-import TaskDescriptionTextarea from "../../../../GlobalComponents/TaskDescriptionTextarea"
+import TaskDescriptionTextarea from "../../../../../../GlobalComponents/TaskDescriptionTextarea"
 
 export const Inputs = ({ formData, handleChange }) => {
     return (
