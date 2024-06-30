@@ -4,33 +4,36 @@ import { useState } from "react"
 import SubmitSection from "./Components/SubmitSection"
 
 export const Form = ({ user }) => {
-    const [formData, setFormData] = useState({
-        name: "",
-        description: ""
-    })
+	const [formData, setFormData] = useState({
+		name: "",
+		description: "",
+	})
 
-    const handleChange = (e) => {
-        const {name, value} = e.target
+	const handleChange = (e) => {
+		const { name, value } = e.target
 
-        setFormData((prevState) => ({
-            ...prevState,
-            [name]: value
-        }))
-    }
+		setFormData((prevState) => ({
+			...prevState,
+			[name]: value,
+		}))
+	}
 
-    const handleSubmit = (e) => {
-        e.preventDefault()
+	const handleSubmit = (e) => {
+		e.preventDefault()
 
-        router.post(`/tasks?${new URLSearchParams(window.location.search).toString()}`, {
-            ...formData,
-            'user_id': user.id
-        })
-    }
+		router.post(
+			`/tasks?${new URLSearchParams(window.location.search).toString()}`,
+			{
+				...formData,
+				user_id: user.id,
+			},
+		)
+	}
 
-    return (
-        <form onSubmit={(e) => handleSubmit(e)}>
-            <Inputs formData={formData} handleChange={handleChange} />
-            <SubmitSection />
-        </form>
-    )
+	return (
+		<form onSubmit={(e) => handleSubmit(e)}>
+			<Inputs formData={formData} handleChange={handleChange} />
+			<SubmitSection />
+		</form>
+	)
 }
