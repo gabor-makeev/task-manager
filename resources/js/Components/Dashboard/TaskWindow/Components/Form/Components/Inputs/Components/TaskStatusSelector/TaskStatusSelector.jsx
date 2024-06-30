@@ -2,13 +2,13 @@ import { useState } from "react"
 import {
 	getStatusesByPriority,
 	getStatusesByType,
-} from "../../../../../../../../helpers/statusFormatters.js"
-import Label from "./Components/Label"
-import CompleteTaskButton from "./Components/CompleteTaskButton"
-import NextTaskStatusButton from "./Components/NextTaskStatusButton"
-import StatusButton from "./Components/StatusButton"
-import ClickableOverlay from "../../../../../../GlobalComponents/ClickableOverlay"
-import StatusSelectionDropdown from "../../../../../../GlobalComponents/StatusSelectionDropdown"
+} from "../../../../../../../../../../helpers/statusFormatters.js"
+import Label from "./Components/Label/index.js"
+import CompleteTaskButton from "./Components/CompleteTaskButton/index.js"
+import NextTaskStatusButton from "./Components/NextTaskStatusButton/index.js"
+import StatusButton from "./Components/StatusButton/index.js"
+import ClickableOverlay from "../../../../../../../../GlobalComponents/ClickableOverlay/index.js"
+import StatusSelectionDropdown from "../../../../../../../../GlobalComponents/StatusSelectionDropdown/index.js"
 import { router } from "@inertiajs/react"
 
 export const TaskStatusSelector = ({ task, statuses }) => {

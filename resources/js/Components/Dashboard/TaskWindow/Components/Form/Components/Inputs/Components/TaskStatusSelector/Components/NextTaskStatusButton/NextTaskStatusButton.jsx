@@ -1,8 +1,8 @@
 import {
 	getStatusesByPriority,
 	getStatusesByType,
-} from "../../../../../../../../../../helpers/statusFormatters.js"
-import { colors } from "../../../../../../../../../../constants/colors.js"
+} from "../../../../../../../../../../../../helpers/statusFormatters.js"
+import { colors } from "../../../../../../../../../../../../constants/colors.js"
 import { router } from "@inertiajs/react"
 
 export const NextTaskStatusButton = ({ task, statuses }) => {
