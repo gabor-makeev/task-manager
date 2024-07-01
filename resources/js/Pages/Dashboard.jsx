@@ -2,8 +2,8 @@ import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout"
 import { Head } from "@inertiajs/react"
 import NewTaskCreationModalWindow from "../Components/Dashboard/NewTaskCreationModalWindow"
 import TaskWindow from "../Components/Dashboard/TaskWindow"
-import ShowClosedLink from "@/Components/Dashboard/ShowClosedLink"
-import TasksList from "@/Components/Dashboard/TasksList"
+import ShowClosedLink from "../Components/Dashboard/ShowClosedLink"
+import TasksListView from "../Components/Dashboard/TasksListView"
 
 export default function Dashboard({
 	auth,
@@ -30,7 +30,7 @@ export default function Dashboard({
 			<div className={"px-2 py-3 flex justify-items-start"}>
 				<ShowClosedLink />
 			</div>
-			<TasksList
+			<TasksListView
 				auth={auth}
 				tasks={tasks}
 				statuses={statuses}
