@@ -15,9 +15,7 @@ export const QuickTaskCreationForm = ({
 
 	const quickTaskCreationFormSaveButton = useRef(null)
 
-	const handleQuickTaskCreationFormSubmit = (e) => {
-		e.preventDefault()
-
+	const createTask = () => {
 		router.post(
 			`/tasks?${new URLSearchParams(window.location.search).toString()}`,
 			{
@@ -25,9 +23,26 @@ export const QuickTaskCreationForm = ({
 				user_id: auth.user.id,
 			},
 		)
+	}
+
+	const handleQuickTaskCreationFormSubmit = (e) => {
+		e.preventDefault()
+
+		createTask()
 
 		setTaskNameInput("")
 		setShowingQuickTaskCreationForm(false)
+	}
+
+	const handleEnterKeyDown = (e) => {
+		if (e.key !== "Enter") {
+			return
+		}
+
+		createTask()
+
+		setTaskNameInput("")
+		setShowingQuickTaskCreationForm(true)
 	}
 
 	const handleQuickTaskCreationFormTaskNameInputBlur = (e) => {
@@ -57,7 +72,9 @@ export const QuickTaskCreationForm = ({
 						handleQuickTaskCreationFormTaskNameInputBlur(e)
 					}
 					onChange={(e) => setTaskNameInput(e.target.value)}
+					onKeyDown={handleEnterKeyDown}
 				/>
+				<button disabled></button>
 				{showingQuickTaskCreationFormControls && (
 					<QuickTaskCreationFormControls
 						saveButtonRef={quickTaskCreationFormSaveButton}
