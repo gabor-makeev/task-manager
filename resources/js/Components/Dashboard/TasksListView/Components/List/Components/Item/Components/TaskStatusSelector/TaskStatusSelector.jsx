@@ -2,7 +2,7 @@ import { useState } from "react"
 import { router } from "@inertiajs/react"
 import SelectButton from "./Components/SelectButton"
 import ClickableOverlay from "../../../../../../../../GlobalComponents/ClickableOverlay"
-import SelectOptions from "../../../../../../../../GlobalComponents/StatusSelectionDropdown"
+import StatusSelectionDropdown from "../../../../../../../../GlobalComponents/StatusSelectionDropdown"
 
 export const TaskStatusSelector = ({
 	task,
@@ -37,7 +37,7 @@ export const TaskStatusSelector = ({
 					<ClickableOverlay
 						onClick={() => setIsStatusSelectorActive(false)}
 					/>
-					<SelectOptions
+					<StatusSelectionDropdown
 						task={task}
 						statusesByType={statusesByType}
 						statusOptionClickHandler={handleStatusChangeButtonClick}
