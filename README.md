@@ -21,7 +21,7 @@
     -   [x] Set priority for task
     -   [x] Sort tasks by priority
 -   [x] Show / don't show "Closed" tasks (don't show by default)
--   [ ] Refactor the project into something readable
+-   [x] Refactor the project into something readable
 
 ### v2
 
