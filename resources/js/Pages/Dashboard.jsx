@@ -27,7 +27,7 @@ export default function Dashboard({
 				<NewTaskCreationModalWindow user={auth.user} />
 			)}
 			{task && <TaskWindow task={task} statuses={statuses} />}
-			<div className={"px-2 py-3 flex justify-items-start"}>
+			<div className={"px-12 py-3 flex justify-items-start"}>
 				<ShowClosedLink />
 			</div>
 			<TasksListView

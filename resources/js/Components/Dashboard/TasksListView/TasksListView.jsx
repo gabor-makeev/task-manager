@@ -7,7 +7,7 @@ export const TasksListView = ({ auth, tasks, priorities, statuses }) => {
 		useState(false)
 
 	return (
-		<div className="py-12">
+		<div className="py-12 px-5">
 			<div className="sm:px-6 lg:px-8">
 				<TasksListViewControls
 					tasks={tasks}
