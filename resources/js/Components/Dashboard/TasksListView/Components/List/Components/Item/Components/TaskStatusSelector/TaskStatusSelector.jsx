@@ -14,6 +14,7 @@ export const TaskStatusSelector = ({
 	const handleStatusChangeButtonClick = (statusId) => {
 		const data = {
 			status_id: statusId,
+			closed_at: null,
 		}
 
 		if (statusId === statusesByType["closed"][0].id) {
