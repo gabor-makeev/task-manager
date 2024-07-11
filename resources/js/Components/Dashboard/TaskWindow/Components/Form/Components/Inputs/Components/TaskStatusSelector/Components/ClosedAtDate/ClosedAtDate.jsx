@@ -14,7 +14,7 @@ export const ClosedAtDate = ({ task }) => {
 	}
 
 	return (
-		<span className={"text-xs text-slate-600 mx-2"}>
+		<span className={"text-xs text-slate-600 mx-2 self-center"}>
 			Closed on {getTaskClosedAtDate()}
 		</span>
 	)
