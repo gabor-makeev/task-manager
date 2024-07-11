@@ -19,17 +19,24 @@ export const TaskStatusSelector = ({ task, statuses }) => {
 	const statusesByType = getStatusesByType(statuses)
 
 	const handleStatusChangeButtonClick = (statusId) => {
-		router.put(
-			`/tasks/${task.id}`,
-			{
-				status_id: statusId,
+		const data = {
+			status_id: statusId,
+		}
+
+		if (statusId === statusesByType["closed"][0].id) {
+			const taskClosedAtTime = new Date()
+				.toISOString()
+				.replace("T", " ")
+				.replace(/\..*/, "")
+
+			data.closed_at = taskClosedAtTime
+		}
+
+		router.put(`/tasks/${task.id}`, data, {
+			onSuccess: () => {
+				setIsStatusDropdownActive(false)
 			},
-			{
-				onSuccess: () => {
-					setIsStatusDropdownActive(false)
-				},
-			},
-		)
+		})
 	}
 
 	return (
