@@ -133,7 +133,7 @@ class TaskController extends Controller
 
     public function update(Task $task): RedirectResponse
     {
-        $task->update(\request()->only(['name', 'description', 'status_id', 'priority_id']));
+        $task->update(\request()->only(['name', 'description', 'status_id', 'priority_id', 'closed_at']));
 
         return Redirect::back()->with('success', 'Task updated');
     }
