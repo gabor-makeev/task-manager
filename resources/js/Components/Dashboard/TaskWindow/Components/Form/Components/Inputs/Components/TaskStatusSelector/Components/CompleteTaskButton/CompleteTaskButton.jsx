@@ -4,8 +4,14 @@ import { getStatusesByType } from "../../../../../../../../../../../../helpers/s
 export const CompleteTaskButton = ({ task, statuses }) => {
 	const statusesByType = getStatusesByType(statuses)
 	const handleCompleteButtonClick = () => {
+		const taskClosedAtTime = new Date()
+			.toISOString()
+			.replace("T", " ")
+			.replace(/\..*/, "")
+
 		router.put(`/tasks/${task.id}`, {
 			status_id: statusesByType.closed[0].id,
+			closed_at: taskClosedAtTime,
 		})
 	}
 
