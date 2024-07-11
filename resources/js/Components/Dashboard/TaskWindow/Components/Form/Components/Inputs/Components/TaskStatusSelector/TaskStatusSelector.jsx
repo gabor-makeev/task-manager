@@ -10,6 +10,7 @@ import StatusButton from "./Components/StatusButton/index.js"
 import ClickableOverlay from "../../../../../../../../GlobalComponents/ClickableOverlay/index.js"
 import StatusSelectionDropdown from "../../../../../../../../GlobalComponents/StatusSelectionDropdown/index.js"
 import { router } from "@inertiajs/react"
+import ClosedAtDate from "@/Components/Dashboard/TaskWindow/Components/Form/Components/Inputs/Components/TaskStatusSelector/Components/ClosedAtDate/index.js"
 
 export const TaskStatusSelector = ({ task, statuses }) => {
 	const [isStatusDropdownActive, setIsStatusDropdownActive] = useState(false)
@@ -45,6 +46,9 @@ export const TaskStatusSelector = ({ task, statuses }) => {
 				<NextTaskStatusButton task={task} statuses={statuses} />
 				{statusesByPriority[task.status_id].type !== "closed" && (
 					<CompleteTaskButton task={task} statuses={statuses} />
+				)}
+				{statusesByPriority[task.status_id].type === "closed" && (
+					<ClosedAtDate task={task} />
 				)}
 				{isStatusDropdownActive && (
 					<>
