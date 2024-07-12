@@ -1,13 +1,11 @@
 import { router } from "@inertiajs/react"
 import { getStatusesByType } from "../../../../../../../../../../../../helpers/statusFormatters.js"
+import { getCurrentDateTime } from "../../../../../../../../../../../../helpers/getCurrentDateTime.js"
 
 export const CompleteTaskButton = ({ task, statuses }) => {
 	const statusesByType = getStatusesByType(statuses)
 	const handleCompleteButtonClick = () => {
-		const taskClosedAtTime = new Date()
-			.toISOString()
-			.replace("T", " ")
-			.replace(/\..*/, "")
+		const taskClosedAtTime = getCurrentDateTime()
 
 		router.put(`/tasks/${task.id}`, {
 			status_id: statusesByType.closed[0].id,

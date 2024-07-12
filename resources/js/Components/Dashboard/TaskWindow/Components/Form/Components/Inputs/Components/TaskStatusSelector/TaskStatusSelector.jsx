@@ -11,6 +11,7 @@ import ClickableOverlay from "../../../../../../../../GlobalComponents/Clickable
 import StatusSelectionDropdown from "../../../../../../../../GlobalComponents/StatusSelectionDropdown/index.js"
 import { router } from "@inertiajs/react"
 import ClosedAtDate from "@/Components/Dashboard/TaskWindow/Components/Form/Components/Inputs/Components/TaskStatusSelector/Components/ClosedAtDate/index.js"
+import { getCurrentDateTime } from "../../../../../../../../../../helpers/getCurrentDateTime.js"
 
 export const TaskStatusSelector = ({ task, statuses }) => {
 	const [isStatusDropdownActive, setIsStatusDropdownActive] = useState(false)
@@ -25,12 +26,7 @@ export const TaskStatusSelector = ({ task, statuses }) => {
 		}
 
 		if (statusId === statusesByType["closed"][0].id) {
-			const taskClosedAtTime = new Date()
-				.toISOString()
-				.replace("T", " ")
-				.replace(/\..*/, "")
-
-			data.closed_at = taskClosedAtTime
+			data.closed_at = getCurrentDateTime()
 		}
 
 		router.put(`/tasks/${task.id}`, data, {

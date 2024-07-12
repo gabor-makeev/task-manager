@@ -3,6 +3,7 @@ import { router } from "@inertiajs/react"
 import SelectButton from "./Components/SelectButton"
 import ClickableOverlay from "../../../../../../../../GlobalComponents/ClickableOverlay"
 import StatusSelectionDropdown from "../../../../../../../../GlobalComponents/StatusSelectionDropdown"
+import { getCurrentDateTime } from "../../../../../../../../../../helpers/getCurrentDateTime.js"
 
 export const TaskStatusSelector = ({
 	task,
@@ -18,12 +19,7 @@ export const TaskStatusSelector = ({
 		}
 
 		if (statusId === statusesByType["closed"][0].id) {
-			const taskClosedAtTime = new Date()
-				.toISOString()
-				.replace("T", " ")
-				.replace(/\..*/, "")
-
-			data.closed_at = taskClosedAtTime
+			data.closed_at = getCurrentDateTime()
 		}
 
 		router.put(`/tasks/${task.id}`, data, {
