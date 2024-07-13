@@ -8,21 +8,7 @@ Route::get('/', [TaskController::class, 'index'])
     ->middleware(['auth', 'verified'])
     ->name('dashboard');
 
-Route::get('/tasks/create', [TaskController::class, 'create'])
-    ->middleware(['auth', 'verified'])
-    ->name('task.create');
-
-Route::get('/tasks/{task}', [TaskController::class, 'show'])
-    ->middleware(['auth', 'verified'])
-    ->name('task.show');
-
-Route::put('/tasks/{task}', [TaskController::class, 'update'])
-    ->middleware(['auth', 'verified'])
-    ->name('task.update');
-
-Route::delete('/tasks/{task}', [TaskController::class, 'destroy'])
-    ->middleware(['auth', 'verified'])
-    ->name('task.destroy');
+Route::resource('tasks', TaskController::class);
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');

@@ -6,7 +6,7 @@ export const TaskLink = ({ task }) => {
 	return (
 		<Link
 			href={route(
-				"task.show",
+				"tasks.show",
 				task.id + (urlParams ? `?${urlParams}` : ""),
 			)}
 			className={

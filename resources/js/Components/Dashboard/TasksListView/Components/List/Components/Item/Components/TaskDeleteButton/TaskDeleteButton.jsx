@@ -6,7 +6,7 @@ export const TaskDeleteButton = ({ task }) => {
 	return (
 		<Link
 			href={route(
-				"task.destroy",
+				"tasks.destroy",
 				task.id + (urlParams ? `?${urlParams}` : ""),
 			)}
 			method={"delete"}
