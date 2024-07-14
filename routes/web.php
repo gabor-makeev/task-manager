@@ -8,7 +8,7 @@ Route::get('/', [TaskController::class, 'index'])
     ->middleware(['auth', 'verified'])
     ->name('dashboard');
 
-Route::resource('tasks', TaskController::class);
+Route::resource('tasks', TaskController::class)->middleware(['auth', 'verified']);
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
