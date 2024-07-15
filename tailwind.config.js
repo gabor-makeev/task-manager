@@ -18,6 +18,9 @@ export default {
 			margin: {
 				"80px": "80px",
 			},
+			flexBasis: {
+				"540px": "540px",
+			},
 		},
 	},
 

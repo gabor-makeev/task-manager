@@ -20,7 +20,7 @@ export const TasksListView = ({ auth, tasks, priorities, statuses }) => {
 
 	return (
 		<div className="py-12 px-5">
-			<div className="sm:px-6 lg:px-8">
+			<div className="sm:px-6 lg:px-8 flex flex-col">
 				<TasksListViewControls
 					totalTasks={total}
 					showAddTaskButton={!showingQuickTaskCreationForm && !!total}

@@ -20,7 +20,7 @@ export const List = ({
 	return (
 		<>
 			<ListHeaders />
-			<ul>
+			<ul className={"basis-[540px]"}>
 				{(!tasks.length || showingQuickTaskCreationForm) && (
 					<QuickTaskCreationForm
 						auth={auth}
