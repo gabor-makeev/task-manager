@@ -32,7 +32,7 @@ export const Pagination = ({
 					Previous page
 				</PaginationControl>
 			</li>
-			<li>
+			<li className={"flex items-center"}>
 				<Link as={"button"} disabled>
 					{currentPage}
 				</Link>
