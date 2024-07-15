@@ -14,6 +14,8 @@ use Inertia\Response as InertiaResponse;
 
 class TaskController extends Controller
 {
+    private const PER_PAGE = 15;
+
     public function index(): InertiaResponse
     {
         $showClosedFiltering = \request()->exists('show-closed-filtering');
@@ -34,7 +36,7 @@ class TaskController extends Controller
                 ->orderBy('priorities.value', $prioritySorting);
         }
 
-        $tasks = $query->paginate(5, ['tasks.*']);
+        $tasks = $query->paginate($this::PER_PAGE, ['tasks.*']);
         $statuses = Status::where('user_id', Auth::id())->get();
         $priorities = Priority::orderByDesc('value')->get();
 
@@ -65,7 +67,7 @@ class TaskController extends Controller
                 ->orderBy('priorities.value', $prioritySorting);
         }
 
-        $tasks = $query->paginate(5, ['tasks.*']);
+        $tasks = $query->paginate($this::PER_PAGE, ['tasks.*']);
         $statuses = Status::where('user_id', Auth::id())->get();
         $priorities = Priority::orderByDesc('value')->get();
 
@@ -101,7 +103,7 @@ class TaskController extends Controller
                 ->orderBy('priorities.value', $prioritySorting);
         }
 
-        $tasks = $query->paginate(5, ['tasks.*']);
+        $tasks = $query->paginate($this::PER_PAGE, ['tasks.*']);
         $statuses = Status::where('user_id', Auth::id())->get();
         $priorities = Priority::orderByDesc('value')->get();
 
