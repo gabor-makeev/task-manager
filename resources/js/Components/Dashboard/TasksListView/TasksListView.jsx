@@ -8,7 +8,6 @@ export const TasksListView = ({ auth, tasks, priorities, statuses }) => {
 		useState(false)
 
 	const {
-		data,
 		current_page,
 		first_page_url,
 		last_page,
@@ -16,6 +15,8 @@ export const TasksListView = ({ auth, tasks, priorities, statuses }) => {
 		next_page_url,
 		prev_page_url,
 		total,
+		from,
+		to,
 	} = tasks
 
 	return (
@@ -30,7 +31,7 @@ export const TasksListView = ({ auth, tasks, priorities, statuses }) => {
 				/>
 				<List
 					auth={auth}
-					tasks={data}
+					tasks={tasks}
 					statuses={statuses}
 					priorities={priorities}
 					showingQuickTaskCreationForm={showingQuickTaskCreationForm}
@@ -45,6 +46,8 @@ export const TasksListView = ({ auth, tasks, priorities, statuses }) => {
 					lastPageUrl={last_page_url}
 					nextPageUrl={next_page_url}
 					prevPageUrl={prev_page_url}
+					tasksOnPageFrom={from}
+					tasksOnPageTo={to}
 				/>
 			</div>
 		</div>

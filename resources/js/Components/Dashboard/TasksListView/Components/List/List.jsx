@@ -21,7 +21,7 @@ export const List = ({
 		<>
 			<ListHeaders />
 			<ul className={"basis-[540px]"}>
-				{(!tasks.length || showingQuickTaskCreationForm) && (
+				{(!tasks.data.length || showingQuickTaskCreationForm) && (
 					<QuickTaskCreationForm
 						auth={auth}
 						setShowingQuickTaskCreationForm={
@@ -29,7 +29,7 @@ export const List = ({
 						}
 					/>
 				)}
-				{tasks.map((task) => (
+				{tasks.data.map((task) => (
 					<Item
 						key={task.id}
 						task={task}
