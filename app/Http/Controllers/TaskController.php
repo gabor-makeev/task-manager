@@ -11,7 +11,6 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Redirect;
 use Inertia\Inertia;
 use Inertia\Response as InertiaResponse;
-use function PHPUnit\Framework\isNull;
 
 class TaskController extends Controller
 {
@@ -35,7 +34,7 @@ class TaskController extends Controller
                 ->orderBy('priorities.value', $prioritySorting);
         }
 
-        $tasks = $query->get(['tasks.*']);
+        $tasks = $query->paginate(5, ['tasks.*']);
         $statuses = Status::where('user_id', Auth::id())->get();
         $priorities = Priority::orderByDesc('value')->get();
 
@@ -66,7 +65,7 @@ class TaskController extends Controller
                 ->orderBy('priorities.value', $prioritySorting);
         }
 
-        $tasks = $query->get(['tasks.*']);
+        $tasks = $query->paginate(5, ['tasks.*']);
         $statuses = Status::where('user_id', Auth::id())->get();
         $priorities = Priority::orderByDesc('value')->get();
 
@@ -102,7 +101,7 @@ class TaskController extends Controller
                 ->orderBy('priorities.value', $prioritySorting);
         }
 
-        $tasks = $query->get(['tasks.*']);
+        $tasks = $query->paginate(5, ['tasks.*']);
         $statuses = Status::where('user_id', Auth::id())->get();
         $priorities = Priority::orderByDesc('value')->get();
 

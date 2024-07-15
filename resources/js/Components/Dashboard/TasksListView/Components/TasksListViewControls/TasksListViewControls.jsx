@@ -3,14 +3,14 @@ import TasksCounter from "./Components/TasksCounter"
 import AddTaskButton from "@/Components/Dashboard/TasksListView/Components/TasksListViewControls/Components/AddTaskButton"
 
 export const TasksListViewControls = ({
-	tasks,
+	totalTasks,
 	showAddTaskButton,
 	addTaskButtonClickHandler,
 }) => {
 	return (
 		<div className={"flex font-semibold items-center h-8"}>
 			<Heading>Tasks</Heading>
-			<TasksCounter>{tasks.length}</TasksCounter>
+			<TasksCounter>{totalTasks}</TasksCounter>
 			{showAddTaskButton && (
 				<AddTaskButton
 					addTaskButtonClickHandler={addTaskButtonClickHandler}
