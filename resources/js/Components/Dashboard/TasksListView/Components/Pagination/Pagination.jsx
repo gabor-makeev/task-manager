@@ -1,4 +1,5 @@
 import { Link } from "@inertiajs/react"
+import PaginationControl from "./Components/PaginationControl"
 
 export const Pagination = ({
 	currentPage,
@@ -16,22 +17,20 @@ export const Pagination = ({
 	return (
 		<ul className={"flex gap-4 mt-8"}>
 			<li>
-				<Link
-					href={firstPageUrl + "&" + UrlParamsWithoutPagination}
-					as={"button"}
+				<PaginationControl
+					url={firstPageUrl + "&" + UrlParamsWithoutPagination}
 					disabled={currentPage === 1}
 				>
 					First page
-				</Link>
+				</PaginationControl>
 			</li>
 			<li>
-				<Link
-					href={prevPageUrl + "&" + UrlParamsWithoutPagination}
-					as={"button"}
+				<PaginationControl
+					url={prevPageUrl + "&" + UrlParamsWithoutPagination}
 					disabled={currentPage === 1}
 				>
 					Previous page
-				</Link>
+				</PaginationControl>
 			</li>
 			<li>
 				<Link as={"button"} disabled>
@@ -39,22 +38,20 @@ export const Pagination = ({
 				</Link>
 			</li>
 			<li>
-				<Link
-					href={nextPageUrl + "&" + UrlParamsWithoutPagination}
-					as={"button"}
+				<PaginationControl
+					url={nextPageUrl + "&" + UrlParamsWithoutPagination}
 					disabled={currentPage === lastPage}
 				>
 					Next page
-				</Link>
+				</PaginationControl>
 			</li>
 			<li>
-				<Link
-					href={lastPageUrl + "&" + UrlParamsWithoutPagination}
-					as={"button"}
+				<PaginationControl
+					url={lastPageUrl + "&" + UrlParamsWithoutPagination}
 					disabled={currentPage === lastPage}
 				>
 					Last page
-				</Link>
+				</PaginationControl>
 			</li>
 		</ul>
 	)
