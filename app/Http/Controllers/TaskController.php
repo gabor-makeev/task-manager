@@ -121,7 +121,7 @@ class TaskController extends Controller
             'name' => $request->post('name'),
             'description' => $request->post('description'),
             'user_id' => $request->post('user_id'),
-            'parent_id' => $request->post('parent_id'),
+            'parent_task_id' => $request->post('parent_task_id'),
             'status_id' => Status::where([
                 'user_id' => Auth::id(),
                 'type' => 'not started'

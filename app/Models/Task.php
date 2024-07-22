@@ -15,7 +15,7 @@ class Task extends Model
         'name',
         'description',
         'user_id',
-        'parent_id',
+        'parent_task_id',
         'status_id',
         'priority_id',
         'closed_at'
