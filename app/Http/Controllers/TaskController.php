@@ -128,6 +128,10 @@ class TaskController extends Controller
             ])->first()->id
         ]);
 
+        if ($request->post('parent_task_id')) {
+            return Redirect::back()->with('task successfully created', 201);
+        }
+
         return Redirect::route('dashboard', \request()->getQueryString())->with('task successfully created', 201);
     }
 
