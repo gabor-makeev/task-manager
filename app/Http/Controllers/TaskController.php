@@ -107,8 +107,6 @@ class TaskController extends Controller
         $statuses = Status::where('user_id', Auth::id())->get();
         $priorities = Priority::orderByDesc('value')->get();
 
-
-
         return Inertia::render('Dashboard', [
             'tasks' => $tasks,
             'statuses' => $statuses,
@@ -123,6 +121,7 @@ class TaskController extends Controller
             'name' => $request->post('name'),
             'description' => $request->post('description'),
             'user_id' => $request->post('user_id'),
+            'parent_id' => $request->post('parent_id'),
             'status_id' => Status::where([
                 'user_id' => Auth::id(),
                 'type' => 'not started'
