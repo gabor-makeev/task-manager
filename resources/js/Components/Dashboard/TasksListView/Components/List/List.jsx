@@ -22,12 +22,14 @@ export const List = ({
 			<ListHeaders />
 			<ul className={"basis-[540px]"}>
 				{(!tasks.data.length || showingQuickTaskCreationForm) && (
-					<QuickTaskCreationForm
-						auth={auth}
-						setShowingQuickTaskCreationForm={
-							setShowingQuickTaskCreationForm
-						}
-					/>
+					<li className={"border-b border-b-slate-200"}>
+						<QuickTaskCreationForm
+							auth={auth}
+							setShowingQuickTaskCreationForm={
+								setShowingQuickTaskCreationForm
+							}
+						/>
+					</li>
 				)}
 				{tasks.data.map((task) => (
 					<Item

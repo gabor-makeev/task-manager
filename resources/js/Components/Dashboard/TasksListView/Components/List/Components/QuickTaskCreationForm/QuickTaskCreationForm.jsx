@@ -1,86 +1,71 @@
 import { useRef, useState } from "react"
 import { router } from "@inertiajs/react"
-import QuickTaskCreationFormControls from "./Components/QuickTaskCreationFormControls"
 import TaskNameInput from "./Components/TaskNameInput"
+import SaveButton from "@/Components/GlobalComponents/SaveButton/index.js"
 
 export const QuickTaskCreationForm = ({
 	auth,
 	setShowingQuickTaskCreationForm,
 }) => {
-	const [taskNameInput, setTaskNameInput] = useState("")
-	const [
-		showingQuickTaskCreationFormControls,
-		setShowingQuickTaskCreationFormControls,
-	] = useState(false)
+	const [formData, setFormData] = useState({
+		name: "",
+	})
+	const [showingControls, setShowingControls] = useState(false)
 
-	const quickTaskCreationFormSaveButton = useRef(null)
+	const saveButton = useRef(null)
 
-	const createTask = () => {
-		router.post(
-			`/tasks?${new URLSearchParams(window.location.search).toString()}`,
-			{
-				name: taskNameInput,
-				user_id: auth.user.id,
-			},
-		)
-	}
-
-	const handleQuickTaskCreationFormSubmit = (e) => {
+	const handleSubmit = (e) => {
 		e.preventDefault()
 
-		createTask()
+		const isSubmittedBySaveButton =
+			e.nativeEvent.submitter === saveButton.current
 
-		setTaskNameInput("")
-		setShowingQuickTaskCreationForm(false)
+		const urlParams = new URLSearchParams(window.location.search).toString()
+
+		router.post(`/tasks?${urlParams}`, {
+			name: formData.name,
+			user_id: auth.user.id,
+		})
+
+		setFormData({
+			...formData,
+			name: "",
+		})
+
+		setShowingQuickTaskCreationForm(!isSubmittedBySaveButton)
 	}
 
-	const handleEnterKeyDown = (e) => {
-		if (e.key !== "Enter") {
+	const handleTaskNameInputBlur = (e) => {
+		if (e.relatedTarget === saveButton.current) {
 			return
 		}
 
-		createTask()
-
-		setTaskNameInput("")
-		setShowingQuickTaskCreationForm(true)
-	}
-
-	const handleQuickTaskCreationFormTaskNameInputBlur = (e) => {
-		if (e.relatedTarget === quickTaskCreationFormSaveButton.current) {
-			return
-		}
-
-		setTaskNameInput("")
-		setShowingQuickTaskCreationFormControls(false)
+		setFormData({
+			...formData,
+			name: "",
+		})
+		setShowingControls(false)
 		setShowingQuickTaskCreationForm(false)
 	}
 
 	return (
-		<li className={"border-b border-b-slate-200"}>
-			<form
-				onSubmit={(e) => handleQuickTaskCreationFormSubmit(e)}
-				className={"flex"}
-			>
-				<TaskNameInput
-					autoFocus
-					required
-					value={taskNameInput}
-					onFocus={() =>
-						setShowingQuickTaskCreationFormControls(true)
-					}
-					onBlur={(e) =>
-						handleQuickTaskCreationFormTaskNameInputBlur(e)
-					}
-					onChange={(e) => setTaskNameInput(e.target.value)}
-					onKeyDown={handleEnterKeyDown}
-				/>
-				<button disabled></button>
-				{showingQuickTaskCreationFormControls && (
-					<QuickTaskCreationFormControls
-						saveButtonRef={quickTaskCreationFormSaveButton}
-					/>
-				)}
-			</form>
-		</li>
+		<form onSubmit={(e) => handleSubmit(e)} className={"flex"}>
+			<TaskNameInput
+				autoFocus
+				required
+				value={formData.name}
+				onFocus={() => setShowingControls(true)}
+				onBlur={(e) => handleTaskNameInputBlur(e)}
+				onChange={(e) =>
+					setFormData({ ...formData, name: e.target.value })
+				}
+			/>
+			<button></button>
+			{showingControls && (
+				<div className={"flex items-center"}>
+					<SaveButton saveButtonRef={saveButton} />
+				</div>
+			)}
+		</form>
 	)
 }
