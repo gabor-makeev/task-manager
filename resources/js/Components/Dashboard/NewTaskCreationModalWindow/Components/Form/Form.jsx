@@ -1,6 +1,6 @@
-import Inputs from "./Components/Inputs"
 import { router } from "@inertiajs/react"
 import { useState } from "react"
+import Inputs from "./Components/Inputs"
 import SubmitSection from "./Components/SubmitSection"
 
 export const Form = ({ user }) => {
@@ -8,15 +8,6 @@ export const Form = ({ user }) => {
 		name: "",
 		description: "",
 	})
-
-	const handleChange = (e) => {
-		const { name, value } = e.target
-
-		setFormData((prevState) => ({
-			...prevState,
-			[name]: value,
-		}))
-	}
 
 	const handleSubmit = (e) => {
 		e.preventDefault()
@@ -32,7 +23,7 @@ export const Form = ({ user }) => {
 
 	return (
 		<form onSubmit={(e) => handleSubmit(e)}>
-			<Inputs formData={formData} handleChange={handleChange} />
+			<Inputs formData={formData} setFormData={setFormData} />
 			<SubmitSection />
 		</form>
 	)

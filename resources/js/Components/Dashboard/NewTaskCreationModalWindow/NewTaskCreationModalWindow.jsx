@@ -2,12 +2,13 @@ import { router } from "@inertiajs/react"
 import ClickableOverlay from "../../GlobalComponents/ClickableOverlay"
 import Header from "./Components/Header"
 import Form from "./Components/Form"
+import Container from "./Components/Container"
 
 export default function NewTaskCreationModalWindow({ user }) {
 	const handleOverlayClick = () => {
-		router.get(
-			`/?${new URLSearchParams(window.location.search).toString()}`,
-		)
+		const urlParams = new URLSearchParams(window.location.search).toString()
+
+		router.get(`/?${urlParams}`)
 	}
 
 	return (
@@ -18,14 +19,10 @@ export default function NewTaskCreationModalWindow({ user }) {
 			}
 		>
 			<ClickableOverlay onClick={() => handleOverlayClick()} />
-			<div
-				className={
-					"flex flex-col bg-white rounded-xl shadow-sm max-w-2xl flex-grow mt-36 z-10"
-				}
-			>
+			<Container>
 				<Header />
 				<Form user={user} />
-			</div>
+			</Container>
 		</div>
 	)
 }

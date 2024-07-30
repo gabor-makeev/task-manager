@@ -1,7 +1,16 @@
 import TaskNameInput from "./Components/TaskNameInput"
 import TaskDescriptionTextarea from "../../../../../../GlobalComponents/TaskDescriptionTextarea"
 
-export const Inputs = ({ formData, handleChange }) => {
+export const Inputs = ({ formData, setFormData }) => {
+	const handleChange = (e) => {
+		const { name, value } = e.target
+
+		setFormData((prevState) => ({
+			...prevState,
+			[name]: value,
+		}))
+	}
+
 	return (
 		<div className={"p-6 border-b"}>
 			<TaskNameInput
