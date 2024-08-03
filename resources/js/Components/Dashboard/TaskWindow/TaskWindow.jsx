@@ -4,17 +4,14 @@ import Form from "./Components/Form"
 import TaskBadges from "./Components/TaskBadges"
 import MainContainer from "./Components/MainContainer"
 import Overlay from "./Components/Overlay"
+import Modal from "./Components/Modal"
 
 export const TaskWindow = ({ task, statuses }) => {
 	const [isTaskUpdating, setIsTaskUpdating] = useState(false)
 
 	return (
 		<Overlay>
-			<div
-				className={
-					"flex flex-col grow bg-white h-full max-w-screen-2xl rounded-xl"
-				}
-			>
+			<Modal>
 				<Header task={task} isTaskUpdating={isTaskUpdating} />
 				<MainContainer>
 					<TaskBadges task={task} />
@@ -24,7 +21,7 @@ export const TaskWindow = ({ task, statuses }) => {
 						setIsTaskUpdating={setIsTaskUpdating}
 					/>
 				</MainContainer>
-			</div>
+			</Modal>
 		</Overlay>
 	)
 }
