@@ -53,8 +53,16 @@ export const TaskStatusSelector = ({
 
 	const selectNextStatus = () => {
 		const nextTaskStatusId = findNextStatusId()
+		const data = {
+			...formData,
+			status_id: nextTaskStatusId,
+		}
 
-		setFormData({ ...formData, status_id: nextTaskStatusId })
+		if (nextTaskStatusId === statusesByType.closed[0].id) {
+			data.closed_at = getCurrentDateTime()
+		}
+
+		setFormData({ ...formData, ...data })
 	}
 
 	const selectCompleteStatus = () => {
