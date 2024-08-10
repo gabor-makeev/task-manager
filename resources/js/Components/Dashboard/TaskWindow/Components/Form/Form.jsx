@@ -11,6 +11,7 @@ export const Form = ({ task, statuses, setIsTaskUpdating }) => {
 	})
 
 	const firstRenderRef = useRef(true)
+	const formRef = useRef(null)
 
 	useEffect(() => {
 		if (firstRenderRef.current) {
@@ -22,11 +23,7 @@ export const Form = ({ task, statuses, setIsTaskUpdating }) => {
 		setIsTaskUpdating(true)
 
 		const timeout = setTimeout(() => {
-			router.put(`/tasks/${task.id}`, formData, {
-				onSuccess: () => {
-					setIsTaskUpdating(false)
-				},
-			})
+			formRef.current.requestSubmit()
 		}, 1000)
 
 		return () => {
@@ -43,8 +40,18 @@ export const Form = ({ task, statuses, setIsTaskUpdating }) => {
 		}))
 	}
 
+	const handleSubmit = (e) => {
+		e.preventDefault()
+
+		router.put(`/tasks/${task.id}`, formData, {
+			onSuccess: () => {
+				setIsTaskUpdating(false)
+			},
+		})
+	}
+
 	return (
-		<>
+		<form onSubmit={handleSubmit} ref={formRef}>
 			<TaskNameField value={formData.name} onChange={handleChange} />
 			<TaskStatusSelector task={task} statuses={statuses} />
 			<TaskDescriptionTextarea
@@ -53,6 +60,6 @@ export const Form = ({ task, statuses, setIsTaskUpdating }) => {
 				handleChange={handleChange}
 				bordered
 			/>
-		</>
+		</form>
 	)
 }

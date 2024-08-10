@@ -8,6 +8,7 @@ export const Item = ({ task, status, itemClickHandler }) => {
 	return (
 		<li>
 			<button
+				type={"button"}
 				onClick={() => itemClickHandler(status.id)}
 				className={`flex gap-2 w-full rounded-md hover:bg-gray-100 uppercase
                     ${status.type !== "closed" ? "items-center px-2 h-7" : "pt-2 pr-8 pb-2.5 pl-4"}

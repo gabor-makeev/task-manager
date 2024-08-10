@@ -15,6 +15,7 @@ export const CompleteTaskButton = ({ task, statuses }) => {
 
 	return (
 		<button
+			type={"button"}
 			onClick={handleCompleteButtonClick}
 			className={
 				"ml-2 w-6 h-6 border border-gray-300 group hover:border-green-500 rounded flex justify-center items-center duration-200"

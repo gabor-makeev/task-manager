@@ -33,6 +33,7 @@ export const NextTaskStatusButton = ({ task, statuses }) => {
 
 	return (
 		<button
+			type={"button"}
 			onClick={handleNextStatusButtonClick}
 			className={`w-6 h-6 flex items-center justify-center rounded-r bg-${taskStatusColor.main}`}
 		>
