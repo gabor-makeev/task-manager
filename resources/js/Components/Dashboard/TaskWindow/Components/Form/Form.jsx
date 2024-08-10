@@ -53,7 +53,12 @@ export const Form = ({ task, statuses, setIsTaskUpdating }) => {
 	return (
 		<form onSubmit={handleSubmit} ref={formRef}>
 			<TaskNameField value={formData.name} onChange={handleChange} />
-			<TaskStatusSelector task={task} statuses={statuses} />
+			<TaskStatusSelector
+				task={task}
+				statuses={statuses}
+				formData={formData}
+				setFormData={setFormData}
+			/>
 			<TaskDescriptionTextarea
 				taskDescription={task.description}
 				value={formData.description}

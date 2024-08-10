@@ -3,23 +3,27 @@ import {
 	getStatusesByPriority,
 	getStatusesByType,
 } from "../../../../../../../../helpers/statusFormatters.js"
-import Label from "./Components/Label/index.js"
-import CompleteTaskButton from "./Components/CompleteTaskButton/index.js"
-import NextTaskStatusButton from "./Components/NextTaskStatusButton/index.js"
-import StatusButton from "./Components/StatusButton/index.js"
-import ClickableOverlay from "../../../../../../GlobalComponents/ClickableOverlay/index.js"
-import StatusSelectionDropdown from "../../../../../../GlobalComponents/StatusSelectionDropdown/index.js"
-import { router } from "@inertiajs/react"
-import ClosedAtDate from "@/Components/Dashboard/TaskWindow/Components/Form/Components/TaskStatusSelector/Components/ClosedAtDate/index.js"
 import { getCurrentDateTime } from "../../../../../../../../helpers/getCurrentDateTime.js"
+import ClickableOverlay from "../../../../../../GlobalComponents/ClickableOverlay"
+import StatusSelectionDropdown from "../../../../../../GlobalComponents/StatusSelectionDropdown"
+import Label from "./Components/Label"
+import CompleteTaskButton from "./Components/CompleteTaskButton"
+import NextTaskStatusButton from "./Components/NextTaskStatusButton"
+import StatusButton from "./Components/StatusButton"
+import ClosedAtDate from "./Components/ClosedAtDate"
 
-export const TaskStatusSelector = ({ task, statuses }) => {
+export const TaskStatusSelector = ({
+	task,
+	statuses,
+	formData,
+	setFormData,
+}) => {
 	const [isStatusDropdownActive, setIsStatusDropdownActive] = useState(false)
 
 	const statusesByPriority = getStatusesByPriority(statuses)
 	const statusesByType = getStatusesByType(statuses)
 
-	const handleStatusChangeButtonClick = (statusId) => {
+	const selectStatus = (statusId) => {
 		const data = {
 			status_id: statusId,
 			closed_at: null,
@@ -29,10 +33,37 @@ export const TaskStatusSelector = ({ task, statuses }) => {
 			data.closed_at = getCurrentDateTime()
 		}
 
-		router.put(`/tasks/${task.id}`, data, {
-			onSuccess: () => {
-				setIsStatusDropdownActive(false)
-			},
+		setFormData({ ...formData, ...data })
+
+		setIsStatusDropdownActive(false)
+	}
+
+	const findNextStatusId = () => {
+		for (let i = 0; i < statuses.length; i++) {
+			if (
+				statuses[i].name === statusesByPriority[task.status_id].name &&
+				statuses[i + 1]
+			) {
+				return statuses[i + 1].id
+			}
+		}
+
+		return statusesByType["not started"][0].id
+	}
+
+	const selectNextStatus = () => {
+		const nextTaskStatusId = findNextStatusId()
+
+		setFormData({ ...formData, status_id: nextTaskStatusId })
+	}
+
+	const selectCompleteStatus = () => {
+		const taskClosedAtTime = getCurrentDateTime()
+
+		setFormData({
+			...formData,
+			status_id: statusesByType.closed[0].id,
+			closed_at: taskClosedAtTime,
 		})
 	}
 
@@ -47,9 +78,13 @@ export const TaskStatusSelector = ({ task, statuses }) => {
 					statuses={statuses}
 					onClickHandler={() => setIsStatusDropdownActive(true)}
 				/>
-				<NextTaskStatusButton task={task} statuses={statuses} />
+				<NextTaskStatusButton
+					task={task}
+					statuses={statuses}
+					handleClick={selectNextStatus}
+				/>
 				{statusesByPriority[task.status_id].type !== "closed" && (
-					<CompleteTaskButton task={task} statuses={statuses} />
+					<CompleteTaskButton onClick={selectCompleteStatus} />
 				)}
 				{statusesByPriority[task.status_id].type === "closed" && (
 					<ClosedAtDate task={task} />
@@ -62,9 +97,7 @@ export const TaskStatusSelector = ({ task, statuses }) => {
 						<StatusSelectionDropdown
 							task={task}
 							statusesByType={statusesByType}
-							statusOptionClickHandler={
-								handleStatusChangeButtonClick
-							}
+							statusOptionClickHandler={selectStatus}
 						/>
 					</>
 				)}

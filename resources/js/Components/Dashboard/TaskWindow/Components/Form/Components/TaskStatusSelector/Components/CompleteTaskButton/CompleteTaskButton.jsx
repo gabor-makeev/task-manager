@@ -1,22 +1,8 @@
-import { router } from "@inertiajs/react"
-import { getStatusesByType } from "../../../../../../../../../../helpers/statusFormatters.js"
-import { getCurrentDateTime } from "../../../../../../../../../../helpers/getCurrentDateTime.js"
-
-export const CompleteTaskButton = ({ task, statuses }) => {
-	const statusesByType = getStatusesByType(statuses)
-	const handleCompleteButtonClick = () => {
-		const taskClosedAtTime = getCurrentDateTime()
-
-		router.put(`/tasks/${task.id}`, {
-			status_id: statusesByType.closed[0].id,
-			closed_at: taskClosedAtTime,
-		})
-	}
-
+export const CompleteTaskButton = (props) => {
 	return (
 		<button
 			type={"button"}
-			onClick={handleCompleteButtonClick}
+			{...props}
 			className={
 				"ml-2 w-6 h-6 border border-gray-300 group hover:border-green-500 rounded flex justify-center items-center duration-200"
 			}
