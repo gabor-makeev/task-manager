@@ -8,6 +8,8 @@ export const Form = ({ task, statuses, setIsTaskUpdating }) => {
 	const [formData, setFormData] = useState({
 		name: task.name,
 		description: task.description,
+		status_id: task.status_id,
+		closed_at: task.closed_at,
 	})
 
 	const firstRenderRef = useRef(true)
@@ -22,9 +24,15 @@ export const Form = ({ task, statuses, setIsTaskUpdating }) => {
 
 		setIsTaskUpdating(true)
 
+		let submitTimeout = 1000
+
+		if (task.status_id !== formData.status_id) {
+			submitTimeout = 0
+		}
+
 		const timeout = setTimeout(() => {
 			formRef.current.requestSubmit()
-		}, 1000)
+		}, submitTimeout)
 
 		return () => {
 			clearTimeout(timeout)
