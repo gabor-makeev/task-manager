@@ -1,6 +1,8 @@
-import Inputs from "./Components/Inputs"
 import { useEffect, useRef, useState } from "react"
 import { router } from "@inertiajs/react"
+import TaskNameField from "./Components/TaskNameField"
+import TaskStatusSelector from "./Components/TaskStatusSelector"
+import TaskDescriptionTextarea from "@/Components/GlobalComponents/TaskDescriptionTextarea"
 
 export const Form = ({ task, statuses, setIsTaskUpdating }) => {
 	const [formData, setFormData] = useState({
@@ -43,12 +45,13 @@ export const Form = ({ task, statuses, setIsTaskUpdating }) => {
 
 	return (
 		<>
-			{/* TODO: implement separate input field elements */}
-			<Inputs
-				task={task}
-				statuses={statuses}
-				formData={formData}
+			<TaskNameField value={formData.name} onChange={handleChange} />
+			<TaskStatusSelector task={task} statuses={statuses} />
+			<TaskDescriptionTextarea
+				taskDescription={task.description}
+				value={formData.description}
 				handleChange={handleChange}
+				bordered
 			/>
 		</>
 	)

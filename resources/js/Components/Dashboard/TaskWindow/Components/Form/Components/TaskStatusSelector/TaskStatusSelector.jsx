@@ -2,16 +2,16 @@ import { useState } from "react"
 import {
 	getStatusesByPriority,
 	getStatusesByType,
-} from "../../../../../../../../../../helpers/statusFormatters.js"
+} from "../../../../../../../../helpers/statusFormatters.js"
 import Label from "./Components/Label/index.js"
 import CompleteTaskButton from "./Components/CompleteTaskButton/index.js"
 import NextTaskStatusButton from "./Components/NextTaskStatusButton/index.js"
 import StatusButton from "./Components/StatusButton/index.js"
-import ClickableOverlay from "../../../../../../../../GlobalComponents/ClickableOverlay/index.js"
-import StatusSelectionDropdown from "../../../../../../../../GlobalComponents/StatusSelectionDropdown/index.js"
+import ClickableOverlay from "../../../../../../GlobalComponents/ClickableOverlay/index.js"
+import StatusSelectionDropdown from "../../../../../../GlobalComponents/StatusSelectionDropdown/index.js"
 import { router } from "@inertiajs/react"
-import ClosedAtDate from "@/Components/Dashboard/TaskWindow/Components/Form/Components/Inputs/Components/TaskStatusSelector/Components/ClosedAtDate/index.js"
-import { getCurrentDateTime } from "../../../../../../../../../../helpers/getCurrentDateTime.js"
+import ClosedAtDate from "@/Components/Dashboard/TaskWindow/Components/Form/Components/TaskStatusSelector/Components/ClosedAtDate/index.js"
+import { getCurrentDateTime } from "../../../../../../../../helpers/getCurrentDateTime.js"
 
 export const TaskStatusSelector = ({ task, statuses }) => {
 	const [isStatusDropdownActive, setIsStatusDropdownActive] = useState(false)

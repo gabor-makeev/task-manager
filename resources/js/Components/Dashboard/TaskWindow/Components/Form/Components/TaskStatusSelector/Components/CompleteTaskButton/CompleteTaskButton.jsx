@@ -1,6 +1,6 @@
 import { router } from "@inertiajs/react"
-import { getStatusesByType } from "../../../../../../../../../../../../helpers/statusFormatters.js"
-import { getCurrentDateTime } from "../../../../../../../../../../../../helpers/getCurrentDateTime.js"
+import { getStatusesByType } from "../../../../../../../../../../helpers/statusFormatters.js"
+import { getCurrentDateTime } from "../../../../../../../../../../helpers/getCurrentDateTime.js"
 
 export const CompleteTaskButton = ({ task, statuses }) => {
 	const statusesByType = getStatusesByType(statuses)

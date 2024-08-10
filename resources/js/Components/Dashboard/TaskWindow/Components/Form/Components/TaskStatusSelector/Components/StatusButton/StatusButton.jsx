@@ -1,5 +1,5 @@
-import { getStatusesByPriority } from "../../../../../../../../../../../../helpers/statusFormatters.js"
-import { colors } from "../../../../../../../../../../../../constants/colors.js"
+import { getStatusesByPriority } from "../../../../../../../../../../helpers/statusFormatters.js"
+import { colors } from "../../../../../../../../../../constants/colors.js"
 
 export const StatusButton = ({ task, statuses, onClickHandler }) => {
 	const statusesByPriority = getStatusesByPriority(statuses)
