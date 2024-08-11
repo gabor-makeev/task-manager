@@ -3,7 +3,6 @@ import {
 	getStatusesByPriority,
 	getStatusesByType,
 } from "../../../../../../../../helpers/statusFormatters.js"
-import { getCurrentDateTime } from "../../../../../../../../helpers/getCurrentDateTime.js"
 import ClickableOverlay from "../../../../../../GlobalComponents/ClickableOverlay"
 import StatusSelectionDropdown from "../../../../../../GlobalComponents/StatusSelectionDropdown"
 import Label from "./Components/Label"
@@ -24,16 +23,7 @@ export const TaskStatusSelector = ({
 	const statusesByType = getStatusesByType(statuses)
 
 	const selectStatus = (statusId) => {
-		const data = {
-			status_id: statusId,
-			closed_at: null,
-		}
-
-		if (statusId === statusesByType["closed"][0].id) {
-			data.closed_at = getCurrentDateTime()
-		}
-
-		setFormData({ ...formData, ...data })
+		setFormData({ ...formData, status_id: statusId })
 
 		setIsStatusDropdownActive(false)
 	}
@@ -58,20 +48,13 @@ export const TaskStatusSelector = ({
 			status_id: nextTaskStatusId,
 		}
 
-		if (nextTaskStatusId === statusesByType.closed[0].id) {
-			data.closed_at = getCurrentDateTime()
-		}
-
 		setFormData({ ...formData, ...data })
 	}
 
 	const selectCompleteStatus = () => {
-		const taskClosedAtTime = getCurrentDateTime()
-
 		setFormData({
 			...formData,
 			status_id: statusesByType.closed[0].id,
-			closed_at: taskClosedAtTime,
 		})
 	}
 

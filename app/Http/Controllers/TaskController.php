@@ -137,7 +137,19 @@ class TaskController extends Controller
 
     public function update(Task $task): RedirectResponse
     {
-        $task->update(\request()->only(['name', 'description', 'status_id', 'priority_id', 'closed_at']));
+        $data = \request()->only(['name', 'description', 'status_id', 'priority_id']);
+        $newTaskStatus = Status::find($data['status_id']);
+        $isNewTaskStatus = $newTaskStatus->id !== $task->status->id;
+
+        if ($isNewTaskStatus && $newTaskStatus->type === 'closed') {
+            $data['closed_at'] = (string) now();
+        }
+
+        if ($newTaskStatus->type !== 'closed') {
+            $data['closed_at'] = null;
+        }
+
+        $task->update($data);
 
         return Redirect::back()->with('success', 'Task updated');
     }
