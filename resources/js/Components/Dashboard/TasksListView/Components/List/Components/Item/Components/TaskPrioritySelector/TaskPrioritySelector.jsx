@@ -1,25 +1,24 @@
 import { useState } from "react"
-import { router } from "@inertiajs/react"
 import PriorityButton from "./Components/PriorityButton"
 import ClickableOverlay from "../../../../../../../../GlobalComponents/ClickableOverlay"
 import PrioritiesList from "./Components/PrioritiesList"
 
-export const TaskPrioritySelector = ({ task, priorities }) => {
+export const TaskPrioritySelector = ({
+	task,
+	priorities,
+	formData,
+	setFormData,
+}) => {
 	const [isPriorityDropdownActive, setIsPriorityDropdownActive] =
 		useState(false)
 
-	const handlePriorityChangeButtonClick = (priorityId) => {
-		router.put(
-			`/tasks/${task.id}`,
-			{
-				priority_id: priorityId,
-			},
-			{
-				onSuccess: () => {
-					setIsPriorityDropdownActive(false)
-				},
-			},
-		)
+	const selectPriority = (priorityId) => {
+		setFormData({
+			...formData,
+			priority_id: priorityId,
+		})
+
+		setIsPriorityDropdownActive(false)
 	}
 
 	return (
@@ -38,9 +37,7 @@ export const TaskPrioritySelector = ({ task, priorities }) => {
 					<PrioritiesList
 						task={task}
 						priorities={priorities}
-						handlePriorityChangeButtonClick={
-							handlePriorityChangeButtonClick
-						}
+						handlePriorityChangeButtonClick={selectPriority}
 					/>
 				</>
 			)}

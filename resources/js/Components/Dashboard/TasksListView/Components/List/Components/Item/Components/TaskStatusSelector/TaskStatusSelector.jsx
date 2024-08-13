@@ -1,32 +1,24 @@
 import { useState } from "react"
-import { router } from "@inertiajs/react"
 import SelectButton from "./Components/SelectButton"
 import ClickableOverlay from "../../../../../../../../GlobalComponents/ClickableOverlay"
 import StatusSelectionDropdown from "../../../../../../../../GlobalComponents/StatusSelectionDropdown"
-import { getCurrentDateTime } from "../../../../../../../../../../helpers/getCurrentDateTime.js"
 
 export const TaskStatusSelector = ({
 	task,
 	statusesByPriority,
 	statusesByType,
+	formData,
+	setFormData,
 }) => {
 	const [isStatusSelectorActive, setIsStatusSelectorActive] = useState(false)
 
-	const handleStatusChangeButtonClick = (statusId) => {
-		const data = {
+	const selectStatus = (statusId) => {
+		setFormData({
+			...formData,
 			status_id: statusId,
-			closed_at: null,
-		}
-
-		if (statusId === statusesByType["closed"][0].id) {
-			data.closed_at = getCurrentDateTime()
-		}
-
-		router.put(`/tasks/${task.id}`, data, {
-			onSuccess: () => {
-				setIsStatusSelectorActive(false)
-			},
 		})
+
+		setIsStatusSelectorActive(false)
 	}
 
 	return (
@@ -44,7 +36,7 @@ export const TaskStatusSelector = ({
 					<StatusSelectionDropdown
 						task={task}
 						statusesByType={statusesByType}
-						statusOptionClickHandler={handleStatusChangeButtonClick}
+						statusOptionClickHandler={selectStatus}
 					/>
 				</>
 			)}
