@@ -3,7 +3,7 @@ export const NewTaskButton = (props) => {
 		<button
 			{...props}
 			className={
-				"w-full h-10 flex items-center border rounded-lg pl-4 pr-2 hover:bg-slate-50"
+				"w-full h-10 flex items-center pl-4 pr-2 hover:bg-slate-50"
 			}
 		>
 			<svg

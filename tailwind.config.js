@@ -21,6 +21,9 @@ export default {
 			flexBasis: {
 				"540px": "540px",
 			},
+			lineHeight: {
+				"14px": "14px",
+			},
 		},
 	},
 
