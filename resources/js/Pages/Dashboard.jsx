@@ -8,6 +8,7 @@ import TasksListView from "../Components/Dashboard/TasksListView"
 export default function Dashboard({
 	auth,
 	tasks,
+	subtasks,
 	statuses,
 	priorities,
 	withNewTaskCreationForm,
@@ -26,7 +27,14 @@ export default function Dashboard({
 			{withNewTaskCreationForm && (
 				<NewTaskCreationModalWindow user={auth.user} />
 			)}
-			{task && <TaskWindow task={task} statuses={statuses} />}
+			{task && (
+				<TaskWindow
+					task={task}
+					subtasks={subtasks}
+					statuses={statuses}
+					priorities={priorities}
+				/>
+			)}
 			<div className={"px-12 py-3 flex justify-items-start"}>
 				<ShowClosedLink />
 			</div>

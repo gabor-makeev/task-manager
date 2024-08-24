@@ -9,7 +9,7 @@ export const Header = ({ task, isTaskUpdating }) => {
 	return (
 		<>
 			{isTaskUpdating && <SavingTaskDataIndicator />}
-			<div className="border-b w-full h-12 flex justify-end items-center px-2">
+			<div className="border-b w-full min-h-12 flex justify-end items-center px-2">
 				<TaskCreatedAtDate task={task} />
 				<CopyTaskIdButton task={task} />
 				<VerticalSeparator />
