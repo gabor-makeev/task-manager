@@ -1,4 +1,4 @@
-import { colors } from "../../../../../../../../../../../../constants/colors.js"
+import { colors } from "../../../../../../../../constants/colors.js"
 
 export const PriorityButton = ({
 	task,

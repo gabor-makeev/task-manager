@@ -1,7 +1,7 @@
 import { useState } from "react"
-import SelectButton from "./Components/SelectButton"
-import ClickableOverlay from "../../../../../../../../GlobalComponents/ClickableOverlay"
-import StatusSelectionDropdown from "../../../../../../../../GlobalComponents/StatusSelectionDropdown"
+import SelectButton from "./Components/SelectButton/index.js"
+import ClickableOverlay from "../../../ClickableOverlay/index.js"
+import StatusSelectionDropdown from "../../../StatusSelectionDropdown/index.js"
 
 export const TaskStatusSelector = ({
 	task,

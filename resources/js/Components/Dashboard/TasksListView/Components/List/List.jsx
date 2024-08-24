@@ -2,9 +2,9 @@ import {
 	getStatusesByPriority,
 	getStatusesByType,
 } from "../../../../../../helpers/statusFormatters.js"
-import Item from "./Components/Item"
 import ListHeaders from "./Components/ListHeaders"
 import QuickTaskCreationForm from "./Components/QuickTaskCreationForm"
+import TaskListItem from "@/Components/GlobalComponents/TaskListItem"
 
 export const List = ({
 	auth,
@@ -32,7 +32,7 @@ export const List = ({
 					</li>
 				)}
 				{tasks.data.map((task) => (
-					<Item
+					<TaskListItem
 						key={task.id}
 						task={task}
 						priorities={priorities}

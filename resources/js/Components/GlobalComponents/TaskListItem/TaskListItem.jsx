@@ -1,11 +1,11 @@
-import TaskStatusSelector from "./Components/TaskStatusSelector"
-import TaskDeleteButton from "./Components/TaskDeleteButton"
-import TaskLink from "./Components/TaskLink"
-import TaskPrioritySelector from "./Components/TaskPrioritySelector"
+import TaskStatusSelector from "./Components/TaskStatusSelector/index.js"
+import TaskDeleteButton from "./Components/TaskDeleteButton/index.js"
+import TaskLink from "./Components/TaskLink/index.js"
+import TaskPrioritySelector from "./Components/TaskPrioritySelector/index.js"
 import { useEffect, useRef, useState } from "react"
 import { router } from "@inertiajs/react"
 
-export const Item = ({
+export const TaskListItem = ({
 	task,
 	priorities,
 	statusesByPriority,

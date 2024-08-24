@@ -1,6 +1,6 @@
-import PriorityTitle from "./Components/PriorityTitle"
-import PriorityFlag from "./Components/PriorityFlag"
-import SelectedOptionCheckmark from "../../../../../../../../../../../../GlobalComponents/SelectedOptionCheckmark"
+import PriorityTitle from "./Components/PriorityTitle/index.js"
+import PriorityFlag from "./Components/PriorityFlag/index.js"
+import SelectedOptionCheckmark from "../../../../../../../SelectedOptionCheckmark/index.js"
 
 export const SetPriorityButton = ({
 	task,

@@ -1,7 +1,7 @@
 import { useState } from "react"
-import PriorityButton from "./Components/PriorityButton"
-import ClickableOverlay from "../../../../../../../../GlobalComponents/ClickableOverlay"
-import PrioritiesList from "./Components/PrioritiesList"
+import PriorityButton from "./Components/PriorityButton/index.js"
+import ClickableOverlay from "../../../ClickableOverlay/index.js"
+import PrioritiesList from "./Components/PrioritiesList/index.js"
 
 export const TaskPrioritySelector = ({
 	task,
