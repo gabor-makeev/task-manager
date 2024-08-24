@@ -3,6 +3,7 @@ import { router } from "@inertiajs/react"
 import TaskNameField from "./Components/TaskNameField"
 import TaskStatusSelector from "./Components/TaskStatusSelector"
 import TaskDescriptionTextarea from "@/Components/GlobalComponents/TaskDescriptionTextarea"
+import ParentTaskLink from "./Components/ParentTaskLink"
 
 export const Form = ({ task, statuses, setIsTaskUpdating }) => {
 	const [formData, setFormData] = useState({
@@ -60,7 +61,12 @@ export const Form = ({ task, statuses, setIsTaskUpdating }) => {
 
 	return (
 		<form onSubmit={handleSubmit} ref={formRef}>
-			<TaskNameField value={formData.name} onChange={handleChange} />
+			<div className={"flex items-center mt-6"}>
+				{task.parent_task_id && (
+					<ParentTaskLink id={task.parent_task_id} />
+				)}
+				<TaskNameField value={formData.name} onChange={handleChange} />
+			</div>
 			<TaskStatusSelector
 				task={task}
 				statuses={statuses}
