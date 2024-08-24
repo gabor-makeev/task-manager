@@ -3,6 +3,7 @@ import { Head } from "@inertiajs/react"
 import NewTaskCreationModalWindow from "../Components/Dashboard/NewTaskCreationModalWindow"
 import TaskWindow from "../Components/Dashboard/TaskWindow"
 import ShowClosedLink from "../Components/Dashboard/ShowClosedLink"
+import AddTaskLink from "../Components/Dashboard/AddTaskLink"
 import TasksListView from "../Components/Dashboard/TasksListView"
 
 export default function Dashboard({
@@ -16,14 +17,7 @@ export default function Dashboard({
 	task,
 }) {
 	return (
-		<AuthenticatedLayout
-			user={auth.user}
-			header={
-				<h2 className="font-semibold text-xl text-gray-800 leading-tight">
-					Dashboard
-				</h2>
-			}
-		>
+		<AuthenticatedLayout user={auth.user}>
 			<Head title="Dashboard" />
 			{withNewTaskCreationForm && (
 				<NewTaskCreationModalWindow user={auth.user} />
@@ -37,8 +31,9 @@ export default function Dashboard({
 					parent={parent}
 				/>
 			)}
-			<div className={"px-12 py-3 flex justify-items-start"}>
+			<div className={"px-12 py-3 flex justify-between items-center"}>
 				<ShowClosedLink />
+				<AddTaskLink />
 			</div>
 			<TasksListView
 				auth={auth}

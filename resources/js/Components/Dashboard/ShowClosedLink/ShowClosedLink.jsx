@@ -10,7 +10,7 @@ export const ShowClosedLink = () => {
 	return (
 		<Link
 			href={`/?${nextShowClosedOption}`}
-			className={`flex items-center gap-0.5 py-1 px-2 rounded-xl text-xs font-medium border duration-200 ${showClosedFiltering === "" ? "border-indigo-500 hover:bg-indigo-100 bg-indigo-50 text-indigo-500" : "border-slate-200 hover:bg-slate-100 text-slate-600"}`}
+			className={`flex items-center h-6 gap-0.5 py-1 px-2 rounded-xl text-xs font-medium border duration-200 ${showClosedFiltering === "" ? "border-indigo-500 hover:bg-indigo-100 bg-indigo-50 text-indigo-500" : "border-slate-200 hover:bg-slate-100 text-slate-600"}`}
 		>
 			<svg
 				xmlns="http://www.w3.org/2000/svg"

@@ -8,8 +8,6 @@ export default function Authenticated({ user, header, children }) {
 	const [showingNavigationDropdown, setShowingNavigationDropdown] =
 		useState(false)
 
-	const urlParams = window.location.href.split("?")[1]
-
 	return (
 		<div className="min-h-screen">
 			<nav className="bg-white border-b border-gray-100">
@@ -158,15 +156,6 @@ export default function Authenticated({ user, header, children }) {
 						<div className="py-6 px-4 sm:px-6 lg:px-2">
 							{header}
 						</div>
-						<Link
-							href={route(
-								"tasks.create",
-								urlParams ? urlParams + "&" : "",
-							)}
-							className="sm:px-6 lg:px-8 py-2.5 px-5 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700 self-center focus:ring-0"
-						>
-							Add task
-						</Link>
 					</div>
 				</header>
 			)}
