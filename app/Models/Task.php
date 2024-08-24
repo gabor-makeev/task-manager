@@ -38,11 +38,11 @@ class Task extends Model
 
     public function parent(): BelongsTo
     {
-        return $this->belongsTo(Task::class);
+        return $this->belongsTo(Task::class, 'parent_task_id');
     }
 
     public function children(): HasMany
     {
-        return $this->hasMany(Task::class);
+        return $this->hasMany(Task::class, 'parent_task_id');
     }
 }

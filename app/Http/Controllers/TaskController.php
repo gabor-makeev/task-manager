@@ -75,7 +75,9 @@ class TaskController extends Controller
             return Redirect::route('dashboard');
         }
 
-        $subtasks = Task::where('parent_task_id', $task->id)->get();
+        $subtasks = $task->children()->get();
+
+        $parent = $task->parent()->first();
 
         return Inertia::render('Dashboard', [
             'tasks' => $tasks,
@@ -83,6 +85,7 @@ class TaskController extends Controller
             'task' => $task,
             'priorities' => $priorities,
             'subtasks' => $subtasks,
+            'parent' => $parent
         ]);
     }
 
