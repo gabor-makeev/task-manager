@@ -6,8 +6,15 @@ import MainContainer from "./Components/MainContainer"
 import Overlay from "./Components/Overlay"
 import Modal from "./Components/Modal"
 import Subtasks from "./Components/Subtasks"
+import ParentTaskLink from "@/Components/Dashboard/TaskWindow/Components/ParentTaskLink/index.js"
 
-export const TaskWindow = ({ task, subtasks, statuses, priorities }) => {
+export const TaskWindow = ({
+	task,
+	parent = null,
+	subtasks,
+	statuses,
+	priorities,
+}) => {
 	const [isTaskUpdating, setIsTaskUpdating] = useState(false)
 
 	return (
@@ -15,6 +22,7 @@ export const TaskWindow = ({ task, subtasks, statuses, priorities }) => {
 			<Modal>
 				<Header task={task} isTaskUpdating={isTaskUpdating} />
 				<MainContainer>
+					{parent && <ParentTaskLink task={parent} />}
 					<TaskBadges task={task} />
 					<Form
 						task={task}

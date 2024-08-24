@@ -9,6 +9,7 @@ export default function Dashboard({
 	auth,
 	tasks,
 	subtasks,
+	parent = null,
 	statuses,
 	priorities,
 	withNewTaskCreationForm,
@@ -33,6 +34,7 @@ export default function Dashboard({
 					subtasks={subtasks}
 					statuses={statuses}
 					priorities={priorities}
+					parent={parent}
 				/>
 			)}
 			<div className={"px-12 py-3 flex justify-items-start"}>
