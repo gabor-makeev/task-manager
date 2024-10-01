@@ -19,6 +19,8 @@ export const TasksListView = ({ auth, tasks, priorities, statuses }) => {
 		to,
 	} = tasks
 
+	console.log(tasks)
+
 	return (
 		<div className="py-12 px-5">
 			<div className="sm:px-6 lg:px-8 flex flex-col">
@@ -39,16 +41,18 @@ export const TasksListView = ({ auth, tasks, priorities, statuses }) => {
 						setShowingQuickTaskCreationForm
 					}
 				/>
-				<Pagination
-					currentPage={current_page}
-					firstPageUrl={first_page_url}
-					lastPage={last_page}
-					lastPageUrl={last_page_url}
-					nextPageUrl={next_page_url}
-					prevPageUrl={prev_page_url}
-					tasksOnPageFrom={from}
-					tasksOnPageTo={to}
-				/>
+				{last_page !== 1 && (
+					<Pagination
+						currentPage={current_page}
+						firstPageUrl={first_page_url}
+						lastPage={last_page}
+						lastPageUrl={last_page_url}
+						nextPageUrl={next_page_url}
+						prevPageUrl={prev_page_url}
+						tasksOnPageFrom={from}
+						tasksOnPageTo={to}
+					/>
+				)}
 			</div>
 		</div>
 	)
