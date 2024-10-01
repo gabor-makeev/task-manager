@@ -19,8 +19,6 @@ export const TasksListView = ({ auth, tasks, priorities, statuses }) => {
 		to,
 	} = tasks
 
-	console.log(tasks)
-
 	return (
 		<div className="py-12 px-5">
 			<div className="sm:px-6 lg:px-8 flex flex-col">
