@@ -5,11 +5,12 @@ import {
 } from "../../../../../../../../helpers/statusFormatters.js"
 import ClickableOverlay from "../../../../../../GlobalComponents/ClickableOverlay"
 import StatusSelectionDropdown from "../../../../../../GlobalComponents/StatusSelectionDropdown"
-import Label from "./Components/Label"
 import CompleteTaskButton from "./Components/CompleteTaskButton"
 import NextTaskStatusButton from "./Components/NextTaskStatusButton"
 import StatusButton from "./Components/StatusButton"
 import ClosedAtDate from "./Components/ClosedAtDate"
+import IconedLabel from "@/Components/GlobalComponents/IconedLabel/index.js"
+import { statusIcon } from "@/Components/Dashboard/TaskWindow/Components/Form/Components/TaskStatusSelector/statusIcon.jsx"
 
 export const TaskStatusSelector = ({
 	task,
@@ -59,8 +60,12 @@ export const TaskStatusSelector = ({
 	}
 
 	return (
-		<div className={"mt-7 flex items-center gap-1 pl-1.5 pb-8 min-h-9"}>
-			<Label />
+		<div className={"flex items-center gap-1 pl-1.5 min-h-9"}>
+			<IconedLabel
+				htmlFor={"status"}
+				svgIcon={statusIcon}
+				labelText={"Status"}
+			/>
 			<div
 				className={`flex max-w-72 py-1.5 pl-1.5 grow rounded-md ${isStatusDropdownActive ? "bg-gray-100" : ""}`}
 			>
