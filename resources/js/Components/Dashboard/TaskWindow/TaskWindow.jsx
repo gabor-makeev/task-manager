@@ -6,7 +6,7 @@ import MainContainer from "./Components/MainContainer"
 import Overlay from "./Components/Overlay"
 import Modal from "./Components/Modal"
 import Subtasks from "./Components/Subtasks"
-import ParentTaskLink from "@/Components/Dashboard/TaskWindow/Components/ParentTaskLink/index.js"
+import ParentTaskLink from "@/Components/Dashboard/TaskWindow/Components/ParentTaskLink"
 
 export const TaskWindow = ({
 	task,
@@ -27,6 +27,7 @@ export const TaskWindow = ({
 					<Form
 						task={task}
 						statuses={statuses}
+						priorities={priorities}
 						setIsTaskUpdating={setIsTaskUpdating}
 					/>
 					<Subtasks

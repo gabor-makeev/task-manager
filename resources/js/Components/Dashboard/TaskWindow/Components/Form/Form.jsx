@@ -4,12 +4,15 @@ import TaskNameField from "./Components/TaskNameField"
 import TaskStatusSelector from "./Components/TaskStatusSelector"
 import TaskDescriptionTextarea from "@/Components/GlobalComponents/TaskDescriptionTextarea"
 import ParentTaskLink from "./Components/ParentTaskLink"
+import TaskPrioritySelector from "@/Components/Dashboard/TaskWindow/Components/Form/Components/TaskPrioritySelector"
+import TaskSelectorsContainer from "@/Components/Dashboard/TaskWindow/Components/Form/Components/TaskSelectorsContainer"
 
-export const Form = ({ task, statuses, setIsTaskUpdating }) => {
+export const Form = ({ task, statuses, priorities, setIsTaskUpdating }) => {
 	const [formData, setFormData] = useState({
 		name: task.name,
 		description: task.description,
 		status_id: task.status_id,
+		priority_id: task.priority_id,
 		closed_at: task.closed_at,
 	})
 
@@ -27,7 +30,10 @@ export const Form = ({ task, statuses, setIsTaskUpdating }) => {
 
 		let submitTimeout = 1000
 
-		if (task.status_id !== formData.status_id) {
+		if (
+			task.status_id !== formData.status_id ||
+			task.priority_id !== formData.priority_id
+		) {
 			submitTimeout = 0
 		}
 
@@ -67,12 +73,20 @@ export const Form = ({ task, statuses, setIsTaskUpdating }) => {
 				)}
 				<TaskNameField value={formData.name} onChange={handleChange} />
 			</div>
-			<TaskStatusSelector
-				task={task}
-				statuses={statuses}
-				formData={formData}
-				setFormData={setFormData}
-			/>
+			<TaskSelectorsContainer>
+				<TaskStatusSelector
+					task={task}
+					statuses={statuses}
+					formData={formData}
+					setFormData={setFormData}
+				/>
+				<TaskPrioritySelector
+					task={task}
+					priorities={priorities}
+					formData={formData}
+					setFormData={setFormData}
+				/>
+			</TaskSelectorsContainer>
 			<TaskDescriptionTextarea
 				taskDescription={task.description}
 				value={formData.description}

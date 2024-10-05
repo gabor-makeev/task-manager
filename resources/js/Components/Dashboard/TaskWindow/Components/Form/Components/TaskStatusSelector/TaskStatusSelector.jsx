@@ -9,8 +9,9 @@ import CompleteTaskButton from "./Components/CompleteTaskButton"
 import NextTaskStatusButton from "./Components/NextTaskStatusButton"
 import StatusButton from "./Components/StatusButton"
 import ClosedAtDate from "./Components/ClosedAtDate"
-import IconedLabel from "@/Components/GlobalComponents/IconedLabel/index.js"
+import IconedLabel from "@/Components/GlobalComponents/IconedLabel"
 import { statusIcon } from "@/Components/Dashboard/TaskWindow/Components/Form/Components/TaskStatusSelector/statusIcon.jsx"
+import TaskSelectorsContainer from "@/Components/GlobalComponents/TaskSelectorContainer"
 
 export const TaskStatusSelector = ({
 	task,
@@ -60,14 +61,14 @@ export const TaskStatusSelector = ({
 	}
 
 	return (
-		<div className={"flex items-center gap-1 pl-1.5 min-h-9"}>
+		<TaskSelectorsContainer>
 			<IconedLabel
 				htmlFor={"status"}
 				svgIcon={statusIcon}
 				labelText={"Status"}
 			/>
 			<div
-				className={`flex max-w-72 py-1.5 pl-1.5 grow rounded-md ${isStatusDropdownActive ? "bg-gray-100" : ""}`}
+				className={`flex grow py-1.5 pl-1.5 rounded-md ${isStatusDropdownActive ? "bg-gray-100" : ""}`}
 			>
 				<StatusButton
 					task={task}
@@ -98,6 +99,6 @@ export const TaskStatusSelector = ({
 					</>
 				)}
 			</div>
-		</div>
+		</TaskSelectorsContainer>
 	)
 }
