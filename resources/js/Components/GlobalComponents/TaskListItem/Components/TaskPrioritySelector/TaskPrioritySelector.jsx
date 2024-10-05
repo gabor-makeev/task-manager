@@ -1,7 +1,7 @@
 import { useState } from "react"
-import PriorityButton from "./Components/PriorityButton/index.js"
-import ClickableOverlay from "../../../ClickableOverlay/index.js"
-import PrioritiesList from "./Components/PrioritiesList/index.js"
+import PriorityButton from "./Components/PriorityButton"
+import ClickableOverlay from "../../../ClickableOverlay"
+import TaskPriorityDropdown from "@/Components/GlobalComponents/TaskPriorityDropdown"
 
 export const TaskPrioritySelector = ({
 	task,
@@ -34,7 +34,7 @@ export const TaskPrioritySelector = ({
 					<ClickableOverlay
 						onClick={() => setIsPriorityDropdownActive(false)}
 					/>
-					<PrioritiesList
+					<TaskPriorityDropdown
 						task={task}
 						priorities={priorities}
 						handlePriorityChangeButtonClick={selectPriority}

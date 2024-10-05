@@ -1,8 +1,8 @@
-import { colors } from "../../../../../../../../constants/colors.js"
-import ClearTaskPriorityButton from "./Components/ClearTaskPriorityButton/index.js"
-import SetPriorityButton from "./Components/SetPriorityButton/index.js"
+import { colors } from "../../../../constants/colors.js"
+import ClearTaskPriorityButton from "./Components/ClearTaskPriorityButton"
+import SetPriorityButton from "./Components/SetPriorityButton"
 
-export const PrioritiesList = ({
+export const TaskPriorityDropdown = ({
 	task,
 	priorities,
 	handlePriorityChangeButtonClick,
