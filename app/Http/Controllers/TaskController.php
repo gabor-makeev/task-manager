@@ -164,6 +164,6 @@ class TaskController extends Controller
     {
         $task->delete();
 
-        return Redirect::back()->with('success', 'Task deleted');
+        return Redirect::route('dashboard', \request()->getQueryString())->with('task successfully deleted', 201);
     }
 }
