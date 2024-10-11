@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
+use App\Models\Priority;
 use App\Models\Status;
 use App\Models\User;
 use Illuminate\Auth\Events\Registered;
@@ -62,6 +63,38 @@ class RegisteredUserController extends Controller
                 'type' => $defaultStatus['type'],
                 'user_id' => $user->id,
                 'color' => $defaultStatus['color']
+            ]);
+        }
+
+        $defaultPriorities = [
+            [
+                'name' => 'urgent',
+                'value' => 3,
+                'color' => 'red',
+            ],
+            [
+                'name' => 'high',
+                'value' => 2,
+                'color' => 'yellow',
+            ],
+            [
+                'name' => 'normal',
+                'value' => 1,
+                'color' => 'blue',
+            ],
+            [
+                'name' => 'low',
+                'value' => 0,
+                'color' => 'green',
+            ],
+        ];
+
+        foreach ($defaultPriorities as $defaultPriority) {
+            Priority::create([
+                'name' => $defaultPriority['name'],
+                'value' => $defaultPriority['value'],
+                'color' => $defaultPriority['color'],
+                'user_id' => $user->id,
             ]);
         }
 
