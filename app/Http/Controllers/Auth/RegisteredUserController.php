@@ -48,12 +48,14 @@ class RegisteredUserController extends Controller
             [
                 'name' => 'Open',
                 'type' => 'not started',
-                'color' => 'gray'
+                'color' => 'gray',
+                'position' => 1
             ],
             [
                 'name' => 'Closed',
                 'type' => 'closed',
-                'color' => 'green'
+                'color' => 'green',
+                'position' => 1
             ]
         ];
 
@@ -62,7 +64,8 @@ class RegisteredUserController extends Controller
                 'name' => $defaultStatus['name'],
                 'type' => $defaultStatus['type'],
                 'user_id' => $user->id,
-                'color' => $defaultStatus['color']
+                'color' => $defaultStatus['color'],
+                'position' => $defaultStatus['position']
             ]);
         }
 

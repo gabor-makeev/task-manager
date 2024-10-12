@@ -15,7 +15,8 @@ class Status extends Model
         'name',
         'type',
         'user_id',
-        'color'
+        'color',
+        'position'
     ];
 
     public function tasks(): HasMany

@@ -17,8 +17,10 @@ return new class extends Migration
             $table->string('name');
             $table->enum('type', ['not started', 'active', 'closed'])->default('active');
             $table->enum('color', ['purple', 'blue', 'yellow', 'orange', 'red', 'gray', 'green'])->default('blue');
+            $table->tinyInteger('position');
             $table->foreignIdFor(User::class);
             $table->timestamps();
+            $table->unique(['type', 'position', 'user_id']);
         });
     }
 
