@@ -23,7 +23,7 @@ class TaskController extends Controller
 
         $closedStatusId = Auth::user()->statuses()->where('type', 'closed')->first()->id;
 
-        $query = Task::where('user_id', Auth::id())->where('parent_task_id', null);
+        $query = Task::where('tasks.user_id', Auth::id())->where('parent_task_id', null);
 
         if (!$showClosedFiltering) {
             $query->where('status_id', '!=', $closedStatusId);
@@ -54,7 +54,7 @@ class TaskController extends Controller
 
         $closedStatusId = Auth::user()->statuses()->where('type', 'closed')->first()->id;
 
-        $query = Task::where('user_id', Auth::id())->where('parent_task_id', null);
+        $query = Task::where('tasks.user_id', Auth::id())->where('parent_task_id', null);
 
         if (!$showClosedFiltering) {
             $query->where('status_id', '!=', $closedStatusId);
@@ -96,7 +96,7 @@ class TaskController extends Controller
 
         $closedStatusId = Auth::user()->statuses()->where('type', 'closed')->first()->id;
 
-        $query = Task::where('user_id', Auth::id())->where('parent_task_id', null);
+        $query = Task::where('tasks.user_id', Auth::id())->where('parent_task_id', null);
 
         if (!$showClosedFiltering) {
             $query->where('status_id', '!=', $closedStatusId);
