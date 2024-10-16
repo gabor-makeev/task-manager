@@ -12,7 +12,7 @@ export const TaskWindow = ({
 	task,
 	parent = null,
 	subtasks,
-	statuses,
+	statusesData,
 	priorities,
 }) => {
 	const [isTaskUpdating, setIsTaskUpdating] = useState(false)
@@ -26,14 +26,14 @@ export const TaskWindow = ({
 					<TaskBadges task={task} />
 					<Form
 						task={task}
-						statuses={statuses}
+						statusesData={statusesData}
 						priorities={priorities}
 						setIsTaskUpdating={setIsTaskUpdating}
 					/>
 					<Subtasks
 						parentTask={task}
 						subtasks={subtasks}
-						statuses={statuses}
+						statusesData={statusesData}
 						priorities={priorities}
 					/>
 				</MainContainer>

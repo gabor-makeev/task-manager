@@ -5,8 +5,7 @@ import StatusSelectionDropdown from "../../../StatusSelectionDropdown/index.js"
 
 export const TaskStatusSelector = ({
 	task,
-	statusesByPriority,
-	statusesByType,
+	statusesData,
 	formData,
 	setFormData,
 }) => {
@@ -25,7 +24,7 @@ export const TaskStatusSelector = ({
 		<div className="mr-3 self-center flex">
 			<SelectButton
 				task={task}
-				statusesByPriority={statusesByPriority}
+				statusesData={statusesData}
 				buttonClickHandler={() => setIsStatusSelectorActive(true)}
 			/>
 			{isStatusSelectorActive && (
@@ -35,7 +34,7 @@ export const TaskStatusSelector = ({
 					/>
 					<StatusSelectionDropdown
 						task={task}
-						statusesByType={statusesByType}
+						statusesData={statusesData}
 						statusOptionClickHandler={selectStatus}
 					/>
 				</>

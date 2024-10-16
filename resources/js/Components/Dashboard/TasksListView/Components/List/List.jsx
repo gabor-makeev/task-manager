@@ -1,7 +1,3 @@
-import {
-	getStatusesByPriority,
-	getStatusesByType,
-} from "../../../../../../helpers/statusFormatters.js"
 import ListHeaders from "./Components/ListHeaders"
 import QuickTaskCreationForm from "./Components/QuickTaskCreationForm"
 import TaskListItem from "@/Components/GlobalComponents/TaskListItem"
@@ -9,14 +5,11 @@ import TaskListItem from "@/Components/GlobalComponents/TaskListItem"
 export const List = ({
 	auth,
 	tasks,
-	statuses,
+	statusesData,
 	priorities,
 	showingQuickTaskCreationForm,
 	setShowingQuickTaskCreationForm,
 }) => {
-	const statusesByPriority = getStatusesByPriority(statuses)
-	const statusesByType = getStatusesByType(statuses)
-
 	return (
 		<>
 			<ListHeaders />
@@ -36,8 +29,7 @@ export const List = ({
 						key={task.id}
 						task={task}
 						priorities={priorities}
-						statusesByPriority={statusesByPriority}
-						statusesByType={statusesByType}
+						statusesData={statusesData}
 					/>
 				))}
 			</ul>

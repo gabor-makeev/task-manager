@@ -5,12 +5,7 @@ import TaskPrioritySelector from "./Components/TaskPrioritySelector/index.js"
 import { useEffect, useRef, useState } from "react"
 import { router } from "@inertiajs/react"
 
-export const TaskListItem = ({
-	task,
-	priorities,
-	statusesByPriority,
-	statusesByType,
-}) => {
+export const TaskListItem = ({ task, priorities, statusesData }) => {
 	const [formData, setFormData] = useState({
 		status_id: task.status_id,
 		priority_id: task.priority_id,
@@ -46,8 +41,7 @@ export const TaskListItem = ({
 			>
 				<TaskStatusSelector
 					task={task}
-					statusesByPriority={statusesByPriority}
-					statusesByType={statusesByType}
+					statusesData={statusesData}
 					formData={formData}
 					setFormData={setFormData}
 				/>

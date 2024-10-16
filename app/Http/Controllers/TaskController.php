@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Priority;
 use App\Models\Status;
+use App\Models\StatusType;
 use App\Models\Task;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -21,7 +22,12 @@ class TaskController extends Controller
         $showClosedFiltering = \request()->exists('show-closed-filtering');
         $prioritySorting = \request()->get('priority-sorting');
 
-        $closedStatusId = Auth::user()->statuses()->where('type', 'closed')->first()->id;
+        $closedStatusId = Auth::user()
+            ->statuses()
+            ->where('status_type_id', StatusType::where('name', 'closed')
+                ->first()
+                ->id)
+            ->first()->id;
 
         $query = Task::where('tasks.user_id', Auth::id())->where('parent_task_id', null);
 
@@ -38,11 +44,15 @@ class TaskController extends Controller
 
         $tasks = $query->paginate($this::PER_PAGE, ['tasks.*']);
         $statuses = Status::where('user_id', Auth::id())->get();
+        $statusTypes = StatusType::all();
         $priorities = Priority::orderByDesc('value')->get();
 
         return Inertia::render('Dashboard', [
             'tasks' => $tasks,
-            'statuses' => $statuses,
+            'statusesData' => [
+                'statuses' => $statuses,
+                'statusTypes' => $statusTypes
+            ],
             'priorities' => $priorities
         ]);
     }
@@ -52,7 +62,12 @@ class TaskController extends Controller
         $showClosedFiltering = \request()->exists('show-closed-filtering');
         $prioritySorting = \request()->get('priority-sorting');
 
-        $closedStatusId = Auth::user()->statuses()->where('type', 'closed')->first()->id;
+        $closedStatusId = Auth::user()
+            ->statuses()
+            ->where('status_type_id', StatusType::where('name', 'closed')
+                ->first()
+                ->id)
+            ->first()->id;
 
         $query = Task::where('tasks.user_id', Auth::id())->where('parent_task_id', null);
 
@@ -69,6 +84,7 @@ class TaskController extends Controller
 
         $tasks = $query->paginate($this::PER_PAGE, ['tasks.*']);
         $statuses = Status::where('user_id', Auth::id())->get();
+        $statusTypes = StatusType::all();
         $priorities = Priority::orderByDesc('value')->get();
 
         if ($task->user_id !== Auth::id()) {
@@ -81,7 +97,10 @@ class TaskController extends Controller
 
         return Inertia::render('Dashboard', [
             'tasks' => $tasks,
-            'statuses' => $statuses,
+            'statusesData' => [
+                'statuses' => $statuses,
+                'statusTypes' => $statusTypes
+            ],
             'task' => $task,
             'priorities' => $priorities,
             'subtasks' => $subtasks,
@@ -94,7 +113,12 @@ class TaskController extends Controller
         $showClosedFiltering = \request()->exists('show-closed-filtering');
         $prioritySorting = \request()->get('priority-sorting');
 
-        $closedStatusId = Auth::user()->statuses()->where('type', 'closed')->first()->id;
+        $closedStatusId = Auth::user()
+            ->statuses()
+            ->where('status_type_id', StatusType::where('name', 'closed')
+                ->first()
+                ->id)
+            ->first()->id;
 
         $query = Task::where('tasks.user_id', Auth::id())->where('parent_task_id', null);
 
@@ -111,11 +135,15 @@ class TaskController extends Controller
 
         $tasks = $query->paginate($this::PER_PAGE, ['tasks.*']);
         $statuses = Status::where('user_id', Auth::id())->get();
+        $statusTypes = StatusType::all();
         $priorities = Priority::orderByDesc('value')->get();
 
         return Inertia::render('Dashboard', [
             'tasks' => $tasks,
-            'statuses' => $statuses,
+            'statusesData' => [
+                'statuses' => $statuses,
+                'statusTypes' => $statusTypes
+            ],
             'withNewTaskCreationForm' => true,
             'priorities' => $priorities
         ]);
@@ -130,7 +158,8 @@ class TaskController extends Controller
             'parent_task_id' => $request->post('parent_task_id'),
             'status_id' => Status::where([
                 'user_id' => Auth::id(),
-                'type' => 'not started'
+                'status_type_id' => StatusType::where('name', 'not started')
+                    ->first()->id
             ])->first()->id
         ]);
 
@@ -147,11 +176,11 @@ class TaskController extends Controller
         $newTaskStatus = Status::find($data['status_id']);
         $isNewTaskStatus = $newTaskStatus->id !== $task->status->id;
 
-        if ($isNewTaskStatus && $newTaskStatus->type === 'closed') {
+        if ($isNewTaskStatus && $newTaskStatus->type->name === 'closed') {
             $data['closed_at'] = (string) now();
         }
 
-        if ($newTaskStatus->type !== 'closed') {
+        if ($newTaskStatus->type->name !== 'closed') {
             $data['closed_at'] = null;
         }
 

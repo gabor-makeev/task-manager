@@ -3,28 +3,36 @@ import SelectOptionsStatusesList from "./Components/SelectOptionsStatusesList"
 
 export const StatusSelectionDropdown = ({
 	task,
-	statusesByType,
+	statusesData,
 	statusOptionClickHandler,
 }) => {
-	const statusTypes = Object.keys(statusesByType)
+	const sortedStatuses = [...statusesData.statuses].sort(
+		(a, b) => a.position - b.position,
+	)
+
+	const sortedStatusTypes = [...statusesData.statusTypes].sort(
+		(a, b) => a.position - b.position,
+	)
 
 	return (
 		<div className="min-w-44 absolute -ml-1.5 mt-11 bg-white rounded-md shadow-2xl text-xs">
-			{statusTypes.map((statusTypeName, idx) => (
+			{sortedStatusTypes.map((statusType) => (
 				<div
-					key={idx}
-					className={`${statusTypeName !== "closed" ? "border-b pt-4 px-2 pb-2.5" : ""}`}
+					key={statusType.id}
+					className={`${statusType.name !== "closed" ? "border-b pt-4 px-2 pb-2.5" : ""}`}
 				>
-					{statusTypeName !== "closed" && (
+					{statusType.name !== "closed" && (
 						<SelectOptionsStatusTypeTitle>
-							{statusTypeName}
+							{statusType.name}
 						</SelectOptionsStatusTypeTitle>
 					)}
 					<SelectOptionsStatusesList
 						task={task}
-						statuses={statusesByType[statusTypeName]}
+						statuses={sortedStatuses.filter(
+							(status) => status.status_type_id === statusType.id,
+						)}
 						statusOptionClickHandler={statusOptionClickHandler}
-						isStatusTypeClosed={statusTypeName === "closed"}
+						statusType={statusType}
 					/>
 				</div>
 			))}

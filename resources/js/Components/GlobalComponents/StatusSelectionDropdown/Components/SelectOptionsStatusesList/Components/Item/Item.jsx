@@ -4,7 +4,7 @@ import StatusCircle from "./Components/StatusCircle"
 import StatusTitle from "./Components/StatusTitle"
 import SelectedOptionCheckmark from "../../../../../SelectedOptionCheckmark"
 
-export const Item = ({ task, status, itemClickHandler }) => {
+export const Item = ({ task, status, statusType, itemClickHandler }) => {
 	return (
 		<li>
 			<button
@@ -14,13 +14,13 @@ export const Item = ({ task, status, itemClickHandler }) => {
                     ${status.type !== "closed" ? "items-center px-2 h-7" : "pt-2 pr-8 pb-2.5 pl-4"}
                     ${status.id === task.status_id ? "font-bold text-slate-800" : "text-slate-700 font-medium"}`}
 			>
-				{status.type === "not started" && (
+				{statusType.name === "not started" && (
 					<StatusCircle statusColor={status.color} />
 				)}
-				{status.type === "active" && (
+				{statusType.name === "active" && (
 					<SemifilledStatusCircle statusColor={status.color} />
 				)}
-				{status.type === "closed" && (
+				{statusType.name === "closed" && (
 					<FilledStatusCircle statusColor={status.color} />
 				)}
 				<StatusTitle>{status.name}</StatusTitle>

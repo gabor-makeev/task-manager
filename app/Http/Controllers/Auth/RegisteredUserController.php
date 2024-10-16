@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Auth;
 use App\Http\Controllers\Controller;
 use App\Models\Priority;
 use App\Models\Status;
+use App\Models\StatusType;
 use App\Models\User;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Http\RedirectResponse;
@@ -47,22 +48,28 @@ class RegisteredUserController extends Controller
         $defaultStatuses = [
             [
                 'name' => 'Open',
-                'type' => 'not started',
+                'status_type_id' => StatusType::where('name', 'not started')->first()->id,
                 'color' => 'gray',
+                'position' => 0
+            ],
+            [
+                'name' => 'in progress',
+                'status_type_id' => StatusType::where('name', 'active')->first()->id,
+                'color' => 'orange',
                 'position' => 1
             ],
             [
                 'name' => 'Closed',
-                'type' => 'closed',
+                'status_type_id' => StatusType::where('name', 'closed')->first()->id,
                 'color' => 'green',
-                'position' => 1
+                'position' => 2
             ]
         ];
 
         foreach ($defaultStatuses as $defaultStatus) {
             Status::create([
                 'name' => $defaultStatus['name'],
-                'type' => $defaultStatus['type'],
+                'status_type_id' => $defaultStatus['status_type_id'],
                 'user_id' => $user->id,
                 'color' => $defaultStatus['color'],
                 'position' => $defaultStatus['position']

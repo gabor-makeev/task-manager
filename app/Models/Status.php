@@ -13,7 +13,7 @@ class Status extends Model
 
     protected $fillable = [
         'name',
-        'type',
+        'status_type_id',
         'user_id',
         'color',
         'position'
@@ -27,5 +27,10 @@ class Status extends Model
     public function user(): BelongsTo
     {
         return $this->belongsTo(User::class);
+    }
+
+    public function type(): BelongsTo
+    {
+        return $this->belongsTo(StatusType::class, 'status_type_id');
     }
 }

@@ -4,8 +4,10 @@ export const SelectOptionsStatusesList = ({
 	task,
 	statuses,
 	statusOptionClickHandler,
-	isStatusTypeClosed,
+	statusType,
 }) => {
+	const isStatusTypeClosed = statusType.name === "closed"
+
 	return (
 		<ul className={`${!isStatusTypeClosed ? "mt-1.5" : ""}`}>
 			{statuses.map((status) => (
@@ -13,6 +15,7 @@ export const SelectOptionsStatusesList = ({
 					key={status.id}
 					task={task}
 					status={status}
+					statusType={statusType}
 					itemClickHandler={statusOptionClickHandler}
 				/>
 			))}

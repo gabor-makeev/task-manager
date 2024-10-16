@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\StatusType;
 use App\Models\User;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
@@ -15,12 +16,12 @@ return new class extends Migration
         Schema::create('statuses', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->enum('type', ['not started', 'active', 'closed'])->default('active');
+            $table->foreignIdFor(StatusType::class);
             $table->enum('color', ['purple', 'blue', 'yellow', 'orange', 'red', 'gray', 'green'])->default('blue');
             $table->tinyInteger('position');
             $table->foreignIdFor(User::class);
             $table->timestamps();
-            $table->unique(['type', 'position', 'user_id']);
+            $table->unique(['status_type_id', 'position', 'user_id']);
         });
     }
 

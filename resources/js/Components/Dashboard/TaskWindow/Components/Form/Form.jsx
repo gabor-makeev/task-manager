@@ -7,7 +7,7 @@ import ParentTaskLink from "./Components/ParentTaskLink"
 import TaskPrioritySelector from "@/Components/Dashboard/TaskWindow/Components/Form/Components/TaskPrioritySelector"
 import TaskSelectorsContainer from "@/Components/Dashboard/TaskWindow/Components/Form/Components/TaskSelectorsContainer"
 
-export const Form = ({ task, statuses, priorities, setIsTaskUpdating }) => {
+export const Form = ({ task, statusesData, priorities, setIsTaskUpdating }) => {
 	const [formData, setFormData] = useState({
 		name: task.name,
 		description: task.description,
@@ -76,7 +76,7 @@ export const Form = ({ task, statuses, priorities, setIsTaskUpdating }) => {
 			<TaskSelectorsContainer>
 				<TaskStatusSelector
 					task={task}
-					statuses={statuses}
+					statusesData={statusesData}
 					formData={formData}
 					setFormData={setFormData}
 				/>

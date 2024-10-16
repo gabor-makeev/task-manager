@@ -3,7 +3,7 @@ import TasksListViewControls from "./Components/TasksListViewControls"
 import List from "./Components/List"
 import Pagination from "./Components/Pagination"
 
-export const TasksListView = ({ auth, tasks, priorities, statuses }) => {
+export const TasksListView = ({ auth, tasks, priorities, statusesData }) => {
 	const [showingQuickTaskCreationForm, setShowingQuickTaskCreationForm] =
 		useState(false)
 
@@ -32,7 +32,7 @@ export const TasksListView = ({ auth, tasks, priorities, statuses }) => {
 				<List
 					auth={auth}
 					tasks={tasks}
-					statuses={statuses}
+					statusesData={statusesData}
 					priorities={priorities}
 					showingQuickTaskCreationForm={showingQuickTaskCreationForm}
 					setShowingQuickTaskCreationForm={

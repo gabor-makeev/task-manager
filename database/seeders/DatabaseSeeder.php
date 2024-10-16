@@ -14,6 +14,6 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        // seeders are to be added here
+        $this->call([StatusTypesSeeder::class]);
     }
 }

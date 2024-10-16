@@ -4,16 +4,14 @@ import Form from "./Components/Form"
 import NewTaskButton from "./Components/NewTaskButton"
 import List from "./Components/List"
 import TaskListItem from "@/Components/GlobalComponents/TaskListItem"
-import {
-	getStatusesByPriority,
-	getStatusesByType,
-} from "../../../../../../helpers/statusFormatters.js"
 
-export const Subtasks = ({ parentTask, subtasks, statuses, priorities }) => {
+export const Subtasks = ({
+	parentTask,
+	subtasks,
+	statusesData,
+	priorities,
+}) => {
 	const [isFormVisible, setIsFormVisible] = useState(false)
-
-	const statusesByPriority = getStatusesByPriority(statuses)
-	const statusesByType = getStatusesByType(statuses)
 
 	return (
 		<div>
@@ -25,8 +23,7 @@ export const Subtasks = ({ parentTask, subtasks, statuses, priorities }) => {
 					<TaskListItem
 						key={subtask.id}
 						priorities={priorities}
-						statusesByPriority={statusesByPriority}
-						statusesByType={statusesByType}
+						statusesData={statusesData}
 						task={subtask}
 					/>
 				))}

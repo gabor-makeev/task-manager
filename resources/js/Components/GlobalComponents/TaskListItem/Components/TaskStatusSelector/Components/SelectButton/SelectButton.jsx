@@ -1,10 +1,14 @@
 import { colors } from "../../../../../../../../constants/colors.js"
 
-export const SelectButton = ({
-	task,
-	statusesByPriority,
-	buttonClickHandler,
-}) => {
+export const SelectButton = ({ task, statusesData, buttonClickHandler }) => {
+	const taskStatus = statusesData.statuses.find(
+		(status) => status.id === task.status_id,
+	)
+
+	const taskStatusType = statusesData.statusTypes.find(
+		(statusType) => statusType.id === taskStatus.status_type_id,
+	)
+
 	return (
 		<button
 			onClick={buttonClickHandler}
@@ -18,14 +22,14 @@ export const SelectButton = ({
 				strokeWidth="2"
 				strokeLinecap="round"
 				strokeLinejoin="round"
-				className={`feather feather-disc stroke-${colors[statusesByPriority[task.status_id].color].main} fill-transparent`}
+				className={`feather feather-disc stroke-${colors[taskStatus.color].main} fill-transparent`}
 			>
 				<circle cx="12" cy="12" r="10"></circle>
 				<circle
 					cx="12"
 					cy="12"
 					r="6"
-					className={`fill-${statusesByPriority[task.status_id].type === "not started" ? "transparent stroke-transparent" : colors[statusesByPriority[task.status_id].color].main}`}
+					className={`fill-${taskStatusType.name === "not started" ? "transparent stroke-transparent" : colors[taskStatus.color].main}`}
 				></circle>
 			</svg>
 		</button>

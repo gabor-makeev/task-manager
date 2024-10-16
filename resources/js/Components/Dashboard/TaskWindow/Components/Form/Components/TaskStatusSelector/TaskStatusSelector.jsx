@@ -1,8 +1,4 @@
 import { useState } from "react"
-import {
-	getStatusesByPriority,
-	getStatusesByType,
-} from "../../../../../../../../helpers/statusFormatters.js"
 import ClickableOverlay from "../../../../../../GlobalComponents/ClickableOverlay"
 import StatusSelectionDropdown from "../../../../../../GlobalComponents/StatusSelectionDropdown"
 import CompleteTaskButton from "./Components/CompleteTaskButton"
@@ -15,14 +11,19 @@ import TaskSelectorsContainer from "@/Components/GlobalComponents/TaskSelectorCo
 
 export const TaskStatusSelector = ({
 	task,
-	statuses,
+	statusesData,
 	formData,
 	setFormData,
 }) => {
 	const [isStatusDropdownActive, setIsStatusDropdownActive] = useState(false)
 
-	const statusesByPriority = getStatusesByPriority(statuses)
-	const statusesByType = getStatusesByType(statuses)
+	const taskStatus = statusesData.statuses.find(
+		(status) => status.id === task.status_id,
+	)
+
+	const taskStatusType = statusesData.statusTypes.find((statusType) => {
+		return statusType.id === taskStatus.status_type_id
+	})
 
 	const selectStatus = (statusId) => {
 		setFormData({ ...formData, status_id: statusId })
@@ -31,16 +32,44 @@ export const TaskStatusSelector = ({
 	}
 
 	const findNextStatusId = () => {
-		for (let i = 0; i < statuses.length; i++) {
-			if (
-				statuses[i].name === statusesByPriority[task.status_id].name &&
-				statuses[i + 1]
-			) {
-				return statuses[i + 1].id
-			}
+		const sortedStatuses = [...statusesData.statuses].sort(
+			(a, b) => a.position - b.position,
+		)
+
+		const sortedStatusTypes = [...statusesData.statusTypes].sort(
+			(a, b) => a.position - b.position,
+		)
+
+		const nextStatusInStatusTypeGroup = statusesData.statuses.find(
+			(status) => {
+				return (
+					status.status_type_id === taskStatusType.id &&
+					status.position > taskStatus.position
+				)
+			},
+		)
+
+		if (nextStatusInStatusTypeGroup) {
+			return nextStatusInStatusTypeGroup.id
 		}
 
-		return statusesByType["not started"][0].id
+		const nextStatusGroup = sortedStatusTypes.find((statusType) => {
+			return statusType.position > taskStatusType.position
+		})
+
+		if (nextStatusGroup) {
+			const nextStatusGroupStatuses = sortedStatuses.filter((status) => {
+				return status.status_type_id === nextStatusGroup.id
+			})
+
+			return nextStatusGroupStatuses[0].id
+		}
+
+		const firstStatus = sortedStatuses.find((status) => {
+			return status.status_type_id === sortedStatusTypes[0].id
+		})
+
+		return firstStatus.id
 	}
 
 	const selectNextStatus = () => {
@@ -56,7 +85,7 @@ export const TaskStatusSelector = ({
 	const selectCompleteStatus = () => {
 		setFormData({
 			...formData,
-			status_id: statusesByType.closed[0].id,
+			status_id: statuses.closed[0].id,
 		})
 	}
 
@@ -72,18 +101,18 @@ export const TaskStatusSelector = ({
 			>
 				<StatusButton
 					task={task}
-					statuses={statuses}
+					statusesData={statusesData}
 					onClickHandler={() => setIsStatusDropdownActive(true)}
 				/>
 				<NextTaskStatusButton
 					task={task}
-					statuses={statuses}
+					statusesData={statusesData}
 					handleClick={selectNextStatus}
 				/>
-				{statusesByPriority[task.status_id].type !== "closed" && (
+				{taskStatusType.name !== "closed" && (
 					<CompleteTaskButton onClick={selectCompleteStatus} />
 				)}
-				{statusesByPriority[task.status_id].type === "closed" && (
+				{taskStatusType.name === "closed" && (
 					<ClosedAtDate task={task} />
 				)}
 				{isStatusDropdownActive && (
@@ -93,7 +122,7 @@ export const TaskStatusSelector = ({
 						/>
 						<StatusSelectionDropdown
 							task={task}
-							statusesByType={statusesByType}
+							statusesData={statusesData}
 							statusOptionClickHandler={selectStatus}
 						/>
 					</>

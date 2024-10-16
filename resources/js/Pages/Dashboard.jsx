@@ -11,7 +11,7 @@ export default function Dashboard({
 	tasks,
 	subtasks,
 	parent = null,
-	statuses,
+	statusesData,
 	priorities,
 	withNewTaskCreationForm,
 	task,
@@ -26,7 +26,7 @@ export default function Dashboard({
 				<TaskWindow
 					task={task}
 					subtasks={subtasks}
-					statuses={statuses}
+					statusesData={statusesData}
 					priorities={priorities}
 					parent={parent}
 				/>
@@ -38,7 +38,7 @@ export default function Dashboard({
 			<TasksListView
 				auth={auth}
 				tasks={tasks}
-				statuses={statuses}
+				statusesData={statusesData}
 				priorities={priorities}
 			/>
 		</AuthenticatedLayout>

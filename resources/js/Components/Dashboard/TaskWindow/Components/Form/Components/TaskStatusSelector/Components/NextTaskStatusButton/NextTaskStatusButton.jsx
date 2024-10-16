@@ -1,9 +1,11 @@
-import { getStatusesByPriority } from "../../../../../../../../../../helpers/statusFormatters.js"
 import { colors } from "../../../../../../../../../../constants/colors.js"
 
-export const NextTaskStatusButton = ({ task, statuses, handleClick }) => {
-	const statusesByPriority = getStatusesByPriority(statuses)
-	const taskStatusColor = colors[statusesByPriority[task.status_id].color]
+export const NextTaskStatusButton = ({ task, statusesData, handleClick }) => {
+	const taskStatus = statusesData.statuses.find(
+		(status) => status.id === task.status_id,
+	)
+
+	const taskStatusColor = colors[taskStatus.color]
 
 	return (
 		<button
